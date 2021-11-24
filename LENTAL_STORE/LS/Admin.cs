@@ -14,6 +14,10 @@ namespace LENTAL_STORE.LS
 {
     public partial class Admin : UserControl
     {
+        DataTable table;
+        string[] del;
+        int k = 0;
+        
         public Admin()
         {
             InitializeComponent();
@@ -338,6 +342,195 @@ namespace LENTAL_STORE.LS
             }
 
             dataGridView1.DataSource = table;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            panel1.Visible = true;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel6.Visible = true;
+
+            
+            int WIDTH = 200;
+            int HEIGHT = 300;
+        OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            com1.CommandText = "SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd")+"' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID";
+             OracleDataReader rdr =   com1.ExecuteReader();
+            int i = 0;
+            while(rdr.Read())
+            {
+                Label lb = new Label();
+                int cnt = Convert.ToInt32(rdr["P"]) + Convert.ToInt32(rdr["P2"]);
+                lb.Text = rdr["userid"].ToString() + cnt;
+                lb.AutoSize = true;
+                
+                panel6.Controls.Add(lb);
+                lb.Location = new System.Drawing.Point(WIDTH, HEIGHT);
+                HEIGHT += 70;
+
+                i++;
+            }
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            del = new string[100];
+            k = 0;
+            panel1.Visible = false;
+            panel7.Visible = true;
+
+            table = new DataTable();
+
+            dataGridView2.Columns.Clear();
+            dataGridView2.Rows.Clear();
+
+            dataGridView2.ColumnCount = 8;
+            dataGridView2.Columns[0].Name = "상품ID";
+            dataGridView2.Columns[1].Name = "상품명";
+            dataGridView2.Columns[2].Name = "상품사이즈";
+            dataGridView2.Columns[3].Name = "상품색";
+            dataGridView2.Columns[4].Name = "상품위치";
+            dataGridView2.Columns[5].Name = "상품품질";
+            dataGridView2.Columns[6].Name = "상품분류";
+            dataGridView2.Columns[7].Name = "상품가격";
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            com1.CommandText = "SELECT * FROM ITEM";
+
+            OracleDataReader rdr = com1.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                if (rdr["ITEM_STATUS"].ToString() != "3")
+                {
+                    dataGridView2.Rows.Add(rdr["ITEM_NUM"], rdr["ITEM_NAME"], rdr["ITEM_SIZE"], rdr["ITEM_COLOR"], rdr["ITEM_LOCATION"], rdr["ITEM_QUALITY"], rdr["ITEM_CATE"], rdr["ITEM_PRICE"]);
+                }
+                
+            }
+
+            table = GetDataGridViewAsDataTable(dataGridView2);
+
+
+        }
+
+        public static DataTable GetDataGridViewAsDataTable(DataGridView _DataGridView)
+        {
+            try
+            {
+                if (_DataGridView.ColumnCount == 0)
+                    return null;
+                DataTable dtSource = new DataTable();
+                //////create columns
+                foreach (DataGridViewColumn col in _DataGridView.Columns)
+                {
+                    if (col.ValueType == null)
+                        dtSource.Columns.Add(col.Name, typeof(string));
+                    else
+                        dtSource.Columns.Add(col.Name, col.ValueType);
+                    dtSource.Columns[col.Name].Caption = col.HeaderText;
+                }
+                ///////insert row data
+                foreach (DataGridViewRow row in _DataGridView.Rows)
+                {
+                    DataRow drNewRow = dtSource.NewRow();
+                    foreach (DataColumn col in dtSource.Columns)
+                    {
+                        drNewRow[col.ColumnName] = row.Cells[col.ColumnName].Value;
+                    }
+                    dtSource.Rows.Add(drNewRow);
+                }
+                return dtSource;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            DataTable dtChanges = GetDataGridViewAsDataTable(dataGridView2);
+
+            
+
+            string update_query = string.Empty;
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            if (dtChanges != null)
+            {
+                for (int i = 0; i < dtChanges.Rows.Count; ++i)
+                {
+                    update_query = "UPDATE ITEM SET ITEM_NAME = '#ITEM_NAME', ITEM_SIZE = '#ITEM_SIZE' , ITEM_COLOR='#ITEM_COLOR', ITEM_LOCATION='#ITEM_LOCATION' , ITEM_QUALITY='#ITEM_QUALITY', ITEM_CATE='#ITEM_CATE', ITEM_PRICE='#ITEM_PRICE' WHERE ITEM_NUM='#ITEM_NUM'";
+
+
+                    update_query = update_query.Replace("#ITEM_NAME", dtChanges.Rows[i]["상품명"].ToString());
+                    update_query = update_query.Replace("#ITEM_SIZE", dtChanges.Rows[i]["상품사이즈"].ToString());
+                    update_query = update_query.Replace("#ITEM_COLOR", dtChanges.Rows[i]["상품색"].ToString());
+                    update_query = update_query.Replace("#ITEM_LOCATION", dtChanges.Rows[i]["상품위치"].ToString());
+                    update_query = update_query.Replace("#ITEM_QUALITY", dtChanges.Rows[i]["상품품질"].ToString());
+                    update_query = update_query.Replace("#ITEM_CATE", dtChanges.Rows[i]["상품분류"].ToString());
+                    update_query = update_query.Replace("#ITEM_PRICE", dtChanges.Rows[i]["상품가격"].ToString());
+                    update_query = update_query.Replace("#ITEM_NUM", dtChanges.Rows[i]["상품ID"].ToString());
+
+                    com1.CommandText = update_query;
+                    com1.ExecuteNonQuery();
+                }
+            }
+
+            for(int i = 0; i < 100; ++i)
+            {
+                if(del[i] != null)
+                {
+                    com1.CommandText = "UPDATE ITEM SET ITEM_STATUS = 3 WHERE ITEM_NUM = '" +del[i] +"'";
+                    com1.ExecuteNonQuery();
+                }
+            }
+        
+        }
+
+        public void uiBtn_Delete_Click(object sender, EventArgs e)
+        {
+            
+            for (int i = 0; i < dataGridView2.Rows.Count; i++)
+
+            {
+                dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                if (dataGridView2.Rows[i].Selected == true)
+                {
+                    string t = (dataGridView2.Rows[i].Cells[0].Value).ToString();
+                    del[k] = t;
+                    k++;
+                    dataGridView2.Rows.Remove(dataGridView2.Rows[i]);
+                }
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            uiBtn_Delete_Click(sender, e);
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            panel7.Visible = false;
+            panel1.Visible = true;
         }
     }
 }

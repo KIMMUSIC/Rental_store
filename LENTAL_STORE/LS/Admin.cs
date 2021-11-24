@@ -21,6 +21,7 @@ namespace LENTAL_STORE.LS
             panel2.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
+            panel5.Visible = false;
             button9.Click += back;
             button8.Click += back;
         }
@@ -38,6 +39,8 @@ namespace LENTAL_STORE.LS
             chart1.Series[0].Points.Clear();
             panel2.Visible = false;
             panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = false;
             panel1.Visible = true;
         }
 
@@ -296,7 +299,45 @@ namespace LENTAL_STORE.LS
             panel1.Visible = true;
             panel3.Visible = false;
             panel4.Visible = false;
+            panel5.Visible = false;
             
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            panel1.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = true;
+
+            DataTable table = new DataTable();
+
+            table.Columns.Add("ID");
+            table.Columns.Add("상품명");
+            table.Columns.Add("날짜");
+            table.Columns.Add("대여일수");
+            table.Columns.Add("반납일");
+            table.Columns.Add("분류");
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM";
+
+            OracleDataReader rdr = com1.ExecuteReader();
+
+            while(rdr.Read())
+            {
+                table.Rows.Add(rdr["STATISTIC_USERID"], rdr["ITEM_NAME"], rdr["STATISTIC_DATE"], rdr["STATISTIC_ITEMCOUNT"], rdr["STATISTIC_EXDATE"], rdr["STATISTIC_TYPE"]);
+            }
+
+            dataGridView1.DataSource = table;
         }
     }
 }

@@ -140,8 +140,10 @@ namespace LENTAL_STORE.LS
             
             com2.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),'" + lental_item + "',NULL,'" + Fine + "','2',NULL,'" + ((Button)sender).Name + "')";
             com1.CommandText = "DELETE FROM LENTAL WHERE LENTAL_NUM = " + ((Button)sender).Name;
+            com4.CommandText = "UPDATE ITEM SET ITEM_STATUS = '0' WHERE ITEM_NUM = '" + lental_item + "'"; 
             com1.ExecuteNonQuery();
             com2.ExecuteNonQuery();
+            com4.ExecuteNonQuery();
             for (int i = 0; i < 100; i++)
             {
                 this.Controls.Remove(lb[i]);

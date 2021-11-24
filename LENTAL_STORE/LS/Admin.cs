@@ -364,13 +364,13 @@ namespace LENTAL_STORE.LS
         OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd")+"' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID";
+            com1.CommandText = "SELECT NVL(PI.USERID,0) AS I,PI.CONTENT, FN.USERID, FN.P, FN.P2 FROM BLACKLIST PI RIGHT OUTER JOIN (SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd")+ "' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID) FN ON PI.userid = FN.USERID";
              OracleDataReader rdr =   com1.ExecuteReader();
             int i = 0;
             while(rdr.Read())
             {
-                Label lb = new Label();
-                int cnt = Convert.ToInt32(rdr["P"]) + Convert.ToInt32(rdr["P2"]);
+                /*Label lb = new Label();
+                
                 lb.Text = rdr["userid"].ToString() + cnt;
                 lb.AutoSize = true;
                 
@@ -378,7 +378,19 @@ namespace LENTAL_STORE.LS
                 lb.Location = new System.Drawing.Point(WIDTH, HEIGHT);
                 HEIGHT += 70;
 
-                i++;
+                i++;*/
+                int cnt = Convert.ToInt32(rdr["P"]) + Convert.ToInt32(rdr["P2"]);
+                if (rdr["I"].ToString() != "0")
+                {
+                    listBox1.Items.Add(rdr["USERID"].ToString());
+                }
+                else
+                {
+                    listBox2.Items.Add(rdr["userid"].ToString());
+                    listBox3.Items.Add(cnt.ToString());
+                }
+                
+                
             }
 
 
@@ -531,6 +543,20 @@ namespace LENTAL_STORE.LS
         {
             panel7.Visible = false;
             panel1.Visible = true;
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            string ID = listBox2.SelectedItem.ToString();
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            listBox1.Items.Add(listBox2.SelectedItem.ToString());
+            listBox3.Items.RemoveAt(listBox2.SelectedIndex);
+            listBox2.Items.Remove(listBox2.SelectedItem);
+            
+            com1.CommandText = "INSERT INTO BLACKLIST VALUES('" + ID + "', 'a')";
+            com1.ExecuteNonQuery();
         }
     }
 }

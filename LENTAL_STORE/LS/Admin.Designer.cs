@@ -29,12 +29,12 @@ namespace LENTAL_STORE.LS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea23 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend23 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea24 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend24 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea29 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend29 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series29 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea30 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend30 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series30 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -81,6 +81,10 @@ namespace LENTAL_STORE.LS
             this.button13 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.button16 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -161,6 +165,10 @@ namespace LENTAL_STORE.LS
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.button16);
+            this.panel6.Controls.Add(this.listBox3);
+            this.panel6.Controls.Add(this.listBox2);
+            this.panel6.Controls.Add(this.listBox1);
             this.panel6.Controls.Add(this.label10);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 0);
@@ -460,16 +468,16 @@ namespace LENTAL_STORE.LS
             // 
             // chart1
             // 
-            chartArea23.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea23);
-            legend23.Name = "Legend1";
-            this.chart1.Legends.Add(legend23);
+            chartArea29.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea29);
+            legend29.Name = "Legend1";
+            this.chart1.Legends.Add(legend29);
             this.chart1.Location = new System.Drawing.Point(23, 59);
             this.chart1.Name = "chart1";
-            series23.ChartArea = "ChartArea1";
-            series23.Legend = "Legend1";
-            series23.Name = "Series1";
-            this.chart1.Series.Add(series23);
+            series29.ChartArea = "ChartArea1";
+            series29.Legend = "Legend1";
+            series29.Name = "Series1";
+            this.chart1.Series.Add(series29);
             this.chart1.Size = new System.Drawing.Size(564, 332);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -497,16 +505,16 @@ namespace LENTAL_STORE.LS
             // 
             // chart2
             // 
-            chartArea24.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea24);
-            legend24.Name = "Legend1";
-            this.chart2.Legends.Add(legend24);
+            chartArea30.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea30);
+            legend30.Name = "Legend1";
+            this.chart2.Legends.Add(legend30);
             this.chart2.Location = new System.Drawing.Point(20, 118);
             this.chart2.Name = "chart2";
-            series24.ChartArea = "ChartArea1";
-            series24.Legend = "Legend1";
-            series24.Name = "Series1";
-            this.chart2.Series.Add(series24);
+            series30.ChartArea = "ChartArea1";
+            series30.Legend = "Legend1";
+            series30.Name = "Series1";
+            this.chart2.Series.Add(series30);
             this.chart2.Size = new System.Drawing.Size(479, 257);
             this.chart2.TabIndex = 0;
             this.chart2.Text = "chart2";
@@ -514,7 +522,7 @@ namespace LENTAL_STORE.LS
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(193, 145);
+            this.label10.Location = new System.Drawing.Point(241, 47);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(65, 12);
             this.label10.TabIndex = 0;
@@ -571,6 +579,43 @@ namespace LENTAL_STORE.LS
             this.button15.Text = "button15";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(110, 130);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(99, 172);
+            this.listBox1.TabIndex = 1;
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 12;
+            this.listBox2.Location = new System.Drawing.Point(364, 130);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(99, 172);
+            this.listBox2.TabIndex = 2;
+            // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.ItemHeight = 12;
+            this.listBox3.Location = new System.Drawing.Point(448, 130);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(99, 172);
+            this.listBox3.TabIndex = 3;
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(271, 155);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(34, 38);
+            this.button16.TabIndex = 4;
+            this.button16.Text = "<<";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // Admin
             // 
@@ -653,5 +698,9 @@ namespace LENTAL_STORE.LS
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.Button button16;
     }
 }

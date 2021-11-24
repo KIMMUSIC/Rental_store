@@ -35,77 +35,16 @@ namespace LENTAL_STORE.LS
         public usermain()
         {
             InitializeComponent();
-            //refresh();
+            panel2.Visible = false;
+            panel1.Visible = true;
+            panel3.Visible = true;
             panel3.AutoScroll = true;
             panel2.AutoScroll = true;
-            
-            
-
         }
-        public void refresh()
-        {
-            lastpage = 1;
-            
-            OracleConnection conn = new OracleConnection();
-            conn.ConnectionString = "DATA SOURCE=XEPDB1;USER ID=S5469744;PASSWORD=S5469744";
-            conn.Open();
-            OracleCommand com1 = new OracleCommand("", conn);
-            com1.CommandText = "SELECT * FROM(SELECT * FROM ITEM ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM < 4";
-
-            OracleDataReader rdr = com1.ExecuteReader();
-            ArrayList rowList = new ArrayList();
-            object[] row;
-
-            //FlowLayoutPanel flp = new FlowLayoutPanel();
-
-            WIDTH = 20;
-            HEIGHT = 300;
-
-            int k = 0;
-            while (rdr.Read())
-            {
-                lb[k] = new Label();
-                lb2[k] = new Label();
-
-                lb[k].AutoSize = true;
-                lb[k].Click += new_Click;
-                lb2[k].AutoSize = true;
-                lb2[k].Click += new_Click;
-                this.Controls.Add(lb[k]);
-                this.Controls.Add(lb2[k]);
-                string b = rdr["ITEM_STATUS"].ToString();
-                lb[k].Name = rdr["ITEM_NUM"].ToString();
-                if (rdr["ITEM_STATUS"].ToString() == "1")
-                {
-                    lb2[k].Text = "예약중";
-                }
-                else
-                {
-                    lb2[k].Text = rdr["ITEM_PRICE"].ToString();
-                }
-                lb[k].Text = rdr["ITEM_NAME"].ToString();
-                lb[k].Location = new System.Drawing.Point(WIDTH, HEIGHT);
-                
-
-                pb[k] = new PictureBox();
-                ((PictureBox)(pb[k])).SizeMode = PictureBoxSizeMode.StretchImage;
-                byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
-                System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
-                ((PictureBox)(pb[k])).Image = Image.FromStream(msData);
-                pb[k].Location = new System.Drawing.Point(WIDTH, HEIGHT+10);
-                this.Controls.Add(pb[k]);
-                lb2[k].Location = new System.Drawing.Point(WIDTH  + 20 , HEIGHT + pb[k].Size.Height + lb[k].Size.Height);
-
-                k++;
-                WIDTH += 180;
-                
-                
-            }
-            conn.Close();
-        }
-
+        
         public void refresh2()
         {
+            
             lastpage = 2;
             OracleConnection conn = new OracleConnection();
             conn.ConnectionString = "DATA SOURCE=XEPDB1;USER ID=S5469744;PASSWORD=S5469744";
@@ -117,31 +56,44 @@ namespace LENTAL_STORE.LS
             ArrayList rowList = new ArrayList();
             object[] row;
 
-            WIDTH = 0;
-            HEIGHT = 0;
+            WIDTH = 200;
+            HEIGHT = 30;
+
+            int start = 0;
+            int end = 0;
 
             int k = 0;
             while (rdr.Read())
             {
+                start += 100;
+                
+                Panel pn = new Panel();
+                pn.AutoSize = true;
+                pn.BackColor = Color.White;
+                flowLayoutPanel1.AutoScroll = true;
+
+
+                
 
                 if (k % 3 == 0)
                 {
                     HEIGHT += 100;
-                    WIDTH = 0;
+                    WIDTH = 200;
+                    end += 100;
                 }
                 lb[k] = new Label();
 
                 lb[k].AutoSize = true;
                 lb[k].Click += new_Click;
-                
-                panel3.Controls.Add(lb[k]);
+
+                pn.Controls.Add(lb[k]);
 
                 lb2[k] = new Label();
 
                 lb2[k].AutoSize = true;
                 lb2[k].Click += new_Click;
 
-                panel3.Controls.Add(lb2[k]);
+                pn.Controls.Add(lb2[k]);
                 string b = rdr["ITEM_STATUS"].ToString();
                 lb[k].Name = rdr["ITEM_NUM"].ToString();
                 if (rdr["ITEM_STATUS"].ToString() == "1")
@@ -155,25 +107,29 @@ namespace LENTAL_STORE.LS
 
 
                 lb[k].Text = rdr["ITEM_NAME"].ToString();
-                lb[k].Location = new System.Drawing.Point(WIDTH, HEIGHT);
+                lb[k].Location = new System.Drawing.Point(0, 0);
 
                 pb[k] = new PictureBox();
                 ((PictureBox)(pb[k])).SizeMode = PictureBoxSizeMode.StretchImage;
                 byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
                 System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
                 ((PictureBox)(pb[k])).Image = Image.FromStream(msData);
-                pb[k].Location = new System.Drawing.Point(WIDTH, HEIGHT);
-                panel3.Controls.Add(pb[k]);
-                lb2[k].Location = new System.Drawing.Point(WIDTH + 20, HEIGHT + pb[k].Size.Height + lb[k].Size.Height);
+                pb[k].Location = new System.Drawing.Point(10, 10);
+                pn.Controls.Add(pb[k]);
+                lb2[k].Location = new System.Drawing.Point(20,20);
                 k++;
                 WIDTH += 180;
 
+                flowLayoutPanel1.Controls.Add(pn);
             }
             conn.Close();
+            
+            
         }
 
         public void refresh3(String st)
         {
+            
             lastpage = 2;
             OracleConnection conn = new OracleConnection();
             conn.ConnectionString = "DATA SOURCE=XEPDB1;USER ID=S5469744;PASSWORD=S5469744";
@@ -185,17 +141,24 @@ namespace LENTAL_STORE.LS
             ArrayList rowList = new ArrayList();
             object[] row;
 
-            WIDTH = 0;
-            HEIGHT = 0;
+            WIDTH = 200;
+            HEIGHT = 30;
 
             int k = 0;
             while (rdr.Read())
             {
 
+                
+                Panel pn = new Panel();
+                pn.AutoSize = true;
+                pn.BackColor = Color.White;
+                flowLayoutPanel1.AutoScroll = true;
+
+
                 if (k % 3 == 0)
                 {
                     HEIGHT += 100;
-                    WIDTH = 0;
+                    WIDTH = 200;
                 }
                 lb[k] = new Label();
 
@@ -205,8 +168,8 @@ namespace LENTAL_STORE.LS
 
                 lb2[k].AutoSize = true;
                 lb2[k].Click += new_Click;
-                panel3.Controls.Add(lb[k]);
-                panel3.Controls.Add(lb2[k]);
+                pn.Controls.Add(lb[k]);
+                pn.Controls.Add(lb2[k]);
                 string b = rdr["ITEM_STATUS"].ToString();
                 lb[k].Name = rdr["ITEM_NUM"].ToString();
                 if (rdr["ITEM_STATUS"].ToString() == "1")
@@ -228,13 +191,15 @@ namespace LENTAL_STORE.LS
                 System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
                 ((PictureBox)(pb[k])).Image = Image.FromStream(msData);
                 pb[k].Location = new System.Drawing.Point(WIDTH, HEIGHT);
-                panel3.Controls.Add(pb[k]);
+                pn.Controls.Add(pb[k]);
                 lb2[k].Location = new System.Drawing.Point(WIDTH + 20, HEIGHT + pb[k].Size.Height + lb[k].Size.Height);
                 k++;
                 WIDTH += 180;
 
+                flowLayoutPanel1.Controls.Add(pn);
             }
             conn.Close();
+                
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -343,7 +308,7 @@ namespace LENTAL_STORE.LS
 
                 rl[k].Text = b;
 
-                rl[k].Location = new System.Drawing.Point(0, 400 + t);
+                rl[k].Location = new System.Drawing.Point(300, 400 + t);
                 t += 30;
                 k++;
             }
@@ -392,12 +357,12 @@ namespace LENTAL_STORE.LS
                 panel2.Visible = false;
                 panel3.Visible = false;
                 prefresh();
-                refresh();
+                
             }
             else if(lastpage == 2)
             {
-                
-                button5.PerformClick();
+
+                button5_Click_2(sender, e);
             }
 
         }
@@ -413,10 +378,16 @@ namespace LENTAL_STORE.LS
         public void prefresh2()
         {
             for (int i = 0; i < 100; i++)
-            {
-                panel3.Controls.Remove(lb[i]);
-                panel3.Controls.Remove(lb2[i]);
-                panel3.Controls.Remove(pb[i]);
+            {/*
+                flowLayoutPanel1.Controls.Remove(lb[i]);
+                flowLayoutPanel1.Controls.Remove(lb2[i]);
+                flowLayoutPanel1.Controls.Remove(pb[i]);*/
+
+                for (int ix = flowLayoutPanel1.Controls.Count - 1; ix >= 0; ix--)
+                {
+                    flowLayoutPanel1.Controls[ix].Dispose();
+                }
+
             }
         }
 
@@ -464,7 +435,6 @@ namespace LENTAL_STORE.LS
         {
             panel3.Visible = true;
             panel2.Visible = false;
-            prefresh();
             prefresh2();
             refresh2();
         }
@@ -486,7 +456,8 @@ namespace LENTAL_STORE.LS
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            prefresh2();
+           prefresh2();
+
             if(textBox1.Text == "")
             {
                 refresh2();
@@ -503,7 +474,27 @@ namespace LENTAL_STORE.LS
             panel3.Visible = false;
             this.Visible = true;
             prefresh();
-            refresh();
+            prefresh2();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            button5_Click_2(sender, e);
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void usermain_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

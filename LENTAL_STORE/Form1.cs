@@ -64,9 +64,8 @@ namespace LENTAL_STORE
             home1.Visible = false;
             signin1.Visible = false;
             usermain1.Visible = true;
-            usermain1.prefresh();
-            usermain1.refresh();
-
+            //usermain1.prefresh2();
+            //usermain1.refresh2();
         }
         private void um3(object sender, EventArgs e)
         {

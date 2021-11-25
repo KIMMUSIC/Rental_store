@@ -40,6 +40,11 @@ namespace LENTAL_STORE.LS
             panel3.Visible = true;
             panel3.AutoScroll = true;
             panel2.AutoScroll = true;
+            panel2.Dock = DockStyle.Fill;
+            panel3.Dock = DockStyle.Fill;
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel2.AutoSize = true;
+            flowLayoutPanel2.MaximumSize = new Size(668,10000);
         }
         
         public void refresh2()
@@ -63,60 +68,69 @@ namespace LENTAL_STORE.LS
             int end = 0;
 
             int k = 0;
+            
             while (rdr.Read())
             {
                 start += 100;
                 
                 Panel pn = new Panel();
-                pn.AutoSize = true;
-                pn.BackColor = Color.White;
-                flowLayoutPanel1.AutoScroll = true;
+                //pn.AutoSize = true;
+                pn.Size = new Size(200, 200);
+                pn.Click += new_Click;
+
+                pn.BackColor = Color.Gainsboro;
 
 
                 
-
+                
+                /*
                 if (k % 3 == 0)
                 {
                     HEIGHT += 100;
                     WIDTH = 200;
                     end += 100;
                 }
-                lb[k] = new Label();
+                */
+                Label lb = new Label();
 
-                lb[k].AutoSize = true;
-                lb[k].Click += new_Click;
+                lb.AutoSize = true;
+                
 
-                pn.Controls.Add(lb[k]);
+                pn.Controls.Add(lb);
 
-                lb2[k] = new Label();
+                Label lb2 = new Label();
 
-                lb2[k].AutoSize = true;
-                lb2[k].Click += new_Click;
+                lb2.AutoSize = true;
+                
 
-                pn.Controls.Add(lb2[k]);
+                pn.Controls.Add(lb2);
                 string b = rdr["ITEM_STATUS"].ToString();
-                lb[k].Name = rdr["ITEM_NUM"].ToString();
+                lb.Name = rdr["ITEM_NUM"].ToString();
+                pn.Name = rdr["ITEM_NUM"].ToString();
                 if (rdr["ITEM_STATUS"].ToString() == "1")
                 {
-                    lb2[k].Text = "품절";
+                    lb2.Text = "품절";
+                    lb2.ForeColor = System.Drawing.ColorTranslator.FromHtml("#22FF99");
                 }
                 else
                 {
-                    lb2[k].Text = rdr["ITEM_PRICE"].ToString();
+                    lb2.Text = rdr["ITEM_PRICE"].ToString();
                 }
+                lb.Font = new Font(lb.Font.FontFamily, 13);
+                lb2.Font = new Font(lb.Font.FontFamily, 10);
 
+                lb.Text = rdr["ITEM_NAME"].ToString();
+                lb.Location = new System.Drawing.Point(0, 140);
 
-                lb[k].Text = rdr["ITEM_NAME"].ToString();
-                lb[k].Location = new System.Drawing.Point(0, 0);
-
-                pb[k] = new PictureBox();
-                ((PictureBox)(pb[k])).SizeMode = PictureBoxSizeMode.StretchImage;
+                PictureBox pb = new PictureBox();
+                ((PictureBox)(pb)).SizeMode = PictureBoxSizeMode.StretchImage;
                 byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
                 System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
-                ((PictureBox)(pb[k])).Image = Image.FromStream(msData);
-                pb[k].Location = new System.Drawing.Point(10, 10);
-                pn.Controls.Add(pb[k]);
-                lb2[k].Location = new System.Drawing.Point(20,20);
+                ((PictureBox)(pb)).Image = Image.FromStream(msData);
+                pb.Location = new System.Drawing.Point(5,5);
+                pn.Controls.Add(pb);
+                lb2.Location = new System.Drawing.Point(160,180);
+                pb.Size = new Size(160,130);
                 k++;
                 WIDTH += 180;
 
@@ -129,7 +143,6 @@ namespace LENTAL_STORE.LS
 
         public void refresh3(String st)
         {
-            
             lastpage = 2;
             OracleConnection conn = new OracleConnection();
             conn.ConnectionString = "DATA SOURCE=XEPDB1;USER ID=S5469744;PASSWORD=S5469744";
@@ -144,62 +157,72 @@ namespace LENTAL_STORE.LS
             WIDTH = 200;
             HEIGHT = 30;
 
+            int start = 0;
+            int end = 0;
+
             int k = 0;
+
             while (rdr.Read())
             {
+                start += 100;
 
-                
                 Panel pn = new Panel();
                 pn.AutoSize = true;
                 pn.BackColor = Color.White;
                 flowLayoutPanel1.AutoScroll = true;
 
 
+
+
                 if (k % 3 == 0)
                 {
                     HEIGHT += 100;
                     WIDTH = 200;
+                    end += 100;
                 }
-                lb[k] = new Label();
+                Label lb = new Label();
 
-                lb[k].AutoSize = true;
-                lb[k].Click += new_Click;
-                lb2[k] = new Label();
+                lb.AutoSize = true;
+                lb.Click += new_Click;
 
-                lb2[k].AutoSize = true;
-                lb2[k].Click += new_Click;
-                pn.Controls.Add(lb[k]);
-                pn.Controls.Add(lb2[k]);
+                pn.Controls.Add(lb);
+
+                Label lb2 = new Label();
+
+                lb2.AutoSize = true;
+                lb2.Click += new_Click;
+
+                pn.Controls.Add(lb2);
                 string b = rdr["ITEM_STATUS"].ToString();
-                lb[k].Name = rdr["ITEM_NUM"].ToString();
+                lb.Name = rdr["ITEM_NUM"].ToString();
                 if (rdr["ITEM_STATUS"].ToString() == "1")
                 {
-                    lb2[k].Text = "품절";
+                    lb2.Text = "품절";
                 }
                 else
                 {
-                    lb2[k].Text = rdr["ITEM_PRICE"].ToString();
+                    lb2.Text = rdr["ITEM_PRICE"].ToString();
                 }
 
 
-                lb[k].Text = rdr["ITEM_NAME"].ToString();
-                lb[k].Location = new System.Drawing.Point(WIDTH, HEIGHT);
+                lb.Text = rdr["ITEM_NAME"].ToString();
+                lb.Location = new System.Drawing.Point(0, 0);
 
-                pb[k] = new PictureBox();
-                ((PictureBox)(pb[k])).SizeMode = PictureBoxSizeMode.StretchImage;
+                PictureBox pb = new PictureBox();
+                ((PictureBox)(pb)).SizeMode = PictureBoxSizeMode.StretchImage;
                 byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
                 System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
-                ((PictureBox)(pb[k])).Image = Image.FromStream(msData);
-                pb[k].Location = new System.Drawing.Point(WIDTH, HEIGHT);
-                pn.Controls.Add(pb[k]);
-                lb2[k].Location = new System.Drawing.Point(WIDTH + 20, HEIGHT + pb[k].Size.Height + lb[k].Size.Height);
+                ((PictureBox)(pb)).Image = Image.FromStream(msData);
+                pb.Location = new System.Drawing.Point(10, 10);
+                pn.Controls.Add(pb);
+                lb2.Location = new System.Drawing.Point(20, 20);
                 k++;
                 WIDTH += 180;
 
                 flowLayoutPanel1.Controls.Add(pn);
             }
             conn.Close();
-                
+
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -213,6 +236,12 @@ namespace LENTAL_STORE.LS
 
         private void new_Click(object sender, EventArgs e)
         {
+
+            for (int ix = flowLayoutPanel2.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel2.Controls[ix].Dispose();
+            }
+           
             panel2.Controls.Remove(rtb);
             panel2.Controls.Remove(rbt);
             for(int i = 0; i < 100; ++i)
@@ -298,19 +327,18 @@ namespace LENTAL_STORE.LS
             while (rdr2.Read())
             {
 
-                rl[k] = new Label();
+                Label rl = new Label();
+                rl.Size = new Size(660, 83);
+                rl.Font = new Font(rl.Font.FontFamily, 20);
 
-                rl[k].AutoSize = true;
+                flowLayoutPanel2.Controls.Add(rl);
+
                 
-                panel2.Controls.Add(rl[k]);
-                string b = rdr2["REVIEW_CONTENT"].ToString();
+                string b = rdr2["REVIEW_USERID"].ToString() + " : "+rdr2["REVIEW_CONTENT"].ToString();
 
 
-                rl[k].Text = b;
+                rl.Text = b;
 
-                rl[k].Location = new System.Drawing.Point(300, 400 + t);
-                t += 30;
-                k++;
             }
             conn.Close();
 
@@ -382,13 +410,14 @@ namespace LENTAL_STORE.LS
                 flowLayoutPanel1.Controls.Remove(lb[i]);
                 flowLayoutPanel1.Controls.Remove(lb2[i]);
                 flowLayoutPanel1.Controls.Remove(pb[i]);*/
+            }
 
                 for (int ix = flowLayoutPanel1.Controls.Count - 1; ix >= 0; ix--)
                 {
                     flowLayoutPanel1.Controls[ix].Dispose();
                 }
 
-            }
+            
         }
 
         
@@ -493,6 +522,11 @@ namespace LENTAL_STORE.LS
         }
 
         private void usermain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
         {
 
         }

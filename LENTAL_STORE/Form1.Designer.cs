@@ -51,7 +51,7 @@ namespace LENTAL_STORE
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 600);
+            this.panel1.Size = new System.Drawing.Size(1154, 690);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -85,7 +85,7 @@ namespace LENTAL_STORE
             this.usermain1.BackColor = System.Drawing.Color.LavenderBlush;
             this.usermain1.Location = new System.Drawing.Point(0, 0);
             this.usermain1.Name = "usermain1";
-            this.usermain1.Size = new System.Drawing.Size(800, 600);
+            this.usermain1.Size = new System.Drawing.Size(1154, 687);
             this.usermain1.TabIndex = 11;
             // 
             // home1
@@ -94,7 +94,7 @@ namespace LENTAL_STORE
             this.home1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.home1.Location = new System.Drawing.Point(0, 0);
             this.home1.Name = "home1";
-            this.home1.Size = new System.Drawing.Size(800, 600);
+            this.home1.Size = new System.Drawing.Size(1154, 690);
             this.home1.TabIndex = 10;
             this.home1.Load += new System.EventHandler(this.home1_Load);
             // 
@@ -104,7 +104,7 @@ namespace LENTAL_STORE
             this.signin1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.signin1.Location = new System.Drawing.Point(0, 0);
             this.signin1.Name = "signin1";
-            this.signin1.Size = new System.Drawing.Size(800, 600);
+            this.signin1.Size = new System.Drawing.Size(1154, 690);
             this.signin1.TabIndex = 9;
             this.signin1.Visible = false;
             this.signin1.Load += new System.EventHandler(this.signin1_Load);
@@ -113,7 +113,7 @@ namespace LENTAL_STORE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(1154, 690);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";

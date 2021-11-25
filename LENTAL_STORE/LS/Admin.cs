@@ -28,6 +28,24 @@ namespace LENTAL_STORE.LS
             panel5.Visible = false;
             button9.Click += back;
             button8.Click += back;
+
+            panel1.Dock = DockStyle.Fill;
+            panel8.Dock = DockStyle.Fill;
+            panel2.Dock = DockStyle.Fill;
+            panel3.Dock = DockStyle.Fill;
+            panel4.Dock = DockStyle.Fill;
+            panel5.Dock = DockStyle.Fill;
+            panel6.Dock = DockStyle.Fill;
+            panel7.Dock = DockStyle.Fill;
+            panel9.Dock = DockStyle.Fill;
+
+            System.Windows.Forms.DataVisualization.Charting.ChartArea CA = chart1.ChartAreas[0];
+            CA.CursorX.IsUserEnabled = true;
+            CA.AxisX.ScaleView.Zoom(0, 10);
+
+
+            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -358,7 +376,11 @@ namespace LENTAL_STORE.LS
             panel1.Visible = false;
             panel6.Visible = true;
 
-            
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            listBox3.Items.Clear();
+
+
             int WIDTH = 200;
             int HEIGHT = 300;
         OracleConnection conn = Form1.oracleconnect();
@@ -369,16 +391,7 @@ namespace LENTAL_STORE.LS
             int i = 0;
             while(rdr.Read())
             {
-                /*Label lb = new Label();
                 
-                lb.Text = rdr["userid"].ToString() + cnt;
-                lb.AutoSize = true;
-                
-                panel6.Controls.Add(lb);
-                lb.Location = new System.Drawing.Point(WIDTH, HEIGHT);
-                HEIGHT += 70;
-
-                i++;*/
                 int cnt = Convert.ToInt32(rdr["P"]) + Convert.ToInt32(rdr["P2"]);
                 if (rdr["I"].ToString() != "0")
                 {
@@ -557,6 +570,221 @@ namespace LENTAL_STORE.LS
             
             com1.CommandText = "INSERT INTO BLACKLIST VALUES('" + ID + "', 'a')";
             com1.ExecuteNonQuery();
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel8.Visible = true;
+            //flowLayoutPanel1.AutoSize = true;
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = 3";
+
+            OracleDataReader rdr = com1.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                Button bt = new Button();
+                bt.Text = rdr["ITEM_NAME"].ToString();
+                bt.Tag = rdr["ITEM_NUM"].ToString();
+                bt.AutoSize = true;
+                bt.Click += bc;
+
+                flowLayoutPanel1.Controls.Add(bt);
+                
+            }
+
+        }
+
+        private void bc(object sender, EventArgs e)
+        {
+
+            for (int ix = flowLayoutPanel2.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel2.Controls[ix].Dispose();
+            }
+            string t = ((Button)sender).Tag.ToString();
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+
+            com1.CommandText = "SELECT * FROM LENTAL WHERE LENTAL_ITEM = '" + t +"'";
+            com2.CommandText = "SELECT * FROM STATISTIC WHERE STATISTIC_ITEMITEMNUM = '" + t + "'";
+
+            OracleDataReader rdr = com1.ExecuteReader();
+            OracleDataReader rdr2 = com2.ExecuteReader();
+
+            label11.Text = "";
+
+            while(rdr.Read())
+            {
+                label11.Text = "현재 대여자:" + rdr["LENTAL_USERID"].ToString();
+            }
+            while(rdr2.Read())
+            {
+                Panel pn = new Panel();
+                pn.AutoSize = true;
+                pn.BackColor = Color.Gainsboro;
+
+                Label lb = new Label();
+                lb.AutoSize = true;
+                lb.Text = rdr2["STATISTIC_USERID"].ToString() + "\n"+rdr2["STATISTIC_DATE"].ToString() + rdr2["STATISTIC_ITEMCOUNT"].ToString() +"\n" +rdr2["STATISTIC_LENTALCOST"].ToString() + rdr2["STATISTIC_TYPE"].ToString();
+
+                pn.Controls.Add(lb);
+                flowLayoutPanel2.Controls.Add(pn);
+
+            }
+            
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+            panel9.Visible = true;
+
+            chart3.Series[0].Points.Clear();
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+
+
+            com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'yyyy-MM-dd') as day from statistic group by to_char(statistic_date, 'yyyy-MM-dd') order by to_char(statistic_date, 'yyyy-MM-dd') desc) where rownum <= 5";
+            com2.CommandText = "SELECT * FROM STATISTIC,ITEM WHERE statistic.statistic_itemitemnum = item.item_num AND STATISTIC_DATE = '"+System.DateTime.Now.ToString("yyyy-MM-dd")+"' AND NOT STATISTIC_LENTALCOST = 0";
+            OracleDataReader rdr = com1.ExecuteReader();
+            OracleDataReader rdr2 = com2.ExecuteReader();
+
+
+            
+
+            int i = 0;
+            while (rdr.Read())
+            {
+                string nd = rdr["day"].ToString();
+                while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
+                {
+                    chart3.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                    i++;
+                    if (i >= 5) break;
+                }
+                if (i >= 5) break;
+                chart3.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                i++;
+
+            }
+
+            while(rdr2.Read())
+            {
+                Label lb = new Label();
+                lb.Text = rdr2["ITEM_NAME"].ToString() +" - " +rdr2["STATISTIC_LENTALCOST"].ToString();
+                lb.AutoSize = true;
+                flowLayoutPanel3.Controls.Add(lb);
+            }
+
+
+
+            
+
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            panel9.Visible = false;
+            panel1.Visible = true;
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            panel8.Visible = false;
+            panel1.Visible = true;
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            panel6.Visible = false;
+            panel1.Visible = true;
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listBox1.SelectedIndexChanged -= listBox1_SelectedIndexChanged;
+            listBox1.SelectedItem = null;
+            listBox3.SelectedIndex = listBox2.SelectedIndex;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listBox2.SelectedIndexChanged -= listBox2_SelectedIndexChanged;
+            listBox2.SelectedItem = null;
+            listBox3.SelectedItem = null;
+            listBox2.SelectedIndexChanged += listBox2_SelectedIndexChanged;
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            com1.CommandText = "DELETE FROM BLACKLIST WHERE USERID = '" +listBox1.SelectedItem.ToString() +"'";
+
+            com1.ExecuteNonQuery();
+            button3_Click(sender, e);
+
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            chart1.Series[0].Points.Clear();
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+
+            com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'yyyy-MM-dd') as day from statistic group by to_char(statistic_date, 'yyyy-MM-dd') order by to_char(statistic_date, 'yyyy-MM-dd') desc) where DAY > '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' AND DAY < '" + dateTimePicker2.Value.ToString("yyyy-MM-dd") + "'";
+
+            OracleDataReader rdr = com1.ExecuteReader();
+
+
+            if (checkBox1.Checked)
+            {
+                while (rdr.Read())
+                {
+                    chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                }
+            }
+            else
+            {
+
+                int i = 0;
+                while (rdr.Read())
+                {
+                    string nd = rdr["day"].ToString();
+                    while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
+                    {
+                        chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                        i++;
+                        
+                    }
+                    
+                    chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                    i++;
+
+                }
+                while (true)
+                {
+                    if (((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd") != dateTimePicker1.Value.ToString("yyyy-MM-dd"))
+                    {
+                        chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    i++;
+                }
+
+            }
         }
     }
 }

@@ -27,8 +27,6 @@ namespace LENTAL_STORE.LS
         public Control[] lb2 = new Control[100];
         public Control[] pb = new Control[100];
         public Control[] rl = new Control[100];
-        public TextBox rtb = new TextBox();
-        public Button rbt = new Button();
         public int lastpage;
         
 
@@ -241,8 +239,9 @@ namespace LENTAL_STORE.LS
             {
                 flowLayoutPanel2.Controls[ix].Dispose();
             }
-           
-            panel2.Controls.Remove(rtb);
+        TextBox rtb = new TextBox();
+        Button rbt = new Button();
+        panel2.Controls.Remove(rtb);
             panel2.Controls.Remove(rbt);
             for(int i = 0; i < 100; ++i)
             {
@@ -303,13 +302,15 @@ namespace LENTAL_STORE.LS
                 if(rdr3 != null)
                 {
                     
-                    rtb.Location = new System.Drawing.Point(0, 600);
+                    //rtb.Location = new System.Drawing.Point(0, 600);
                     panel2.Controls.Add(rtb);
+                    
 
                     
-                    rbt.Location = new System.Drawing.Point(100, 600);
+                    //rbt.Location = new System.Drawing.Point(100, 600);
                     panel2.Controls.Add(rbt);
                     
+
                 }
             }
             label4.Text = price;
@@ -340,6 +341,8 @@ namespace LENTAL_STORE.LS
                 rl.Text = b;
 
             }
+            flowLayoutPanel2.Controls.Add(rbt);
+            flowLayoutPanel2.Controls.Add(rtb);
             conn.Close();
 
         }

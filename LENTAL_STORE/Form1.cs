@@ -24,17 +24,20 @@ namespace LENTAL_STORE
             home1.BackColor = Color.FromArgb(238, 242, 247);
             button2.BackColor = Color.FromArgb(238, 242, 247);
             usermain1.BackColor = Color.FromArgb(238, 242, 247);
+            admin1.BackColor = Color.FromArgb(238, 242, 247);
+            signin1.BackColor = Color.FromArgb(238, 242, 247);
+
             panel1.Controls.Add(home1);
             panel1.Controls.Add(signin1);
             panel1.Controls.Add(usermain1);
-            panel1.Controls.Add(detail1);
+
             panel1.Controls.Add(admin1);
             home1.bu5 += new MyEvent(bu_5);
             home1.bu3 += new MyEvent(bu_3);
             home1.bu4 += new MyEvent(bu_4);
             signin1.signinsubmit += signin;
             usermain1.um += new LS.Mainevent(um3);
-            detail1.deba += new LS.detailevent(ddbb);
+
 
 
 
@@ -51,13 +54,14 @@ namespace LENTAL_STORE
         {
             home1.Visible = false;
             usermain1.Visible = false;
-            detail1.Visible = false;
+
             admin1.Visible = true;
+            admin1.homeview();
 
         }
         private void ddbb(object sender, EventArgs e)
         {
-            detail1.Visible = false;
+
             bu_4(sender, e);
 
         }
@@ -73,8 +77,7 @@ namespace LENTAL_STORE
         private void um3(object sender, EventArgs e)
         {
             usermain1.Visible = false;
-            detail1.Visible = true;
-            detail1.showm();
+
 
  
             

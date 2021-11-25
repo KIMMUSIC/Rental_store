@@ -21,15 +21,14 @@ namespace LENTAL_STORE.LS
         public Admin()
         {
             InitializeComponent();
-            panel1.Visible = true;
             panel2.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
             panel5.Visible = false;
+            panel9.Visible = true;
             button9.Click += back;
             button8.Click += back;
 
-            panel1.Dock = DockStyle.Fill;
             panel8.Dock = DockStyle.Fill;
             panel2.Dock = DockStyle.Fill;
             panel3.Dock = DockStyle.Fill;
@@ -51,7 +50,6 @@ namespace LENTAL_STORE.LS
         private void button1_Click(object sender, EventArgs e)
         {
             panel2.Visible = true;
-            panel1.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
         }
@@ -63,7 +61,6 @@ namespace LENTAL_STORE.LS
             panel3.Visible = false;
             panel4.Visible = false;
             panel5.Visible = false;
-            panel1.Visible = true;
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -184,9 +181,9 @@ namespace LENTAL_STORE.LS
         private void button4_Click(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            panel1.Visible = false;
             panel4.Visible = false;
-            panel3.Visible = true;
+            panel3.Visible = false;
+            panel9.Visible = true;
             chartinit(sender, e);
         }
 
@@ -265,7 +262,6 @@ namespace LENTAL_STORE.LS
         private void button10_Click(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            panel1.Visible = false;
             panel3.Visible = false;
             panel4.Visible = true;
             chart2init();
@@ -318,7 +314,6 @@ namespace LENTAL_STORE.LS
         private void button11_Click(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            panel1.Visible = true;
             panel3.Visible = false;
             panel4.Visible = false;
             panel5.Visible = false;
@@ -333,7 +328,6 @@ namespace LENTAL_STORE.LS
         private void button5_Click_1(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            panel1.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
             panel5.Visible = true;
@@ -365,7 +359,7 @@ namespace LENTAL_STORE.LS
         private void button12_Click(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            panel1.Visible = true;
+            
             panel3.Visible = false;
             panel4.Visible = false;
             panel5.Visible = false;
@@ -373,7 +367,7 @@ namespace LENTAL_STORE.LS
 
         private void button3_Click(object sender, EventArgs e)
         {
-            panel1.Visible = false;
+            
             panel6.Visible = true;
 
             listBox1.Items.Clear();
@@ -413,7 +407,7 @@ namespace LENTAL_STORE.LS
         {
             del = new string[100];
             k = 0;
-            panel1.Visible = false;
+            
             panel7.Visible = true;
 
             table = new DataTable();
@@ -555,7 +549,7 @@ namespace LENTAL_STORE.LS
         private void button15_Click(object sender, EventArgs e)
         {
             panel7.Visible = false;
-            panel1.Visible = true;
+            
         }
 
         private void button16_Click(object sender, EventArgs e)
@@ -574,7 +568,7 @@ namespace LENTAL_STORE.LS
 
         private void button17_Click(object sender, EventArgs e)
         {
-            panel1.Visible = false;
+            
             panel8.Visible = true;
             //flowLayoutPanel1.AutoSize = true;
             OracleConnection conn = Form1.oracleconnect();
@@ -642,7 +636,7 @@ namespace LENTAL_STORE.LS
 
         private void button18_Click(object sender, EventArgs e)
         {
-            panel1.Visible = false;
+            
             panel9.Visible = true;
 
             chart3.Series[0].Points.Clear();
@@ -689,22 +683,126 @@ namespace LENTAL_STORE.LS
 
         }
 
+        public void homeview()
+        {
+            
+            panel9.Visible = true;
+
+            chart3.Legends[0].Enabled = false;
+            chart3.BackColor = Color.FromArgb(238, 242, 247);
+            chart3.Series[0].Points.Clear();
+            chart3.Series[0].Color = Color.FromArgb(5, 21, 64);
+            chart3.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("휴먼엑스포", 8);
+            chart3.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font("Arial 3", 10);
+
+            
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+
+
+            com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'yyyy-MM-dd') as day from statistic group by to_char(statistic_date, 'yyyy-MM-dd') order by to_char(statistic_date, 'yyyy-MM-dd') asc ) where rownum <= 10";
+            com2.CommandText = "SELECT * FROM STATISTIC,ITEM WHERE statistic.statistic_itemitemnum = item.item_num AND STATISTIC_DATE = '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' AND NOT STATISTIC_LENTALCOST = 0";
+            OracleDataReader rdr = com1.ExecuteReader();
+            OracleDataReader rdr2 = com2.ExecuteReader();
+
+            
+
+            System.Windows.Forms.DataVisualization.Charting.Axis ay = chart3.ChartAreas[0].AxisY;
+            ay.Minimum = 0;
+            ay.Maximum = 250000;
+
+            System.Windows.Forms.DataVisualization.Charting.StripLine sl0 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            sl0.BackColor = Color.FromArgb(238, 242, 247);
+            sl0.StripWidth = 250000;
+            sl0.IntervalOffset = 0;
+
+
+
+            chart3.ChartAreas[0].AxisY.StripLines.Add(sl0);
+
+
+
+            int i = 10;
+
+
+            while(rdr.Read())
+            {
+                while (i >= 0)
+                {
+                    DateTime nd = Convert.ToDateTime(rdr["day"].ToString());
+                    DateTime today = (System.DateTime.Today).AddDays(-1 * i);
+
+                    if (nd < today)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        if (nd == today)
+                        {
+                            chart3.Series[0].Points.AddXY(nd.ToString("MM-dd"), rdr["cost"]);
+                            i--;
+                            break;
+                        }
+                        else
+                        {
+                            chart3.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("MM-dd"), 0);
+                            i--;
+
+                        }
+                    }
+                }
+            }
+
+
+
+            /*while (rdr.Read())
+            {
+                string nd = rdr["day"].ToString();
+                while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
+                {
+                    chart3.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                    i--;
+                    if (i <= 0) break;
+                }
+                if (i <= 0) break;
+                chart3.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                i--;
+
+            }*/
+
+            while (rdr2.Read())
+            {
+                Label lb = new Label();
+                lb.Text = rdr2["ITEM_NAME"].ToString() + " - " + rdr2["STATISTIC_LENTALCOST"].ToString();
+                lb.AutoSize = true;
+                flowLayoutPanel3.Controls.Add(lb);
+            }
+
+
+
+
+
+        }
+
         private void button19_Click(object sender, EventArgs e)
         {
             panel9.Visible = false;
-            panel1.Visible = true;
+    
         }
 
         private void button20_Click(object sender, EventArgs e)
         {
             panel8.Visible = false;
-            panel1.Visible = true;
+            
         }
 
         private void button21_Click(object sender, EventArgs e)
         {
             panel6.Visible = false;
-            panel1.Visible = true;
+            
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)

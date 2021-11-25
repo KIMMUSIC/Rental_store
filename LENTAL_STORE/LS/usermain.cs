@@ -80,7 +80,35 @@ namespace LENTAL_STORE.LS
             label18.ForeColor = Color.FromArgb(5, 21, 64);
 
             textBox1.BackColor = Color.FromArgb(238, 242, 247);
-            
+
+            label19.Click += button2_Click;
+            label20.Click += button1_Click;
+            label19.ForeColor = Color.FromArgb(5, 21, 64);
+            label20.ForeColor = Color.FromArgb(5, 21, 64);
+
+            label1.ForeColor = Color.FromArgb(5, 21, 64);
+            label2.ForeColor = Color.FromArgb(5, 21, 64);
+            label6.ForeColor = Color.FromArgb(5, 21, 64);
+            label3.ForeColor = Color.FromArgb(5, 21, 64);
+            label4.ForeColor = Color.FromArgb(5, 21, 64);
+            label5.ForeColor = Color.FromArgb(5, 21, 64);
+            label22.ForeColor = Color.FromArgb(5, 21, 64);
+            label23.ForeColor = Color.FromArgb(5, 21, 64);
+
+            label1.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            label2.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            label6.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            label4.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            label3.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            label22.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            label23.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+
+            label21.Click += Back_btn;
+            label23.Click += button4_Click;
+
+
+
+
 
 
 
@@ -148,12 +176,13 @@ namespace LENTAL_STORE.LS
                 ((PictureBox)(pb)).Image = Image.FromStream(msData);
                 pn.Controls.Add(pb);
                 pb.Size = new Size(160, 130);
+                
 
                 lb.AutoSize = false;
                 lb.TextAlign = ContentAlignment.BottomRight;
                 lb.MinimumSize = new Size(200, 0);
-
                 
+
 
                 pn.Controls.Add(lb);
 
@@ -162,16 +191,19 @@ namespace LENTAL_STORE.LS
                 lb2.AutoSize = false;
                 lb2.TextAlign = ContentAlignment.BottomRight;
                 lb2.MinimumSize = new Size(200, 0);
-
-
+                lb2.Click += new_Click;
+                lb.Click += new_Click;
+                pb.Click += new_Click;
+                pb.Name = rdr["ITEM_NUM"].ToString();
                 pn.Controls.Add(lb2);
                 string b = rdr["ITEM_STATUS"].ToString();
                 lb.Name = rdr["ITEM_NUM"].ToString();
                 pn.Name = rdr["ITEM_NUM"].ToString();
+                lb2.Name = rdr["ITEM_NUM"].ToString();
                 if (rdr["ITEM_STATUS"].ToString() == "1")
                 {
                     lb2.Text = "품절";
-                    lb2.ForeColor = System.Drawing.ColorTranslator.FromHtml("#22FF99");
+                    lb2.ForeColor = Color.Red;
                 }
                 else
                 {
@@ -269,10 +301,15 @@ namespace LENTAL_STORE.LS
                 string b = rdr["ITEM_STATUS"].ToString();
                 lb.Name = rdr["ITEM_NUM"].ToString();
                 pn.Name = rdr["ITEM_NUM"].ToString();
+                lb2.Name = rdr["ITEM_NUM"].ToString();
+                lb.Click += new_Click;
+                pb.Click += new_Click;
+                lb2.Click += new_Click;
+                pb.Name = rdr["ITEM_NUM"].ToString();
                 if (rdr["ITEM_STATUS"].ToString() == "1")
                 {
                     lb2.Text = "품절";
-                    lb2.ForeColor = System.Drawing.ColorTranslator.FromHtml("#22FF99");
+                    lb2.ForeColor = Color.Red;
                 }
                 else
                 {
@@ -285,6 +322,9 @@ namespace LENTAL_STORE.LS
                 lb.Location = new System.Drawing.Point(0, 140);
 
                 flowLayoutPanel1.Controls.Add(pn);
+                lb2.Click += new_Click;
+                lb.Click += new_Click;
+                pb.Click += new_Click;
             }
             conn.Close();
 
@@ -306,25 +346,14 @@ namespace LENTAL_STORE.LS
             {
                 flowLayoutPanel2.Controls[ix].Dispose();
             }
-
-
-            rtb = new TextBox();
+            TextBox rtb = new TextBox();
             Button rbt = new Button();
-            panel2.Controls.Remove(rtb);
-            panel2.Controls.Remove(rbt);
-            for(int i = 0; i < 100; ++i)
-            {
-                panel2.Controls.Remove(rl[i]);
-            }
-            rbt.Click -= review_click;
-            rbt.Click +=review_click;
+            rbt.Click += review_click;
+
             label3.Text = "1";
-            button4.Text = "대여하기";
             label3.Visible = true;
-            button1.Visible = true;
-            button2.Visible = true;
-            button4.Click -= button4_Click;
-            button4.Click += button4_Click;
+            label19.Visible = true;
+            label20.Visible = true;
 
 
 
@@ -366,52 +395,71 @@ namespace LENTAL_STORE.LS
                 label1.Text = "사이즈 : " + rdr["ITEM_SIZE"].ToString();
                 label2.Text = "색상 : " + rdr["ITEM_COLOR"].ToString();
                 label6.Text = "품질 : " + rdr["ITEM_QUALITY"].ToString();
+                label22.Text = "가격 : " + rdr["ITEM_PRICE"].ToString() + "원/일";
                 item_status = Convert.ToInt32(rdr["ITEM_STATUS"]);
 
-                if(rdr3 != null)
-                {
-                    
-                    //rtb.Location = new System.Drawing.Point(0, 600);
-                    panel2.Controls.Add(rtb);
-                    
-
-                    
-                    //rbt.Location = new System.Drawing.Point(100, 600);
-                    panel2.Controls.Add(rbt);
-                    
-
-                }
             }
-            label4.Text = price;
+            label4.Text = price +"원";
 
             if(item_status == 1)
             {
-                button4.Text = "품절";
+                label23.Text = "품절";
                 label3.Visible = false;
-                button1.Visible = false;
-                button2.Visible = false;
-                button4.Click -= button4_Click;
+                label19.Visible = false;
+                label20.Visible = false;
+                label23.Click -= button4_Click;
             }
-            int k = 0;
-            int t = 0;
+            else
+            {
+                label23.Text = "대여하기";
+                label23.Click -= button4_Click;
+                label23.Click += button4_Click;
+            }
+            Label rbtl = new Label();
+            rbtl.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            rbtl.ForeColor = Color.FromArgb(5, 21, 64);
+            rbtl.AutoSize = false;
+            rbtl.Text = "등록";
+            rbtl.Size= new Size(100, 50);
+            rbtl.TextAlign = ContentAlignment.MiddleCenter;
+            rtb.Size = new Size(550, 50);
+            rtb.Multiline = true;
+            rbtl.Click += review_click;
             while (rdr2.Read())
             {
 
+                Label rn = new Label();
                 Label rl = new Label();
-                rl.Size = new Size(660, 83);
-                rl.Font = new Font(rl.Font.FontFamily, 20);
+                
 
+                rn.AutoSize = true;
+                rl.AutoSize = true;
+                
+                flowLayoutPanel2.Controls.Add(rn);
                 flowLayoutPanel2.Controls.Add(rl);
 
+                rn.MinimumSize = new Size(200, 0);
+                rl.MinimumSize = new Size(400, 0);
+
+                rn.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+                rn.ForeColor = Color.FromArgb(5, 21, 64);
+                rl.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+                rl.ForeColor = Color.FromArgb(5, 21, 64);
+
+                rn.Text = rdr2["REVIEW_USERID"].ToString();
+                rl.Text = rdr2["REVIEW_CONTENT"].ToString();
+
+
                 
-                string b = rdr2["REVIEW_USERID"].ToString() + " : "+rdr2["REVIEW_CONTENT"].ToString();
-
-
-                rl.Text = b;
 
             }
-            flowLayoutPanel2.Controls.Add(rbt);
-            flowLayoutPanel2.Controls.Add(rtb);
+            if (rdr3 != null)
+            {
+                flowLayoutPanel2.Controls.Add(rtb);
+                flowLayoutPanel2.Controls.Add(rbtl);
+
+            }
+
             conn.Close();
 
         }
@@ -576,6 +624,12 @@ namespace LENTAL_STORE.LS
             prefresh();
             prefresh2();
         }
+        private void Back_btn(object sender, EventArgs e)
+        {
+            panel2.Visible = false;
+            refresh2();
+        }
+
 
         private void button7_Click(object sender, EventArgs e)
         {
@@ -604,6 +658,7 @@ namespace LENTAL_STORE.LS
 
         private void rental_(object sender, EventArgs e)
         {
+            panel2.Visible = false;
             for (int ix = flowLayoutPanel3.Controls.Count - 1; ix >= 0; ix--)
             {
                 flowLayoutPanel3.Controls[ix].Dispose();
@@ -818,6 +873,7 @@ namespace LENTAL_STORE.LS
                 pn.BackColor = Color.FromArgb(245, 247, 250);
 
                 Label lb = new Label();
+                
 
                 PictureBox pb = new PictureBox();
                 ((PictureBox)(pb)).SizeMode = PictureBoxSizeMode.StretchImage;
@@ -846,10 +902,15 @@ namespace LENTAL_STORE.LS
                 string b = rdr["ITEM_STATUS"].ToString();
                 lb.Name = rdr["ITEM_NUM"].ToString();
                 pn.Name = rdr["ITEM_NUM"].ToString();
+                lb2.Name = rdr["ITEM_NUM"].ToString();
+                pb.Name = rdr["ITEM_NUM"].ToString();
+                lb.Click += new_Click;
+                pb.Click += new_Click;
+                lb2.Click += new_Click;
                 if (rdr["ITEM_STATUS"].ToString() == "1")
                 {
                     lb2.Text = "품절";
-                    lb2.ForeColor = System.Drawing.ColorTranslator.FromHtml("#22FF99");
+                    lb2.ForeColor = Color.Red;
                 }
                 else
                 {

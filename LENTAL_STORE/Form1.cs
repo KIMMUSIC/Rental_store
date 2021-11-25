@@ -21,6 +21,9 @@ namespace LENTAL_STORE
         public Form1()
         {
             InitializeComponent();
+            home1.BackColor = Color.FromArgb(238, 242, 247);
+            button2.BackColor = Color.FromArgb(238, 242, 247);
+            usermain1.BackColor = Color.FromArgb(238, 242, 247);
             panel1.Controls.Add(home1);
             panel1.Controls.Add(signin1);
             panel1.Controls.Add(usermain1);

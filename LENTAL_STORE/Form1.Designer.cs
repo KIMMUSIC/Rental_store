@@ -42,27 +42,28 @@ namespace LENTAL_STORE
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LavenderBlush;
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.admin1);
             this.panel1.Controls.Add(this.detail1);
             this.panel1.Controls.Add(this.usermain1);
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.home1);
             this.panel1.Controls.Add(this.signin1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1154, 690);
+            this.panel1.Size = new System.Drawing.Size(1200, 700);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(726, 12);
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.Location = new System.Drawing.Point(1105, 12);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(37, 37);
+            this.button2.Size = new System.Drawing.Size(37, 38);
             this.button2.TabIndex = 7;
             this.button2.Text = "X";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // admin1
@@ -85,16 +86,16 @@ namespace LENTAL_STORE
             this.usermain1.BackColor = System.Drawing.Color.LavenderBlush;
             this.usermain1.Location = new System.Drawing.Point(0, 0);
             this.usermain1.Name = "usermain1";
-            this.usermain1.Size = new System.Drawing.Size(1154, 687);
+            this.usermain1.Size = new System.Drawing.Size(1200, 700);
             this.usermain1.TabIndex = 11;
             // 
             // home1
             // 
-            this.home1.BackColor = System.Drawing.Color.LavenderBlush;
+            this.home1.BackColor = System.Drawing.Color.Transparent;
             this.home1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.home1.Location = new System.Drawing.Point(0, 0);
             this.home1.Name = "home1";
-            this.home1.Size = new System.Drawing.Size(1154, 690);
+            this.home1.Size = new System.Drawing.Size(1200, 700);
             this.home1.TabIndex = 10;
             this.home1.Load += new System.EventHandler(this.home1_Load);
             // 
@@ -104,7 +105,7 @@ namespace LENTAL_STORE
             this.signin1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.signin1.Location = new System.Drawing.Point(0, 0);
             this.signin1.Name = "signin1";
-            this.signin1.Size = new System.Drawing.Size(1154, 690);
+            this.signin1.Size = new System.Drawing.Size(1200, 700);
             this.signin1.TabIndex = 9;
             this.signin1.Visible = false;
             this.signin1.Load += new System.EventHandler(this.signin1_Load);
@@ -113,7 +114,8 @@ namespace LENTAL_STORE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1154, 690);
+            this.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.ClientSize = new System.Drawing.Size(1200, 700);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";

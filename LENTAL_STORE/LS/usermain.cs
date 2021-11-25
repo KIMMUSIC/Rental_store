@@ -28,7 +28,10 @@ namespace LENTAL_STORE.LS
         public Control[] pb = new Control[100];
         public Control[] rl = new Control[100];
         public int lastpage;
-        
+        TextBox rtb;
+        int current_selected_button = 0;
+
+
 
         public usermain()
         {
@@ -36,70 +39,130 @@ namespace LENTAL_STORE.LS
             panel2.Visible = false;
             panel1.Visible = true;
             panel3.Visible = true;
+            panel5.Visible = false;
             panel3.AutoScroll = true;
             panel2.AutoScroll = true;
             panel2.Dock = DockStyle.Fill;
             panel3.Dock = DockStyle.Fill;
+            panel5.Dock = DockStyle.Fill;
             flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel3.AutoScroll = true;
+            flowLayoutPanel4.AutoScroll = true;
             flowLayoutPanel2.AutoSize = true;
             flowLayoutPanel2.MaximumSize = new Size(668,10000);
+            flowLayoutPanel1.MaximumSize = new Size(890, 10000);
+
+            panel1.BackColor = Color.FromArgb(5, 21, 64);
+            panel2.BackColor = Color.FromArgb(238, 242, 247);
+            panel3.BackColor = Color.FromArgb(238, 242, 247);
+            /*button7.BackColor = Color.FromArgb(5, 21, 64);
+            button7.ForeColor = Color.White;
+            button7.FlatAppearance.BorderSize = 0;
+            button7.FlatStyle = FlatStyle.Flat;*/
+            
+            refresh2();
+            label9.BackColor = Color.FromArgb(5, 21, 64);
+            label9.Click += button5_Click_2;
+            label9.ForeColor = Color.White;
+
+            label10.BackColor = Color.FromArgb(5, 21, 64);
+            label10.Click += rental_;
+            label10.ForeColor = Color.White;
+
+            label11.ForeColor = Color.FromArgb(5, 21, 64);
+            label12.ForeColor = Color.FromArgb(5, 21, 64);
+            label13.ForeColor = Color.FromArgb(5, 21, 64);
+            label14.ForeColor = Color.FromArgb(5, 21, 64);
+            label15.ForeColor = Color.FromArgb(5, 21, 64);
+            label16.ForeColor = Color.FromArgb(5, 21, 64);
+            label17.ForeColor = Color.FromArgb(5, 21, 64);
+            label18.ForeColor = Color.FromArgb(5, 21, 64);
+
+            textBox1.BackColor = Color.FromArgb(238, 242, 247);
+            
+
+
+
+            //login_pw.BackColor = Color.FromArgb(238, 242, 247);
+            //label7.ForeColor = Color.FromArgb(5, 21, 64);
         }
         
         public void refresh2()
         {
-            
-            lastpage = 2;
-            OracleConnection conn = new OracleConnection();
-            conn.ConnectionString = "DATA SOURCE=XEPDB1;USER ID=S5469744;PASSWORD=S5469744";
-            conn.Open();
+            for (int ix = flowLayoutPanel1.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel1.Controls[ix].Dispose();
+            }
+
+            for (int ix = flowLayoutPanel3.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel3.Controls[ix].Dispose();
+            }
+
+            for (int ix = flowLayoutPanel5.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel5.Controls[ix].Dispose();
+            }
+            panel3.Visible = true;
+            OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
             com1.CommandText = "SELECT * FROM ITEM";
+            com2.CommandText = "SELECT * FROM ITEM_CATE";
+            
 
             OracleDataReader rdr = com1.ExecuteReader();
-            ArrayList rowList = new ArrayList();
-            object[] row;
+            OracleDataReader rdr2 = com2.ExecuteReader();
 
-            WIDTH = 200;
-            HEIGHT = 30;
+            while(rdr2.Read())
+            {
+                Label lb = new Label();
+                lb.Text = "#" + rdr2["ITEM_CATE_NAME"].ToString();
+                lb.Name = rdr2["ITEM_CATE_NUM"].ToString();
+                lb.Tag = 0;
+                lb.AutoSize = true;
+                lb.BackColor = Color.FromArgb(245, 247, 250);
+                lb.ForeColor = Color.FromArgb(5, 21, 64);
+                lb.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+                lb.Click += filter_Click;
+                flowLayoutPanel5.Controls.Add(lb);
 
-            int start = 0;
-            int end = 0;
+            }
 
-            int k = 0;
-            
             while (rdr.Read())
             {
-                start += 100;
-                
-                Panel pn = new Panel();
+                FlowLayoutPanel pn = new FlowLayoutPanel();
                 //pn.AutoSize = true;
                 pn.Size = new Size(200, 200);
                 pn.Click += new_Click;
 
-                pn.BackColor = Color.Gainsboro;
+                pn.BackColor = Color.FromArgb(245,247,250);
 
-
-                
-                
-                /*
-                if (k % 3 == 0)
-                {
-                    HEIGHT += 100;
-                    WIDTH = 200;
-                    end += 100;
-                }
-                */
                 Label lb = new Label();
 
-                lb.AutoSize = true;
+                PictureBox pb = new PictureBox();
+                ((PictureBox)(pb)).SizeMode = PictureBoxSizeMode.StretchImage;
+                byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
+                System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
+                ((PictureBox)(pb)).Image = Image.FromStream(msData);
+                pn.Controls.Add(pb);
+                pb.Size = new Size(160, 130);
+
+                lb.AutoSize = false;
+                lb.TextAlign = ContentAlignment.BottomRight;
+                lb.MinimumSize = new Size(200, 0);
+
                 
 
                 pn.Controls.Add(lb);
 
                 Label lb2 = new Label();
 
-                lb2.AutoSize = true;
-                
+                lb2.AutoSize = false;
+                lb2.TextAlign = ContentAlignment.BottomRight;
+                lb2.MinimumSize = new Size(200, 0);
+
 
                 pn.Controls.Add(lb2);
                 string b = rdr["ITEM_STATUS"].ToString();
@@ -112,110 +175,114 @@ namespace LENTAL_STORE.LS
                 }
                 else
                 {
-                    lb2.Text = rdr["ITEM_PRICE"].ToString();
+                    lb2.Text = rdr["ITEM_PRICE"].ToString() + "원/일";
                 }
-                lb.Font = new Font(lb.Font.FontFamily, 13);
-                lb2.Font = new Font(lb.Font.FontFamily, 10);
+                lb.Font = new Font("휴먼엑스포", 10, FontStyle.Bold);
+                lb2.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
 
                 lb.Text = rdr["ITEM_NAME"].ToString();
                 lb.Location = new System.Drawing.Point(0, 140);
+
+                flowLayoutPanel1.Controls.Add(pn);
+            }
+            conn.Close();
+
+        }
+
+        public void refresh3(String st)
+        {
+            for (int ix = flowLayoutPanel1.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel1.Controls[ix].Dispose();
+            }
+
+            for (int ix = flowLayoutPanel3.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel3.Controls[ix].Dispose();
+            }
+
+            for (int ix = flowLayoutPanel5.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel5.Controls[ix].Dispose();
+            }
+            panel3.Visible = true;
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+            com1.CommandText = "SELECT * FROM ITEM WHERE ITEM_NAME LIKE '%" + st + "%'";
+            com2.CommandText = "SELECT * FROM ITEM_CATE";
+
+
+            OracleDataReader rdr = com1.ExecuteReader();
+            OracleDataReader rdr2 = com2.ExecuteReader();
+
+            while (rdr2.Read())
+            {
+                Label lb = new Label();
+                lb.Text = "#" + rdr2["ITEM_CATE_NAME"].ToString();
+                lb.Name = rdr2["ITEM_CATE_NUM"].ToString();
+                lb.Tag = 0;
+                lb.AutoSize = true;
+                lb.BackColor = Color.FromArgb(245, 247, 250);
+                lb.ForeColor = Color.FromArgb(5, 21, 64);
+                lb.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+                lb.Click += filter_Click;
+                flowLayoutPanel5.Controls.Add(lb);
+
+            }
+
+            while (rdr.Read())
+            {
+                FlowLayoutPanel pn = new FlowLayoutPanel();
+                //pn.AutoSize = true;
+                pn.Size = new Size(200, 200);
+                pn.Click += new_Click;
+
+                pn.BackColor = Color.FromArgb(245, 247, 250);
+
+                Label lb = new Label();
 
                 PictureBox pb = new PictureBox();
                 ((PictureBox)(pb)).SizeMode = PictureBoxSizeMode.StretchImage;
                 byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
                 System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
                 ((PictureBox)(pb)).Image = Image.FromStream(msData);
-                pb.Location = new System.Drawing.Point(5,5);
                 pn.Controls.Add(pb);
-                lb2.Location = new System.Drawing.Point(160,180);
-                pb.Size = new Size(160,130);
-                k++;
-                WIDTH += 180;
+                pb.Size = new Size(160, 130);
 
-                flowLayoutPanel1.Controls.Add(pn);
-            }
-            conn.Close();
-            
-            
-        }
-
-        public void refresh3(String st)
-        {
-            lastpage = 2;
-            OracleConnection conn = new OracleConnection();
-            conn.ConnectionString = "DATA SOURCE=XEPDB1;USER ID=S5469744;PASSWORD=S5469744";
-            conn.Open();
-            OracleCommand com1 = new OracleCommand("", conn);
-            com1.CommandText = "SELECT * FROM ITEM WHERE ITEM_NAME LIKE '%" + st + "%'";
-
-            OracleDataReader rdr = com1.ExecuteReader();
-            ArrayList rowList = new ArrayList();
-            object[] row;
-
-            WIDTH = 200;
-            HEIGHT = 30;
-
-            int start = 0;
-            int end = 0;
-
-            int k = 0;
-
-            while (rdr.Read())
-            {
-                start += 100;
-
-                Panel pn = new Panel();
-                pn.AutoSize = true;
-                pn.BackColor = Color.White;
-                flowLayoutPanel1.AutoScroll = true;
+                lb.AutoSize = false;
+                lb.TextAlign = ContentAlignment.BottomRight;
+                lb.MinimumSize = new Size(200, 0);
 
 
-
-
-                if (k % 3 == 0)
-                {
-                    HEIGHT += 100;
-                    WIDTH = 200;
-                    end += 100;
-                }
-                Label lb = new Label();
-
-                lb.AutoSize = true;
-                lb.Click += new_Click;
 
                 pn.Controls.Add(lb);
 
                 Label lb2 = new Label();
 
-                lb2.AutoSize = true;
-                lb2.Click += new_Click;
+                lb2.AutoSize = false;
+                lb2.TextAlign = ContentAlignment.BottomRight;
+                lb2.MinimumSize = new Size(200, 0);
+
 
                 pn.Controls.Add(lb2);
                 string b = rdr["ITEM_STATUS"].ToString();
                 lb.Name = rdr["ITEM_NUM"].ToString();
+                pn.Name = rdr["ITEM_NUM"].ToString();
                 if (rdr["ITEM_STATUS"].ToString() == "1")
                 {
                     lb2.Text = "품절";
+                    lb2.ForeColor = System.Drawing.ColorTranslator.FromHtml("#22FF99");
                 }
                 else
                 {
-                    lb2.Text = rdr["ITEM_PRICE"].ToString();
+                    lb2.Text = rdr["ITEM_PRICE"].ToString() + "원/일";
                 }
-
+                lb.Font = new Font("휴먼엑스포", 10, FontStyle.Bold);
+                lb2.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
 
                 lb.Text = rdr["ITEM_NAME"].ToString();
-                lb.Location = new System.Drawing.Point(0, 0);
-
-                PictureBox pb = new PictureBox();
-                ((PictureBox)(pb)).SizeMode = PictureBoxSizeMode.StretchImage;
-                byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
-                System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
-                ((PictureBox)(pb)).Image = Image.FromStream(msData);
-                pb.Location = new System.Drawing.Point(10, 10);
-                pn.Controls.Add(pb);
-                lb2.Location = new System.Drawing.Point(20, 20);
-                k++;
-                WIDTH += 180;
+                lb.Location = new System.Drawing.Point(0, 140);
 
                 flowLayoutPanel1.Controls.Add(pn);
             }
@@ -239,9 +306,11 @@ namespace LENTAL_STORE.LS
             {
                 flowLayoutPanel2.Controls[ix].Dispose();
             }
-        TextBox rtb = new TextBox();
-        Button rbt = new Button();
-        panel2.Controls.Remove(rtb);
+
+
+            rtb = new TextBox();
+            Button rbt = new Button();
+            panel2.Controls.Remove(rtb);
             panel2.Controls.Remove(rbt);
             for(int i = 0; i < 100; ++i)
             {
@@ -449,7 +518,7 @@ namespace LENTAL_STORE.LS
                 com2.ExecuteNonQuery();
                 com3.ExecuteNonQuery();
                 MessageBox.Show("대여되었습니다.");
-                button3.PerformClick();
+                button3_Click(sender, e);
                 //prefresh();
                 //refresh();
 
@@ -465,8 +534,7 @@ namespace LENTAL_STORE.LS
 
         private void button5_Click_2(object sender, EventArgs e)
         {
-            panel3.Visible = true;
-            panel2.Visible = false;
+            panel5.Visible = false;
             prefresh2();
             refresh2();
         }
@@ -531,6 +599,271 @@ namespace LENTAL_STORE.LS
 
         private void label7_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void rental_(object sender, EventArgs e)
+        {
+            for (int ix = flowLayoutPanel3.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel3.Controls[ix].Dispose();
+            }
+
+            for (int ix = flowLayoutPanel4.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel4.Controls[ix].Dispose();
+            }
+            panel3.Visible = false;
+            panel5.Visible = true;
+            for (int ix = flowLayoutPanel3.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel3.Controls[ix].Dispose();
+            }
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            com1.CommandText = "SELECT * FROM LENTAL, ITEM WHERE LENTAL.LENTAL_ITEM = ITEM.ITEM_NUM AND LENTAL_USERID = '" + Form1.usersession + "'";
+            OracleDataReader rdr = com1.ExecuteReader();
+
+            int k = 0;
+            while (rdr.Read())
+            {
+
+                HEIGHT += 20;
+                Label lb = new Label();
+                Label bt = new Label();
+                Label st = new Label();
+                Label end = new Label();
+                bt.Text = "반납";
+                bt.Name = rdr["LENTAL_NUM"].ToString();
+                lb.Text = rdr["ITEM_NAME"].ToString();
+                st.Text = ((DateTime)rdr["LENTAL_DATE"]).ToString("yyyy-MM-dd");
+                end.Text = ((DateTime)rdr["LENTAL_EXPIRATION"]).ToString("yyyy-MM-dd");
+
+                lb.AutoSize = true;
+                lb.MinimumSize = new Size(330, 30);
+                st.AutoSize = true;
+                st.MinimumSize = new Size(100, 30);
+                end.AutoSize = true;
+                end.MinimumSize = new Size(100, 30);
+                lb.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
+                st.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
+                end.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
+
+                bt.AutoSize = true;
+                
+                bt.Click += return_event;
+                
+                if (Convert.ToDateTime(rdr["LENTAL_EXPIRATION"]) < System.DateTime.Now)
+                {
+                    flowLayoutPanel3.Controls.Add(lb);
+                    flowLayoutPanel3.Controls.Add(st);
+                    flowLayoutPanel3.Controls.Add(end);
+                    flowLayoutPanel3.Controls.Add(bt);
+
+                    lb.ForeColor = Color.Red;
+                    st.ForeColor = Color.Red;
+                    end.ForeColor = Color.Red;
+                    bt.ForeColor = Color.Red;
+
+                    bt.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+
+                }
+                else
+                {
+
+                    flowLayoutPanel4.Controls.Add(lb);
+                    flowLayoutPanel4.Controls.Add(st);
+                    flowLayoutPanel4.Controls.Add(end);
+                    flowLayoutPanel4.Controls.Add(bt);
+
+                    lb.ForeColor = Color.FromArgb(5, 21, 64);
+                    st.ForeColor = Color.FromArgb(5, 21, 64);
+                    end.ForeColor =Color.FromArgb(5, 21, 64);
+                    bt.ForeColor = Color.FromArgb(5, 21, 64);
+                    bt.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
+
+                }
+                k++;
+
+
+            }
+        }
+
+        private void return_event(object sender, EventArgs e)
+        {
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+            OracleCommand com3 = new OracleCommand("", conn);
+            OracleCommand com4 = new OracleCommand("", conn);
+            com3.CommandText = "SELECT LENTAL_ITEM, LENTAL_EXPIRATION, ITEM_QUALITY, ITEM_PRICE FROM LENTAL,ITEM WHERE LENTAL.LENTAL_ITEM = ITEM.ITEM_NUM AND LENTAL_NUM = " + ((Control)sender).Name;
+            OracleDataReader rdr = com3.ExecuteReader();
+            int Fine = 0;
+            string lental_item = "";
+            string iq = "";
+            int fineday = 0;
+            while (rdr.Read())
+            {
+                lental_item = rdr["LENTAL_ITEM"].ToString();
+
+                if (Convert.ToDateTime(rdr["LENTAL_EXPIRATION"]) < System.DateTime.Now)
+                {
+                    fineday = (System.DateTime.Now - Convert.ToDateTime(rdr["LENTAL_EXPIRATION"])).Days;
+                }
+                iq = rdr["ITEM_QUALITY"].ToString();
+                int ip = Convert.ToInt32(rdr["ITEM_PRICE"]);
+                if (iq == "S")
+                {
+                    Fine = fineday * (ip) + (ip / 2) * fineday;
+                }
+                else if (iq == "A")
+                {
+                    Fine = fineday * (ip) + (ip / 3) * fineday;
+                }
+                else if (iq == "B")
+                {
+                    Fine = fineday * (ip) + (ip / 4) * fineday;
+                }
+                else
+                {
+                    Fine = fineday * (ip) + (ip / 6) * fineday;
+                }
+
+            }
+
+            if (fineday > 0)
+            {
+                MessageBox.Show("대여 반납일이 " + fineday + "만큼 지났으므로 " + Fine + "원의 벌금이 부여됩니다.");
+            }
+
+            string current_time1 = System.DateTime.Now.ToString("yyyy-MM-dd");
+
+            com2.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),'" + lental_item + "',NULL,'" + Fine + "','2',NULL,'" + ((Control)sender).Name + "')";
+            com1.CommandText = "DELETE FROM LENTAL WHERE LENTAL_NUM = " + ((Control)sender).Name;
+            com4.CommandText = "UPDATE ITEM SET ITEM_STATUS = '0' WHERE ITEM_NUM = '" + lental_item + "'";
+            com1.ExecuteNonQuery();
+            com2.ExecuteNonQuery();
+            com4.ExecuteNonQuery();
+
+            MessageBox.Show("반납되었습니다.");
+            rental_(sender, e);
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void filter_Click(object sender, EventArgs e)
+{
+            ((Control)sender).Tag = ~Convert.ToInt32(((Control)sender).Tag);
+            bool isfilter = false;
+            for (int ix = flowLayoutPanel1.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel1.Controls[ix].Dispose();
+            }
+            string nat = "";
+            for (int ix = flowLayoutPanel5.Controls.Count - 1; ix >= 0; ix--)
+            {
+
+                if ((flowLayoutPanel5.Controls[ix].Tag).ToString() == "-1")
+                {
+                    isfilter = true;
+                    flowLayoutPanel5.Controls[ix].BackColor = Color.Red;
+                    string na = flowLayoutPanel5.Controls[ix].Name;
+                    if (ix != 0)
+                    {
+                        nat +="OR ITEM_CATE = '" + na + "'";
+                    }
+                }
+                else
+                {
+                    flowLayoutPanel5.Controls[ix].BackColor = Color.FromArgb(245, 247, 250);
+                }
+
+            }
+
+            panel3.Visible = true;
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+
+            if (isfilter == true)
+            {
+                com1.CommandText = "SELECT * FROM ITEM WHERE ITEM_CATE = '-1'" + nat;
+            }
+            else
+            {
+                com1.CommandText = "SELECT * FROM ITEM";
+            }
+            
+
+
+            OracleDataReader rdr = com1.ExecuteReader();
+            
+
+            while (rdr.Read())
+            {
+                FlowLayoutPanel pn = new FlowLayoutPanel();
+                //pn.AutoSize = true;
+                pn.Size = new Size(200, 200);
+                pn.Click += new_Click;
+
+                pn.BackColor = Color.FromArgb(245, 247, 250);
+
+                Label lb = new Label();
+
+                PictureBox pb = new PictureBox();
+                ((PictureBox)(pb)).SizeMode = PictureBoxSizeMode.StretchImage;
+                byte[] bytedata = (byte[])rdr["ITEM_IMAGE"];
+                System.IO.MemoryStream msData = new System.IO.MemoryStream(bytedata);
+                ((PictureBox)(pb)).Image = Image.FromStream(msData);
+                pn.Controls.Add(pb);
+                pb.Size = new Size(160, 130);
+
+                lb.AutoSize = false;
+                lb.TextAlign = ContentAlignment.BottomRight;
+                lb.MinimumSize = new Size(200, 0);
+
+
+
+                pn.Controls.Add(lb);
+
+                Label lb2 = new Label();
+
+                lb2.AutoSize = false;
+                lb2.TextAlign = ContentAlignment.BottomRight;
+                lb2.MinimumSize = new Size(200, 0);
+
+
+                pn.Controls.Add(lb2);
+                string b = rdr["ITEM_STATUS"].ToString();
+                lb.Name = rdr["ITEM_NUM"].ToString();
+                pn.Name = rdr["ITEM_NUM"].ToString();
+                if (rdr["ITEM_STATUS"].ToString() == "1")
+                {
+                    lb2.Text = "품절";
+                    lb2.ForeColor = System.Drawing.ColorTranslator.FromHtml("#22FF99");
+                }
+                else
+                {
+                    lb2.Text = rdr["ITEM_PRICE"].ToString() + "원/일";
+                }
+                lb.Font = new Font("휴먼엑스포", 10, FontStyle.Bold);
+                lb2.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+
+                lb.Text = rdr["ITEM_NAME"].ToString();
+                lb.Location = new System.Drawing.Point(0, 140);
+
+                flowLayoutPanel1.Controls.Add(pn);
+            }
+            conn.Close();
 
         }
     }

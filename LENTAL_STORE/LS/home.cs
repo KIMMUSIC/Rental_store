@@ -23,13 +23,32 @@ namespace LENTAL_STORE
             InitializeComponent();
             login_pw.KeyDown += tb_keyDown;
             login_id.KeyDown += tb_keyDown;
+
+            panel1.BackColor = Color.FromArgb(5, 21, 64);
+            this.BackColor = Color.FromArgb(238, 242, 247);
+            label3.ForeColor = Color.FromArgb(5, 21, 64);
+            button1.BackColor = Color.FromArgb(5, 21, 64);
+            button1.ForeColor = Color.White;
+            label1.ForeColor = Color.FromArgb(5, 21, 64);
+            label2.ForeColor = Color.FromArgb(5, 21, 64);
+            login_id.BackColor = Color.FromArgb(238, 242, 247);
+            login_pw.BackColor = Color.FromArgb(238, 242, 247);
+            label7.ForeColor = Color.FromArgb(5, 21, 64);
             
+            label7.Click += button3_Click;
+            label7.MouseHover += label7_MouseHover;
+
         }
 
         public void button3_Click(object sender, EventArgs e)
         {
             if(this.bu3 != null)
                 this.bu3(sender, e);
+        }
+
+        private void label7_MouseHover(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.Hand;
         }
 
         private void home_Load(object sender, EventArgs e)

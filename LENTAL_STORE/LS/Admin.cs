@@ -17,7 +17,8 @@ namespace LENTAL_STORE.LS
         DataTable table;
         string[] del;
         int k = 0;
-        
+        Stack<string> s = new Stack<string>();
+
         public Admin()
         {
             InitializeComponent();
@@ -26,10 +27,8 @@ namespace LENTAL_STORE.LS
             panel4.Visible = false;
             panel5.Visible = false;
             panel9.Visible = true;
-            button9.Click += back;
-            button8.Click += back;
 
-            panel8.Dock = DockStyle.Fill;
+            panel1.Dock = DockStyle.Fill;
             panel2.Dock = DockStyle.Fill;
             panel3.Dock = DockStyle.Fill;
             panel4.Dock = DockStyle.Fill;
@@ -41,6 +40,10 @@ namespace LENTAL_STORE.LS
             System.Windows.Forms.DataVisualization.Charting.ChartArea CA = chart1.ChartAreas[0];
             CA.CursorX.IsUserEnabled = true;
             CA.AxisX.ScaleView.Zoom(0, 10);
+
+            System.Windows.Forms.DataVisualization.Charting.ChartArea CA2 = chart2.ChartAreas[0];
+            CA2.CursorX.IsUserEnabled = true;
+            CA2.AxisX.ScaleView.Zoom(0, 10);
 
             label15.ForeColor = Color.FromArgb(5, 21, 64);
             label16.ForeColor = Color.FromArgb(5, 21, 64);
@@ -54,10 +57,29 @@ namespace LENTAL_STORE.LS
             label19.ForeColor = Color.FromArgb(5, 21, 64);
             label20.ForeColor = Color.FromArgb(5, 21, 64);
 
+            panel10.BackColor = Color.FromArgb(5, 21, 64);
+
             label19.Click += button16_Click;
             label20.Click += button22_Click;
 
+            flowLayoutPanel2.AutoScroll = true;
+            monthCalendar1.MaxSelectionCount = 30;
+            monthCalendar1.BackColor = Color.FromArgb(238, 242, 247);
+            monthCalendar1.ForeColor = Color.FromArgb(5, 21, 64);
+            monthCalendar1.Size = new Size(50, 50);
 
+  
+            dataGridView2.BackgroundColor = Color.FromArgb(238, 242, 247);
+            dataGridView2.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
+            dataGridView2.RowsDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
+            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            dataGridView2.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(5, 21, 64);
+            dataGridView2.RowsDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView2.RowsDefaultCellStyle.Font = new Font("휴먼엑스포", 13);
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            flowLayoutPanel3.AutoScroll = true;
 
 
 
@@ -67,9 +89,7 @@ namespace LENTAL_STORE.LS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            panel2.Visible = true;
-            panel3.Visible = false;
-            panel4.Visible = false;
+            view(panel2);
         }
 
         private void back(object sender, EventArgs e)
@@ -92,14 +112,14 @@ namespace LENTAL_STORE.LS
             {
                 pictureBox1.Image = new Bitmap(dialog.FileName);
                 pictureBox1.Tag = dialog.FileName;
-                
+
             }
             else if (dialog.ShowDialog() == DialogResult.Cancel)
             {
                 return;
             }
 
-            
+
 
 
         }
@@ -127,7 +147,7 @@ namespace LENTAL_STORE.LS
 
             object cate = com1.ExecuteScalar();
 
-            if(cate == null)
+            if (cate == null)
             {
                 com2.ExecuteNonQuery();
             }
@@ -159,7 +179,7 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
 
-            
+
             com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'yyyy-MM-dd') as day from statistic group by to_char(statistic_date, 'yyyy-MM-dd') order by to_char(statistic_date, 'yyyy-MM-dd') desc) where rownum <= 5";
 
             OracleDataReader rdr = com1.ExecuteReader();
@@ -194,7 +214,7 @@ namespace LENTAL_STORE.LS
             }
         }
 
-        
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -207,126 +227,295 @@ namespace LENTAL_STORE.LS
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            chart1.Series[0].Points.Clear();
-            OracleConnection conn = Form1.oracleconnect();
-            OracleCommand com1 = new OracleCommand("", conn);
 
-
-            int s = comboBox2.SelectedIndex;
-            string ymd = "";
-            if (s == 0)
-            {
-                chartinit(sender, e);
-                return;
-            }
-            else if (s == 1)
-            {
-                ymd = "yyyy-mm";
-            }
-            else
-            {
-                ymd = "yyyy";
-            }
-            com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'" + ymd + "') as day from statistic group by to_char(statistic_date, '" + ymd + "') order by to_char(statistic_date, '" + ymd + "') desc) where rownum <= 5";
-
-            OracleDataReader rdr = com1.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
-            }
+            chart1_view(sender, e);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            chartinit(sender, e);
+            /*chartinit(sender, e);*/
+            chart1_view(sender, e);
 
         }
 
-        private void chart2init()
+        private void chart2init(object sender, EventArgs e)
         {
-            
-            Button[] bt = new Button[100];
 
-            
+            for (int ix = flowLayoutPanel1.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel1.Controls[ix].Dispose();
+            }
+
+
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT ITEM_CATE_NAME FROM ITEM_CATE";
+            com1.CommandText = "SELECT * FROM ITEM_CATE";
 
             OracleDataReader rdr = com1.ExecuteReader();
 
-            int t = 0;
-            int HEIGHT = 100;
-            int WIDTH = 100;
-            while(rdr.Read())
+
+            while (rdr.Read())
             {
                 string catename = rdr["ITEM_CATE_NAME"].ToString();
-                bt[t] = new Button();
-                panel4.Controls.Add(bt[t]);
-                bt[t].Text = catename;
-                bt[t].Location = new System.Drawing.Point(WIDTH, HEIGHT);
-                
-                WIDTH += 80;
-                bt[t].Tag = catename;
-                bt[t].Click += itemchart;
-                t++;
+                Label lb = new Label();
+
+                flowLayoutPanel1.Controls.Add(lb);
+                lb.AutoSize = true;
+                lb.MinimumSize = new Size(140, 0);
+                lb.Text = catename;
+                lb.Font =  new Font("휴먼엑스포", 16, FontStyle.Bold);
+                lb.Tag = catename;
+                lb.Click += ic;
             }
 
+            itemchart(sender, e);
             
+
+
 
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            panel2.Visible = false;
-            panel3.Visible = false;
-            panel4.Visible = true;
-            chart2init();
+            view(panel4);
+            dateTimePicker3.Value = DateTime.Today.AddDays(-5);
+            dateTimePicker4.Value = DateTime.Today;
+            comboBox3.SelectedIndex = 0;
+            chart2init(sender, e);
+        }
+
+        private void ic(object sender, EventArgs e)
+        {
+            if (((Label)sender).BackColor != Color.FromArgb(5, 21, 64))
+            {
+                ((Label)sender).BackColor = Color.FromArgb(5, 21, 64);
+                ((Label)sender).ForeColor = Color.White;
+            }
+            else
+            {
+                ((Label)sender).BackColor = Color.FromArgb(238, 242, 247);
+                ((Label)sender).ForeColor = Color.FromArgb(5, 21, 64);
+            }
+            itemchart(sender, e);
         }
 
         private void itemchart(object sender, EventArgs e)
         {
-            string catename = ((Button)sender).Tag.ToString();
+            
 
-            if(((Button)sender).BackColor != Color.Blue)
+            for(int ix = chart2.Series.Count - 1; ix >= 0; ix--)
             {
-                ((Button)sender).BackColor = Color.Blue;
-                chart2.Series.Add(catename);
+                chart2.Series.RemoveAt(ix);
+            }
+            int cost = -1;
 
-                OracleConnection conn = Form1.oracleconnect();
-                OracleCommand com1 = new OracleCommand("", conn);
-
-                com1.CommandText = "SELECT TO_CHAR(STATISTIC_DATE, 'YYYY-mm-DD') as day,COUNT(*) as n FROM (SELECT ITEM_NUM FROM ITEM, ITEM_CATE WHERE ITEM.ITEM_CATE = item_cate.item_cate_num aND item_cate.item_cate_name = '" + catename + "') PP, STATISTIC WHERE PP.ITEM_NUM = statistic.statistic_itemitemnum AND STATISTIC_TYPE=1 GROUP BY TO_CHAR(STATISTIC_DATE, 'YYYY-mm-DD') order by TO_CHAR(STATISTIC_DATE, 'YYYY-mm-DD') desc";
-                OracleDataReader rdr = com1.ExecuteReader();
-
-                /*while (rdr.Read())
+            for (int ix = flowLayoutPanel1.Controls.Count - 1; ix >= 0; ix--)
+            {
+                if (flowLayoutPanel1.Controls[ix].BackColor == Color.FromArgb(5, 21, 64))
                 {
-                    chart2.Series[catename].Points.AddXY(rdr["day"], rdr["n"]);
-                }*/
+                    string catename = flowLayoutPanel1.Controls[ix].Text;
 
-                int i = 0;
-                while (rdr.Read())
-                {
-                    string nd = rdr["day"].ToString();
-                    while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
+
+
+
+                    chart2.Series.Add(catename);
+
+                    OracleConnection conn = Form1.oracleconnect();
+                    OracleCommand com1 = new OracleCommand("", conn);
+
+
+
+                    int s = comboBox3.SelectedIndex;
+                    string ymd = "";
+                    string dtp = "";
+                    string dtp2 = "";
+
+                    if (s == 0 || s == -1)
                     {
-                        chart2.Series[catename].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
-                        i++;
-                        if (i >= 5) break;
+                        ymd = "yyyy-MM-dd";
+                        dtp = dateTimePicker3.Value.ToString("yyyy-MM-dd");
+                        dtp2 = dateTimePicker4.Value.ToString("yyyy-MM-dd");
                     }
-                    if (i >= 5) break;
-                    chart2.Series[catename].Points.AddXY(rdr["day"], rdr["n"]);
-                    i++;
+                    else if (s == 1)
+                    {
+                        ymd = "yyyy-MM";
+                        dtp = dateTimePicker3.Value.ToString("yyyy-MM");
+                        dtp2 = dateTimePicker4.Value.ToString("yyyy-MM");
+                    }
+                    else
+                    {
+                        ymd = "yyyy";
+                        dtp = dateTimePicker3.Value.ToString("yyyy");
+                        dtp2 = dateTimePicker4.Value.ToString("yyyy");
+                    }
 
+
+
+                    com1.CommandText = "SELECT TO_CHAR(STATISTIC_DATE, '" + ymd + "') as day,COUNT(*) as COST FROM (SELECT ITEM_NUM FROM ITEM, ITEM_CATE WHERE ITEM.ITEM_CATE = item_cate.item_cate_num aND item_cate.item_cate_name = '" + catename + "') PP, STATISTIC WHERE PP.ITEM_NUM = statistic.statistic_itemitemnum AND STATISTIC_TYPE=1 AND TO_CHAR(STATISTIC.STATISTIC_DATE, '" + ymd + "') >= '" + dtp + "' AND TO_CHAR(STATISTIC.STATISTIC_DATE, '" + ymd + "') <= '" + dtp2 + "'GROUP BY TO_CHAR(STATISTIC_DATE, '" + ymd + "') order by TO_CHAR(STATISTIC_DATE, '" + ymd + "') desc";
+                    OracleDataReader rdr = com1.ExecuteReader();
+
+
+                    if (s == 0 || s == -1)
+                    {
+                        if (checkBox2.Checked)
+                        {
+                            while (rdr.Read())
+                            {
+                                chart2.Series[catename].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                                cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                            }
+                        }
+                        else
+                        {
+
+                            int i = 0;
+                            while (rdr.Read())
+                            {
+                                string nd = rdr["day"].ToString();
+                                while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
+                                {
+                                    chart2.Series[catename].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                                    i++;
+
+                                }
+
+                                chart2.Series[catename].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                                cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                                i++;
+
+                            }
+                            if (((System.DateTime.Today).AddDays(-1 * (i - 1))).ToString("yyyy-MM-dd") != dateTimePicker3.Value.ToString("yyyy-MM-dd"))
+                            {
+                                while (true)
+                                {
+                                    if (((System.DateTime.Today).AddDays(-1 * i)) >= dateTimePicker3.Value)
+                                    {
+                                        chart2.Series[catename].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                    i++;
+                                }
+                            }
+
+                        }
+                    }
+                    else if (s == 1)
+                    {
+                        if (checkBox2.Checked)
+                        {
+                            while (rdr.Read())
+                            {
+                                chart2.Series[catename].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                            }
+                        }
+                        else
+                        {
+
+                            int i = 0;
+                            while (rdr.Read())
+                            {
+                                string nd = rdr["day"].ToString();
+                                while (nd != ((System.DateTime.Today).AddMonths(-1 * i)).ToString("yyyy-MM"))
+                                {
+                                    chart2.Series[catename].Points.AddXY(((System.DateTime.Today).AddMonths(-1 * i)).ToString("yyyy-MM"), 0);
+                                    i++;
+
+                                }
+
+                                chart2.Series[catename].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                                cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                                i++;
+
+                            }
+                            if (((System.DateTime.Today).AddMonths(-1 * (i - 1))) != dateTimePicker3.Value)
+                            {
+                                while (true)
+                                {
+                                    if (((System.DateTime.Today).AddMonths(-1 * i)) >= dateTimePicker3.Value)
+                                    {
+                                        chart2.Series[catename].Points.AddXY(((System.DateTime.Today).AddMonths(-1 * i)).ToString("yyyy-MM"), 0);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                    i++;
+                                }
+                            }
+
+                        }
+                    }
+                    else
+                    {
+
+                        if (checkBox2.Checked)
+                        {
+                            while (rdr.Read())
+                            {
+                                chart2.Series[catename].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                            }
+                        }
+                        else
+                        {
+
+                            int i = 0;
+                            while (rdr.Read())
+                            {
+                                string nd = rdr["day"].ToString();
+                                while (nd != ((System.DateTime.Today).AddYears(-1 * i)).ToString("yyyy"))
+                                {
+                                    chart2.Series[catename].Points.AddXY(((System.DateTime.Today).AddYears(-1 * i)).ToString("yyyy"), 0);
+                                    i++;
+
+                                }
+
+                                chart2.Series[catename].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                                cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                                i++;
+
+                            }
+                            if (((System.DateTime.Today).AddYears(-1 * (i - 1))) != dateTimePicker3.Value)
+                            {
+                                while (true)
+                                {
+                                    if (((System.DateTime.Today).AddYears(-1 * i)) >= dateTimePicker3.Value)
+                                    {
+                                        chart2.Series[catename].Points.AddXY(((System.DateTime.Today).AddYears(-1 * i)).ToString("yyyy"), 0);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                    i++;
+                                }
+                            }
+
+                        }
+                    }
                 }
             }
-            else
-            {
-                ((Button)sender).BackColor = Color.White;
-                chart2.Series.Remove(chart2.Series[catename]);
-            }
             
+
+            
+            chart2.Legends[0].Enabled = false;
+            chart2.BackColor = Color.FromArgb(238, 242, 247);
+            System.Windows.Forms.DataVisualization.Charting.Axis at = chart2.ChartAreas[0].AxisY;
+            at.Minimum = 0;
+            at.Maximum = 10;
+
+            System.Windows.Forms.DataVisualization.Charting.StripLine st = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            st.BackColor = Color.FromArgb(238, 242, 247);
+            st.StripWidth = 10;
+            st.IntervalOffset = 0;
+
+
+
+            chart2.ChartAreas[0].AxisY.StripLines.Add(st);
+
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -575,8 +764,8 @@ namespace LENTAL_STORE.LS
         {
             del = new string[100];
             k = 0;
-            
-            panel7.Visible = true;
+
+            view(panel7);
 
             table = new DataTable();
 
@@ -680,13 +869,12 @@ namespace LENTAL_STORE.LS
                 }
             }
 
-            for(int i = 0; i < 100; ++i)
+            while(s.Count() != 0)
             {
-                if(del[i] != null)
-                {
-                    com1.CommandText = "UPDATE ITEM SET ITEM_STATUS = 3 WHERE ITEM_NUM = '" +del[i] +"'";
+                
+                    com1.CommandText = "UPDATE ITEM SET ITEM_STATUS = 3 WHERE ITEM_NUM = '" + s.Pop() +"'";
                     com1.ExecuteNonQuery();
-                }
+                
             }
         
         }
@@ -697,13 +885,12 @@ namespace LENTAL_STORE.LS
             for (int i = 0; i < dataGridView2.Rows.Count; i++)
 
             {
-                dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                //dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
                 if (dataGridView2.Rows[i].Selected == true)
                 {
                     string t = (dataGridView2.Rows[i].Cells[0].Value).ToString();
-                    del[k] = t;
-                    k++;
+                    s.Push(t);
                     dataGridView2.Rows.Remove(dataGridView2.Rows[i]);
                 }
             }
@@ -744,114 +931,20 @@ namespace LENTAL_STORE.LS
         private void button17_Click(object sender, EventArgs e)
         {
             
-            panel8.Visible = true;
-            //flowLayoutPanel1.AutoSize = true;
-            OracleConnection conn = Form1.oracleconnect();
-            OracleCommand com1 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = 3";
-
-            OracleDataReader rdr = com1.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                Button bt = new Button();
-                bt.Text = rdr["ITEM_NAME"].ToString();
-                bt.Tag = rdr["ITEM_NUM"].ToString();
-                bt.AutoSize = true;
-                bt.Click += bc;
-
-                flowLayoutPanel1.Controls.Add(bt);
-                
-            }
 
         }
 
         private void bc(object sender, EventArgs e)
         {
 
-            for (int ix = flowLayoutPanel2.Controls.Count - 1; ix >= 0; ix--)
-            {
-                flowLayoutPanel2.Controls[ix].Dispose();
-            }
-            string t = ((Button)sender).Tag.ToString();
 
-            OracleConnection conn = Form1.oracleconnect();
-            OracleCommand com1 = new OracleCommand("", conn);
-            OracleCommand com2 = new OracleCommand("", conn);
-
-            com1.CommandText = "SELECT * FROM LENTAL WHERE LENTAL_ITEM = '" + t +"'";
-            com2.CommandText = "SELECT * FROM STATISTIC WHERE STATISTIC_ITEMITEMNUM = '" + t + "'";
-
-            OracleDataReader rdr = com1.ExecuteReader();
-            OracleDataReader rdr2 = com2.ExecuteReader();
-
-            label11.Text = "";
-
-            while(rdr.Read())
-            {
-                label11.Text = "현재 대여자:" + rdr["LENTAL_USERID"].ToString();
-            }
-            while(rdr2.Read())
-            {
-                Panel pn = new Panel();
-                pn.AutoSize = true;
-                pn.BackColor = Color.Gainsboro;
-
-                Label lb = new Label();
-                lb.AutoSize = true;
-                lb.Text = rdr2["STATISTIC_USERID"].ToString() + "\n"+rdr2["STATISTIC_DATE"].ToString() + rdr2["STATISTIC_ITEMCOUNT"].ToString() +"\n" +rdr2["STATISTIC_LENTALCOST"].ToString() + rdr2["STATISTIC_TYPE"].ToString();
-
-                pn.Controls.Add(lb);
-                flowLayoutPanel2.Controls.Add(pn);
-
-            }
             
         }
 
         private void button18_Click(object sender, EventArgs e)
         {
             
-            panel9.Visible = true;
-
-            chart3.Series[0].Points.Clear();
-            OracleConnection conn = Form1.oracleconnect();
-            OracleCommand com1 = new OracleCommand("", conn);
-            OracleCommand com2 = new OracleCommand("", conn);
-
-
-            com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'yyyy-MM-dd') as day from statistic group by to_char(statistic_date, 'yyyy-MM-dd') order by to_char(statistic_date, 'yyyy-MM-dd') desc) where rownum <= 5";
-            com2.CommandText = "SELECT * FROM STATISTIC,ITEM WHERE statistic.statistic_itemitemnum = item.item_num AND STATISTIC_DATE = '"+System.DateTime.Now.ToString("yyyy-MM-dd")+"' AND NOT STATISTIC_LENTALCOST = 0";
-            OracleDataReader rdr = com1.ExecuteReader();
-            OracleDataReader rdr2 = com2.ExecuteReader();
-
-
-            
-
-            int i = 0;
-            while (rdr.Read())
-            {
-                string nd = rdr["day"].ToString();
-                while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
-                {
-                    chart3.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
-                    i++;
-                    if (i >= 5) break;
-                }
-                if (i >= 5) break;
-                chart3.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
-                i++;
-
-            }
-
-            while(rdr2.Read())
-            {
-                Label lb = new Label();
-                lb.Text = rdr2["ITEM_NAME"].ToString() +" - " +rdr2["STATISTIC_LENTALCOST"].ToString();
-                lb.AutoSize = true;
-                flowLayoutPanel3.Controls.Add(lb);
-            }
-
 
 
             
@@ -862,6 +955,11 @@ namespace LENTAL_STORE.LS
         {
 
             view(panel9);
+
+            for (int ix = flowLayoutPanel3.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel3.Controls[ix].Dispose();
+            }
 
             chart3.Legends[0].Enabled = false;
             chart4.Legends[0].Enabled = false;
@@ -877,6 +975,10 @@ namespace LENTAL_STORE.LS
             chart4.Series[0].Color = Color.FromArgb(5, 21, 64);
             chart4.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("휴먼엑스포", 8);
             chart4.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font("Arial 3", 10);
+
+            label27.ForeColor = Color.FromArgb(5, 21, 64);
+            label28.ForeColor = Color.FromArgb(5, 21, 64);
+            label29.ForeColor = Color.FromArgb(5, 21, 64);
 
 
 
@@ -968,16 +1070,19 @@ namespace LENTAL_STORE.LS
 
             chart4.ChartAreas[0].AxisY.StripLines.Add(st);
 
-
+            int cntprice = 0;
             while (rdr2.Read())
             {
                 Label lb = new Label();
                 lb.Text = rdr2["ITEM_NAME"].ToString() + " - " + rdr2["STATISTIC_LENTALCOST"].ToString();
                 lb.AutoSize = true;
+                lb.Font = new Font("휴먼엑스포", 10);
+                lb.ForeColor = Color.FromArgb(5, 21, 64);
+                cntprice += Convert.ToInt32(rdr2["STATISTIC_LENTALCOST"]);
                 flowLayoutPanel3.Controls.Add(lb);
             }
 
-
+            label29.Text = cntprice.ToString() + "원";
 
 
 
@@ -991,7 +1096,7 @@ namespace LENTAL_STORE.LS
 
         private void button20_Click(object sender, EventArgs e)
         {
-            panel8.Visible = false;
+            
             
         }
 
@@ -1032,13 +1137,13 @@ namespace LENTAL_STORE.LS
 
         private void view(Panel vp)
         {
+            panel1.Visible = false;
             panel2.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
             panel5.Visible = false;
             panel6.Visible = false;
             panel7.Visible = false;
-            panel8.Visible = false;
             panel9.Visible = false;
 
             vp.Visible = true;
@@ -1046,55 +1151,8 @@ namespace LENTAL_STORE.LS
 
         private void button23_Click(object sender, EventArgs e)
         {
-            chart1.Series[0].Points.Clear();
-            OracleConnection conn = Form1.oracleconnect();
-            OracleCommand com1 = new OracleCommand("", conn);
-
-
-            com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'yyyy-MM-dd') as day from statistic group by to_char(statistic_date, 'yyyy-MM-dd') order by to_char(statistic_date, 'yyyy-MM-dd') desc) where DAY > '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' AND DAY < '" + dateTimePicker2.Value.ToString("yyyy-MM-dd") + "'";
-
-            OracleDataReader rdr = com1.ExecuteReader();
-
-
-            if (checkBox1.Checked)
-            {
-                while (rdr.Read())
-                {
-                    chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
-                }
-            }
-            else
-            {
-
-                int i = 0;
-                while (rdr.Read())
-                {
-                    string nd = rdr["day"].ToString();
-                    while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
-                    {
-                        chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
-                        i++;
-                        
-                    }
-                    
-                    chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
-                    i++;
-
-                }
-                while (true)
-                {
-                    if (((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd") != dateTimePicker1.Value.ToString("yyyy-MM-dd"))
-                    {
-                        chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    i++;
-                }
-
-            }
+           
+            chart1_view(sender, e);
         }
 
         private void label13_Click(object sender, EventArgs e)
@@ -1110,6 +1168,331 @@ namespace LENTAL_STORE.LS
         private void label22_Click(object sender, EventArgs e)
         {
             button5_Click_1(sender, e);
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            view(panel3);
+            dateTimePicker1.Value = DateTime.Today.AddDays(-5);
+            dateTimePicker2.Value = DateTime.Today;
+            comboBox2.SelectedIndex = 0;
+            chart1_view(sender, e);
+        }
+
+        private void chart1_view(object sender, EventArgs e)
+        {
+            chart1.Series[0].Points.Clear();
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            int s = comboBox2.SelectedIndex;
+            string ymd = "";
+            string dtp = "";
+            string dtp2 = "";
+
+            if (s == 0 || s == -1)
+            {
+                ymd = "yyyy-MM-dd";
+                dtp = dateTimePicker1.Value.ToString("yyyy-MM-dd");
+                dtp2 = dateTimePicker2.Value.ToString("yyyy-MM-dd");
+            }
+            else if (s == 1)
+            {
+                ymd = "yyyy-MM";
+                dtp = dateTimePicker1.Value.ToString("yyyy-MM");
+                dtp2 = dateTimePicker2.Value.ToString("yyyy-MM");
+            }
+            else
+            {
+                ymd = "yyyy";
+                dtp = dateTimePicker1.Value.ToString("yyyy");
+                dtp2 = dateTimePicker2.Value.ToString("yyyy");
+            }
+
+
+
+            com1.CommandText = "select* from(SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE, '" + ymd + "') as day from statistic group by to_char(statistic_date, '" + ymd + "') order by to_char(statistic_date, '" + ymd + "') desc) where DAY >= '" + dtp + "' AND DAY<= '" + dtp2 + "'";
+            OracleDataReader rdr = com1.ExecuteReader();
+            int cost = -1;
+
+            if (s == 0 || s == -1)
+            {
+                if (checkBox1.Checked)
+                {
+                    while (rdr.Read())
+                    {
+                        chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                        cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                    }
+                }
+                else
+                {
+
+                    int i = 0;
+                    while (rdr.Read())
+                    {
+                        string nd = rdr["day"].ToString();
+                        while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
+                        {
+                            chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                            i++;
+
+                        }
+
+                        chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                        cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                        i++;
+
+                    }
+                    if (((System.DateTime.Today).AddDays(-1 * (i - 1))).ToString("yyyy-MM-dd") != dateTimePicker1.Value.ToString("yyyy-MM-dd"))
+                    {
+                        while (true)
+                        {
+                            if (((System.DateTime.Today).AddDays(-1 * i)) >= dateTimePicker1.Value)
+                            {
+                                int r = ((System.DateTime.Today).AddDays(-1 * i).Day);
+                                chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            i++;
+                        }
+                    }
+
+                }
+            }else if (s == 1)
+            {
+                if (checkBox1.Checked)
+                {
+                    while (rdr.Read())
+                    {
+                        chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                    }
+                }
+                else
+                {
+
+                    int i = 0;
+                    while (rdr.Read())
+                    {
+                        string nd = rdr["day"].ToString();
+                        while (nd != ((System.DateTime.Today).AddMonths(-1 * i)).ToString("yyyy-MM"))
+                        {
+                            chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddMonths(-1 * i)).ToString("yyyy-MM"), 0);
+                            i++;
+
+                        }
+
+                        chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                        cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                        i++;
+
+                    }
+                    if (((System.DateTime.Today).AddMonths(-1 * (i - 1))) != dateTimePicker1.Value)
+                    {
+                        while (true)
+                        {
+                            if (((System.DateTime.Today).AddMonths(-1 * i)) >= dateTimePicker1.Value)
+                            {
+                                chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddMonths(-1 * i)).ToString("yyyy-MM"), 0);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            i++;
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                
+                    if (checkBox1.Checked)
+                    {
+                        while (rdr.Read())
+                        {
+                            chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                        }
+                    }
+                    else
+                    {
+
+                        int i = 0;
+                        while (rdr.Read())
+                        {
+                            string nd = rdr["day"].ToString();
+                            while (nd != ((System.DateTime.Today).AddYears(-1 * i)).ToString("yyyy"))
+                            {
+                                chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddYears(-1 * i)).ToString("yyyy"), 0);
+                                i++;
+
+                            }
+
+                            chart1.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                        cost = System.Math.Max(cost, Convert.ToInt32(rdr["cost"]));
+                        i++;
+
+                        }
+                        if (((System.DateTime.Today).AddYears(-1 * (i-1))) != dateTimePicker1.Value) {
+                        while (true)
+                        {
+                            if (((System.DateTime.Today).AddYears(-1 * i)) >= dateTimePicker1.Value)
+                            {
+                                chart1.Series[0].Points.AddXY(((System.DateTime.Today).AddYears(-1 * i)).ToString("yyyy"), 0);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            i++;
+                        }
+                    }
+
+                    }
+                
+            }
+
+            chart1.Legends[0].Enabled = false;
+            chart1.BackColor = Color.FromArgb(238, 242, 247);
+
+            System.Windows.Forms.DataVisualization.Charting.Axis ay = chart1.ChartAreas[0].AxisY;
+            ay.Minimum = 0;
+            ay.Maximum = cost + 100000;
+
+            System.Windows.Forms.DataVisualization.Charting.StripLine sl0 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            sl0.BackColor = Color.FromArgb(238, 242, 247);
+            sl0.StripWidth = cost + 100000;
+            sl0.IntervalOffset = 0;
+
+
+
+            chart1.ChartAreas[0].AxisY.StripLines.Add(sl0);
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            chart1_view(sender, e);
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            chart1_view(sender, e);
+        }
+
+        private void dateTimePicker3_ValueChanged(object sender, EventArgs e)
+        {
+            itemchart(sender, e);
+        }
+
+        private void dateTimePicker4_ValueChanged(object sender, EventArgs e)
+        {
+            itemchart(sender, e);
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            itemchart(sender, e);
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            itemchart(sender, e);
+        }
+
+        private void button5_Click_2(object sender, EventArgs e)
+        {
+
+            for (int ix = flowLayoutPanel2.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel2.Controls[ix].Dispose();
+            }
+            view(panel1);
+
+            string st = monthCalendar1.SelectionStart.ToString("yyyy-MM-dd");
+            string en = monthCalendar1.SelectionEnd.ToString("yyyy-MM-dd");
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            com1.CommandText = "SELECT * FROM STATISTIC,ITEM WHERE STATISTIC_ITEMITEMNUM = ITEM_NUM AND STATISTIC_DATE >='" + st + "' AND STATISTIC_DATE <= '" +en +"' AND NOT STATISTIC_LENTALCOST = 0";
+            OracleDataReader rdr = com1.ExecuteReader();
+            int cntprice = 0;
+            while(rdr.Read())
+            {
+                Label lb = new Label();
+                lb.Text = Convert.ToDateTime(rdr["STATISTIC_DATE"]).ToString("yy-MM-dd");
+
+                flowLayoutPanel2.Controls.Add(lb);
+                lb.AutoSize = true;
+                lb.MinimumSize = new Size(50, 0);
+                lb.Font = new Font("휴먼엑스포", 10);
+
+                Label lb2 = new Label();
+                lb2.Text = rdr["STATISTIC_USERID"].ToString();
+
+                flowLayoutPanel2.Controls.Add(lb2);
+                lb2.AutoSize = true;
+                lb2.MinimumSize = new Size(130, 0);
+                lb2.Font = new Font("휴먼엑스포", 10);
+
+                Label lb4 = new Label();
+                lb4.Text = rdr["ITEM_NAME"].ToString();
+
+                flowLayoutPanel2.Controls.Add(lb4);
+                lb4.AutoSize = true;
+                lb4.MinimumSize = new Size(250, 0);
+                lb4.Font = new Font("휴먼엑스포", 10);
+
+                Label lb3 = new Label();
+                lb3.Text = rdr["STATISTIC_LENTALCOST"].ToString();
+                cntprice += Convert.ToInt32(rdr["STATISTIC_LENTALCOST"]);
+
+                flowLayoutPanel2.Controls.Add(lb3);
+                lb3.AutoSize = true;
+                lb3.MinimumSize = new Size(70, 0);
+                lb3.Font = new Font("휴먼엑스포", 10);
+            }
+
+            label23.Text = cntprice.ToString();
+            label23.Font = new Font("휴먼엑스포", 10);
+            label23.ForeColor = Color.FromArgb(5, 21, 64);
+
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+            button5_Click_2(sender, e);
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+            button5_Click_2(sender, e);
+        }
+
+        private void label24_Click(object sender, EventArgs e)
+        {
+            button2_Click(sender, e);   
+        }
+
+        private void label25_Click(object sender, EventArgs e)
+        {
+            button1_Click(sender, e);   
+        }
+
+        private void label26_Click(object sender, EventArgs e)
+        {
+            button10_Click(sender, e);
         }
     }
 }

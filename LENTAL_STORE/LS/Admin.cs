@@ -42,8 +42,26 @@ namespace LENTAL_STORE.LS
             CA.CursorX.IsUserEnabled = true;
             CA.AxisX.ScaleView.Zoom(0, 10);
 
+            label15.ForeColor = Color.FromArgb(5, 21, 64);
+            label16.ForeColor = Color.FromArgb(5, 21, 64);
+            label17.ForeColor = Color.FromArgb(5, 21, 64);
+            label15.ForeColor = Color.FromArgb(5, 21, 64);
+            label16.ForeColor = Color.FromArgb(5, 21, 64);
+            label17.ForeColor = Color.FromArgb(5, 21, 64);
+            label18.ForeColor = Color.FromArgb(5, 21, 64);
+            label10.ForeColor = Color.FromArgb(5, 21, 64);
 
-            
+            label19.ForeColor = Color.FromArgb(5, 21, 64);
+            label20.ForeColor = Color.FromArgb(5, 21, 64);
+
+            label19.Click += button16_Click;
+            label20.Click += button22_Click;
+
+
+
+
+
+
 
         }
 
@@ -327,10 +345,12 @@ namespace LENTAL_STORE.LS
 
         private void button5_Click_1(object sender, EventArgs e)
         {
-            panel2.Visible = false;
-            panel3.Visible = false;
-            panel4.Visible = false;
-            panel5.Visible = true;
+            for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel6.Controls[ix].Dispose();
+            }
+
+            view(panel5);
 
             DataTable table = new DataTable();
 
@@ -343,17 +363,126 @@ namespace LENTAL_STORE.LS
 
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
 
             com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM";
+            com2.CommandText = "SELECT * FROM ITEM_CATE";
 
             OracleDataReader rdr = com1.ExecuteReader();
+            OracleDataReader rdr2 = com2.ExecuteReader();
+
+            while(rdr2.Read())
+            {
+                Label lb = new Label();
+                lb.AutoSize = true;
+                lb.ForeColor = Color.FromArgb(5, 21, 64);
+
+                lb.Text = rdr2["ITEM_CATE_NAME"].ToString();
+                lb.Tag = rdr2["ITEM_CATE_NUM"].ToString();
+
+                lb.MinimumSize = new Size(0, 0);
+                lb.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+                lb.Click += cate_filter;
+                flowLayoutPanel6.Controls.Add(lb);
+            }
 
             while(rdr.Read())
             {
-                table.Rows.Add(rdr["STATISTIC_USERID"], rdr["ITEM_NAME"], rdr["STATISTIC_DATE"], rdr["STATISTIC_ITEMCOUNT"], rdr["STATISTIC_EXDATE"], rdr["STATISTIC_TYPE"]);
+                if(rdr["STATISTIC_EXDATE"].ToString() != "")
+                    table.Rows.Add(rdr["STATISTIC_USERID"], rdr["ITEM_NAME"], Convert.ToDateTime(rdr["STATISTIC_DATE"]).ToString("yy-MM-dd"), rdr["STATISTIC_ITEMCOUNT"], Convert.ToDateTime(rdr["STATISTIC_EXDATE"]).ToString("yy-MM-dd"), "대여");
+                else
+                    table.Rows.Add(rdr["STATISTIC_USERID"], rdr["ITEM_NAME"], Convert.ToDateTime(rdr["STATISTIC_DATE"]).ToString("yy-MM-dd"), "-", "-", "반납");
             }
 
             dataGridView1.DataSource = table;
+            dataGridView1.BackgroundColor = Color.FromArgb(238, 242, 247);
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
+            dataGridView1.RowsDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            dataGridView1.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(5, 21, 64);
+            dataGridView1.RowsDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView1.RowsDefaultCellStyle.Font = new Font("휴먼엑스포", 13);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridView1.RowHeadersVisible = false;
+        }
+
+        private void button5_Click_2()
+        {
+
+            view(panel5);
+
+            DataTable table = new DataTable();
+
+            table.Columns.Add("ID");
+            table.Columns.Add("상품명");
+            table.Columns.Add("날짜");
+            table.Columns.Add("대여일수");
+            table.Columns.Add("반납일");
+            table.Columns.Add("분류");
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+            string nt = "";
+
+            for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
+            {
+                if(flowLayoutPanel6.Controls[ix].BackColor == Color.Red)
+                {
+                    nt += "AND STATISTIC_ITEMITEMNUM = '" +flowLayoutPanel6.Controls[ix].Tag +"'";
+                }
+            }
+
+            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM " + nt;
+            com2.CommandText = "SELECT * FROM ITEM_CATE";
+
+            OracleDataReader rdr = com1.ExecuteReader();
+            OracleDataReader rdr2 = com2.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                if (rdr["STATISTIC_EXDATE"].ToString() != "")
+                    table.Rows.Add(rdr["STATISTIC_USERID"], rdr["ITEM_NAME"], Convert.ToDateTime(rdr["STATISTIC_DATE"]).ToString("yy-MM-dd"), rdr["STATISTIC_ITEMCOUNT"], Convert.ToDateTime(rdr["STATISTIC_EXDATE"]).ToString("yy-MM-dd"), "대여");
+                else
+                    table.Rows.Add(rdr["STATISTIC_USERID"], rdr["ITEM_NAME"], Convert.ToDateTime(rdr["STATISTIC_DATE"]).ToString("yy-MM-dd"), "-", "-", "반납");
+            }
+
+            dataGridView1.DataSource = table;
+            dataGridView1.BackgroundColor = Color.FromArgb(238, 242, 247);
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
+            dataGridView1.RowsDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            dataGridView1.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(5, 21, 64);
+            dataGridView1.RowsDefaultCellStyle.SelectionForeColor = Color.White;
+            dataGridView1.RowsDefaultCellStyle.Font = new Font("휴먼엑스포", 13);
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridView1.RowHeadersVisible = false;
+        }
+
+
+        private void cate_filter(object sender, EventArgs e)
+        {
+            if(((Label)sender).BackColor == Color.Red)
+            {
+                for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
+                {
+                    flowLayoutPanel6.Controls[ix].BackColor = Color.FromArgb(238, 242, 247);
+                }
+            }
+            else
+            {
+                for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
+                {
+                    flowLayoutPanel6.Controls[ix].BackColor = Color.FromArgb(238, 242, 247);
+                }
+                ((Label)sender).BackColor = Color.Red;
+            }
+
+            button5_Click_2();
+                    
+                
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -367,40 +496,79 @@ namespace LENTAL_STORE.LS
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
-            panel6.Visible = true;
 
-            listBox1.Items.Clear();
-            listBox2.Items.Clear();
-            listBox3.Items.Clear();
+            view(panel6);
 
+            for (int ix = flowLayoutPanel4.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel4.Controls[ix].Dispose();
+            }
 
-            int WIDTH = 200;
-            int HEIGHT = 300;
-        OracleConnection conn = Form1.oracleconnect();
+            for (int ix = flowLayoutPanel5.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel5.Controls[ix].Dispose();
+            }
+
+            OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
 
             com1.CommandText = "SELECT NVL(PI.USERID,0) AS I,PI.CONTENT, FN.USERID, FN.P, FN.P2 FROM BLACKLIST PI RIGHT OUTER JOIN (SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd")+ "' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID) FN ON PI.userid = FN.USERID";
              OracleDataReader rdr =   com1.ExecuteReader();
-            int i = 0;
+
             while(rdr.Read())
             {
-                
+                Label lb = new Label();
+                Label bc = new Label();
+
+                lb.ForeColor = Color.FromArgb(5, 21, 64);
+                lb.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+                lb.AutoSize = true;
+                lb.MinimumSize = new Size(180, 0);
+
+                bc.ForeColor = Color.FromArgb(5, 21, 64);
+                bc.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+                bc.AutoSize = false;
+                bc.TextAlign = ContentAlignment.MiddleRight;
+                bc.Size = new Size(50, lb.Height);
+
                 int cnt = Convert.ToInt32(rdr["P"]) + Convert.ToInt32(rdr["P2"]);
+                lb.Text = rdr["USERID"].ToString();
+                bc.Text = cnt.ToString();
+
+                lb.Click += blacklabelclick;
+                
                 if (rdr["I"].ToString() != "0")
                 {
-                    listBox1.Items.Add(rdr["USERID"].ToString());
+                    flowLayoutPanel4.Controls.Add(lb);
+                    flowLayoutPanel4.Controls.Add(bc);
                 }
                 else
                 {
-                    listBox2.Items.Add(rdr["userid"].ToString());
-                    listBox3.Items.Add(cnt.ToString());
+                    flowLayoutPanel5.Controls.Add(lb);
+                    flowLayoutPanel5.Controls.Add(bc);
                 }
                 
                 
             }
 
 
+        }
+
+        private void blacklabelclick(object sender, EventArgs e)
+        {
+
+
+                if(((Label)sender).BackColor != Color.Red)
+                {
+                    ((Label)sender).BackColor = Color.Red;
+                }
+                else
+                {
+                ((Label)sender).BackColor = Color.FromArgb(238, 242, 247);
+                }
+            
+
+ 
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -554,16 +722,23 @@ namespace LENTAL_STORE.LS
 
         private void button16_Click(object sender, EventArgs e)
         {
-            string ID = listBox2.SelectedItem.ToString();
 
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
-            listBox1.Items.Add(listBox2.SelectedItem.ToString());
-            listBox3.Items.RemoveAt(listBox2.SelectedIndex);
-            listBox2.Items.Remove(listBox2.SelectedItem);
             
-            com1.CommandText = "INSERT INTO BLACKLIST VALUES('" + ID + "', 'a')";
-            com1.ExecuteNonQuery();
+            
+
+            for (int ix = flowLayoutPanel5.Controls.Count - 1; ix >= 0; ix--)
+            {
+                if(flowLayoutPanel5.Controls[ix].BackColor == Color.Red)
+                {
+                    string ID = flowLayoutPanel5.Controls[ix].Text;
+                    com1.CommandText = "INSERT INTO BLACKLIST VALUES('" + ID + "', 'a')";
+                    com1.ExecuteNonQuery();
+                }
+            }
+
+            button3_Click(sender, e);
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -685,64 +860,58 @@ namespace LENTAL_STORE.LS
 
         public void homeview()
         {
-            
-            panel9.Visible = true;
+
+            view(panel9);
 
             chart3.Legends[0].Enabled = false;
+            chart4.Legends[0].Enabled = false;
             chart3.BackColor = Color.FromArgb(238, 242, 247);
+            chart4.BackColor = Color.FromArgb(238, 242, 247);
+
             chart3.Series[0].Points.Clear();
             chart3.Series[0].Color = Color.FromArgb(5, 21, 64);
             chart3.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("휴먼엑스포", 8);
             chart3.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font("Arial 3", 10);
 
-            
+            chart4.Series[0].Points.Clear();
+            chart4.Series[0].Color = Color.FromArgb(5, 21, 64);
+            chart4.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("휴먼엑스포", 8);
+            chart4.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font("Arial 3", 10);
+
+
 
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
+            OracleCommand com3 = new OracleCommand("", conn);
 
-
-            com1.CommandText = "select * from (SELECT sum(statistic_lentalcost) as cost ,TO_CHAR(STATISTIC_DATE,'yyyy-MM-dd') as day from statistic group by to_char(statistic_date, 'yyyy-MM-dd') order by to_char(statistic_date, 'yyyy-MM-dd') asc ) where rownum <= 10";
+            com1.CommandText = "SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE > '"+ ((System.DateTime.Today).AddDays(-10)).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM order by cost asc";
             com2.CommandText = "SELECT * FROM STATISTIC,ITEM WHERE statistic.statistic_itemitemnum = item.item_num AND STATISTIC_DATE = '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' AND NOT STATISTIC_LENTALCOST = 0";
+            com3.CommandText = "SELECT STATISTIC_dATE as day, SUM(statistic_lentalcost) as cost FROM STATISTIC GROUP BY STATISTIC_DATE HAVING STATISTIC_dATE > '" + ((System.DateTime.Today).AddDays(-10)).ToString("yyyy-MM-dd") + "' ORDER BY statistic_date ";
             OracleDataReader rdr = com1.ExecuteReader();
             OracleDataReader rdr2 = com2.ExecuteReader();
-
-            
-
-            System.Windows.Forms.DataVisualization.Charting.Axis ay = chart3.ChartAreas[0].AxisY;
-            ay.Minimum = 0;
-            ay.Maximum = 250000;
-
-            System.Windows.Forms.DataVisualization.Charting.StripLine sl0 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
-            sl0.BackColor = Color.FromArgb(238, 242, 247);
-            sl0.StripWidth = 250000;
-            sl0.IntervalOffset = 0;
-
-
-
-            chart3.ChartAreas[0].AxisY.StripLines.Add(sl0);
-
-
+            OracleDataReader rdr3 = com3.ExecuteReader();
 
             int i = 10;
+            int rdr3maxcost = -1;
 
 
-            while(rdr.Read())
+
+            while (rdr3.Read())
             {
-                while (i >= 0)
-                {
-                    DateTime nd = Convert.ToDateTime(rdr["day"].ToString());
-                    DateTime today = (System.DateTime.Today).AddDays(-1 * i);
+                DateTime nd = Convert.ToDateTime(rdr3["day"].ToString()).Date;
 
-                    if (nd < today)
+                    while (i>= 0)
                     {
-                        break;
-                    }
-                    else
-                    {
+                        DateTime today = (System.DateTime.Today).AddDays(-1 * i);
+                        if(nd < today)
+                        {
+                            break;
+                        }
                         if (nd == today)
                         {
-                            chart3.Series[0].Points.AddXY(nd.ToString("MM-dd"), rdr["cost"]);
+                            chart3.Series[0].Points.AddXY(nd.ToString("MM-dd"), rdr3["cost"]);
+                            rdr3maxcost = System.Math.Max(rdr3maxcost, Convert.ToInt32(rdr3["cost"]));
                             i--;
                             break;
                         }
@@ -753,25 +922,52 @@ namespace LENTAL_STORE.LS
 
                         }
                     }
-                }
+                    
             }
 
-
-
-            /*while (rdr.Read())
+            while(i>= 0)
             {
-                string nd = rdr["day"].ToString();
-                while (nd != ((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"))
-                {
-                    chart3.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("yyyy-MM-dd"), 0);
-                    i--;
-                    if (i <= 0) break;
-                }
-                if (i <= 0) break;
-                chart3.Series[0].Points.AddXY(rdr["day"].ToString(), rdr["cost"]);
+                DateTime today = (System.DateTime.Today).AddDays(-1 * i);
+                chart3.Series[0].Points.AddXY(((System.DateTime.Today).AddDays(-1 * i)).ToString("MM-dd"), 0);
                 i--;
+            }
 
-            }*/
+            System.Windows.Forms.DataVisualization.Charting.Axis ay = chart3.ChartAreas[0].AxisY;
+            ay.Minimum = 0;
+            ay.Maximum = rdr3maxcost+100000;
+
+            System.Windows.Forms.DataVisualization.Charting.StripLine sl0 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            sl0.BackColor = Color.FromArgb(238, 242, 247);
+            sl0.StripWidth = rdr3maxcost+100000;
+            sl0.IntervalOffset = 0;
+
+
+
+            chart3.ChartAreas[0].AxisY.StripLines.Add(sl0);
+
+
+
+
+            int rdr1maxcost = -1;
+            while (rdr.Read())
+            {
+                chart4.Series[0].Points.AddXY(rdr["ITEM_NAME"], rdr["COST"]);
+                rdr1maxcost = System.Math.Max(rdr1maxcost, Convert.ToInt32(rdr["cost"]));
+            }
+
+            System.Windows.Forms.DataVisualization.Charting.Axis at = chart4.ChartAreas[0].AxisY;
+            at.Minimum = 0;
+            at.Maximum = rdr1maxcost + 100000;
+
+            System.Windows.Forms.DataVisualization.Charting.StripLine st = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            st.BackColor = Color.FromArgb(238, 242, 247);
+            st.StripWidth = rdr1maxcost + 100000;
+            st.IntervalOffset = 0;
+
+
+
+            chart4.ChartAreas[0].AxisY.StripLines.Add(st);
+
 
             while (rdr2.Read())
             {
@@ -807,29 +1003,45 @@ namespace LENTAL_STORE.LS
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listBox1.SelectedIndexChanged -= listBox1_SelectedIndexChanged;
-            listBox1.SelectedItem = null;
-            listBox3.SelectedIndex = listBox2.SelectedIndex;
-            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listBox2.SelectedIndexChanged -= listBox2_SelectedIndexChanged;
-            listBox2.SelectedItem = null;
-            listBox3.SelectedItem = null;
-            listBox2.SelectedIndexChanged += listBox2_SelectedIndexChanged;
+
         }
 
         private void button22_Click(object sender, EventArgs e)
         {
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
-            com1.CommandText = "DELETE FROM BLACKLIST WHERE USERID = '" +listBox1.SelectedItem.ToString() +"'";
 
-            com1.ExecuteNonQuery();
+            for (int ix = flowLayoutPanel4.Controls.Count - 1; ix >= 0; ix--)
+            {
+                if (flowLayoutPanel4.Controls[ix].BackColor == Color.Red)
+                {
+                    string ID = flowLayoutPanel4.Controls[ix].Text;
+                    com1.CommandText = "DELETE FROM BLACKLIST WHERE USERID = '" + ID + "'";
+                    com1.ExecuteNonQuery();
+                }
+            }
+
             button3_Click(sender, e);
 
+        }
+
+        private void view(Panel vp)
+        {
+            panel2.Visible = false;
+            panel3.Visible = false;
+            panel4.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
+            panel7.Visible = false;
+            panel8.Visible = false;
+            panel9.Visible = false;
+
+            vp.Visible = true;
         }
 
         private void button23_Click(object sender, EventArgs e)
@@ -883,6 +1095,21 @@ namespace LENTAL_STORE.LS
                 }
 
             }
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            homeview();
+        }
+
+        private void label21_Click(object sender, EventArgs e)
+        {
+            button3_Click(sender, e);
+        }
+
+        private void label22_Click(object sender, EventArgs e)
+        {
+            button5_Click_1(sender, e);
         }
     }
 }

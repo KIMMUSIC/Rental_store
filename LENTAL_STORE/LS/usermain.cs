@@ -12,11 +12,11 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace LENTAL_STORE.LS
 {
-    public delegate void Mainevent(object sender, EventArgs e);
+    public delegate void Mail(object sender, EventArgs e);
     
     public partial class usermain : UserControl
     {
-        public event Mainevent um;
+        public event Mail um;
         public static string select;
         public static string select_status;
         public string price = "";
@@ -28,8 +28,7 @@ namespace LENTAL_STORE.LS
         public Control[] pb = new Control[100];
         public Control[] rl = new Control[100];
         public int lastpage;
-        TextBox rtb;
-        int current_selected_button = 0;
+
 
 
 
@@ -136,7 +135,7 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
-            com1.CommandText = "SELECT * FROM ITEM";
+            com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = 3";
             com2.CommandText = "SELECT * FROM ITEM_CATE";
             
 
@@ -348,7 +347,6 @@ namespace LENTAL_STORE.LS
             }
             TextBox rtb = new TextBox();
             Button rbt = new Button();
-            rbt.Click += review_click;
 
             label3.Text = "1";
             label3.Visible = true;
@@ -424,7 +422,9 @@ namespace LENTAL_STORE.LS
             rbtl.TextAlign = ContentAlignment.MiddleCenter;
             rtb.Size = new Size(550, 50);
             rtb.Multiline = true;
-            rbtl.Click += review_click;
+
+            rbtl.Click += delegate (object s, EventArgs ea) { review_click(sender, e, rtb); }; ;
+            //delegate (object sender, EventArgs e) { reserve_ok(sender, e, lb2.Text, d, g, a, b, c, f); };
             while (rdr2.Read())
             {
 
@@ -464,11 +464,11 @@ namespace LENTAL_STORE.LS
 
         }
 
-        private void review_click(object sender, EventArgs e)
+        private void review_click(object sender, EventArgs e, TextBox tb)
         {
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
-            com1.CommandText = "INSERT INTO REVIEW VALUES(REVIEW_SEQ.nextval, '" + Form1.usersession + "','" + select + "','" + rtb.Text + "','" + System.DateTime.Now.ToString("yy-MM-dd") + "')";
+            com1.CommandText = "INSERT INTO REVIEW VALUES(REVIEW_SEQ.nextval, '" + Form1.usersession + "','" + select + "','" + tb.Text + "','" + System.DateTime.Now.ToString("yy-MM-dd") + "')";
 
             com1.ExecuteNonQuery();
             MessageBox.Show("리뷰가 작성되었습니다");
@@ -927,6 +927,11 @@ namespace LENTAL_STORE.LS
             }
             conn.Close();
 
+        }
+
+        private void label24_Click(object sender, EventArgs e)
+        {
+            this.um(sender, e);
         }
     }
 }

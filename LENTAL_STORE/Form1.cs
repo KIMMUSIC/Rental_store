@@ -38,7 +38,8 @@ namespace LENTAL_STORE
             home1.bu4 += new MyEvent(bu_4);
             home1.bu6 += new MyEvent(bu_6);
             signin1.signinsubmit += signin;
-            usermain1.um += new LS.Mainevent(um3);
+            usermain1.um += new LS.Mail(um3);
+            subadmin1.sublogout += new LS.Mainevent(sublo);
 
 
 
@@ -86,12 +87,19 @@ namespace LENTAL_STORE
         private void um3(object sender, EventArgs e)
         {
             usermain1.Visible = false;
+            home1.Visible = true;
+            Form1.usersession = string.Empty;
+            Form1.usertype = 0;
+            
+        }
 
+        private void sublo(object sender, EventArgs e)
+        {
+            subadmin1.Visible = false;
+            home1.Visible = true;
+            Form1.usersession = string.Empty;
+            Form1.usertype = 0;
 
- 
-            
-            
-            
         }
 
         private void signin(object sender, EventArgs e)

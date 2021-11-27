@@ -31,6 +31,11 @@ namespace LENTAL_STORE.LS
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(usermain));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
@@ -42,6 +47,7 @@ namespace LENTAL_STORE.LS
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -63,11 +69,6 @@ namespace LENTAL_STORE.LS
             this.label11 = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
@@ -100,6 +101,53 @@ namespace LENTAL_STORE.LS
             this.panel2.Size = new System.Drawing.Size(180, 147);
             this.panel2.TabIndex = 5;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(826, 343);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(53, 12);
+            this.label23.TabIndex = 22;
+            this.label23.Text = "대여하기";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(460, 276);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(44, 12);
+            this.label22.TabIndex = 21;
+            this.label22.Text = "label22";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(21, 19);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(21, 12);
+            this.label21.TabIndex = 20;
+            this.label21.Text = "<<";
+            // 
+            // label20
+            // 
+            this.label20.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label20.Location = new System.Drawing.Point(591, 325);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(41, 42);
+            this.label20.TabIndex = 19;
+            this.label20.Text = "+";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label19.Location = new System.Drawing.Point(422, 328);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(41, 42);
+            this.label19.TabIndex = 18;
+            this.label19.Text = "-";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel4
             // 
@@ -195,16 +243,27 @@ namespace LENTAL_STORE.LS
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.label24);
             this.panel3.Controls.Add(this.flowLayoutPanel5);
             this.panel3.Controls.Add(this.textBox1);
             this.panel3.Controls.Add(this.panel6);
             this.panel3.Controls.Add(this.pictureBox3);
             this.panel3.Controls.Add(this.flowLayoutPanel1);
-            this.panel3.Location = new System.Drawing.Point(291, 167);
+            this.panel3.Location = new System.Drawing.Point(220, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(177, 108);
+            this.panel3.Size = new System.Drawing.Size(394, 247);
             this.panel3.TabIndex = 6;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(902, 21);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(53, 12);
+            this.label24.TabIndex = 5;
+            this.label24.Text = "로그아웃";
+            this.label24.Click += new System.EventHandler(this.label24_Click);
             // 
             // flowLayoutPanel5
             // 
@@ -418,61 +477,14 @@ namespace LENTAL_STORE.LS
             this.flowLayoutPanel3.Size = new System.Drawing.Size(846, 177);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
-            // label19
-            // 
-            this.label19.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label19.Location = new System.Drawing.Point(422, 328);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(41, 42);
-            this.label19.TabIndex = 18;
-            this.label19.Text = "-";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label20
-            // 
-            this.label20.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label20.Location = new System.Drawing.Point(591, 325);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(41, 42);
-            this.label20.TabIndex = 19;
-            this.label20.Text = "+";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(21, 19);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(21, 12);
-            this.label21.TabIndex = 20;
-            this.label21.Text = "<<";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(460, 276);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(44, 12);
-            this.label22.TabIndex = 21;
-            this.label22.Text = "label22";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(826, 343);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(53, 12);
-            this.label23.TabIndex = 22;
-            this.label23.Text = "대여하기";
-            // 
             // usermain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LavenderBlush;
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel5);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "usermain";
             this.Size = new System.Drawing.Size(1200, 700);
@@ -531,5 +543,6 @@ namespace LENTAL_STORE.LS
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
     }
 }

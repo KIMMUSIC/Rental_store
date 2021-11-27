@@ -76,10 +76,15 @@ namespace LENTAL_STORE
 
             object login = com1.ExecuteScalar();
 
+
+
             if(login != null)
             {
                 Form1.usertype = Convert.ToInt32(com1.ExecuteScalar().ToString());
                 Form1.usersession = login_id.Text;
+
+                login_id.Text = "";
+                login_pw.Text = "";
                 if (Form1.usertype == 1)
                 {
                     if (this.bu4 != null)
@@ -98,6 +103,7 @@ namespace LENTAL_STORE
             }
             else
             {
+                login_pw.Text = "";
                 MessageBox.Show("아이디 혹은 비밀번호가 틀렸습니다.");
             }
 

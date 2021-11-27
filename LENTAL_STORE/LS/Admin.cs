@@ -36,6 +36,7 @@ namespace LENTAL_STORE.LS
             panel6.Dock = DockStyle.Fill;
             panel7.Dock = DockStyle.Fill;
             panel9.Dock = DockStyle.Fill;
+            panel8.Dock = DockStyle.Fill;
 
             System.Windows.Forms.DataVisualization.Charting.ChartArea CA = chart1.ChartAreas[0];
             CA.CursorX.IsUserEnabled = true;
@@ -56,6 +57,9 @@ namespace LENTAL_STORE.LS
 
             label19.ForeColor = Color.FromArgb(5, 21, 64);
             label20.ForeColor = Color.FromArgb(5, 21, 64);
+
+            label32.ForeColor = Color.FromArgb(5, 21, 64);
+            label31.ForeColor = Color.FromArgb(5, 21, 64);
 
             panel10.BackColor = Color.FromArgb(5, 21, 64);
 
@@ -90,6 +94,17 @@ namespace LENTAL_STORE.LS
         private void button1_Click(object sender, EventArgs e)
         {
             view(panel2);
+
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            textBox5.Text = "";
+            textBox6.Text = "";
+            textBox7.Text = "";
+
+            comboBox1.SelectedIndex = -1;
+            pictureBox1.Image = null;
         }
 
         private void back(object sender, EventArgs e)
@@ -126,7 +141,7 @@ namespace LENTAL_STORE.LS
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string item_name, item_size, item_color, item_loc, item_ql, item_cate, item_price;
+            string item_name, item_size, item_color, item_loc, item_ql, item_cate, item_price, item_count;
             item_name = textBox1.Text;
             item_size = textBox2.Text;
             item_color = textBox3.Text;
@@ -134,6 +149,7 @@ namespace LENTAL_STORE.LS
             item_ql = comboBox1.SelectedItem.ToString();
             item_cate = textBox5.Text;
             item_price = textBox6.Text;
+            item_count = textBox7.Text;
 
             FileStream fs = new FileStream(pictureBox1.Tag.ToString(), FileMode.Open, FileAccess.Read);
             byte[] bImage = new byte[fs.Length];
@@ -157,7 +173,7 @@ namespace LENTAL_STORE.LS
             string item_caten = com4.ExecuteScalar().ToString();
 
             OracleCommand com3 = new OracleCommand("", conn);
-            com3.CommandText = "INSERT INTO ITEM VALUES(ITEM_SEQ.nextval, '" + item_name + "','" + item_size + "','" + item_color + "','" + item_loc + "','" + item_ql + "'," + ":BlobParameter" + ",'" + item_caten + "','" + item_price + "','0')";
+            com3.CommandText = "INSERT INTO ITEM VALUES(ITEM_SEQ.nextval, '" + item_name + "','" + item_size + "','" + item_color + "','" + item_loc + "','" + item_ql + "'," + ":BlobParameter" + ",'" + item_caten + "','" + item_price + "','0', '" + item_count+"')";
 
             OracleParameter blobParameter = new OracleParameter();
             blobParameter.OracleDbType = OracleDbType.Blob;
@@ -554,7 +570,7 @@ namespace LENTAL_STORE.LS
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM";
+            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM order by STATISTIC_DATE desc";
             com2.CommandText = "SELECT * FROM ITEM_CATE";
 
             OracleDataReader rdr = com1.ExecuteReader();
@@ -623,7 +639,7 @@ namespace LENTAL_STORE.LS
                 }
             }
 
-            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM " + nt;
+            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM " + nt + "order by statistic_date desc";
             com2.CommandText = "SELECT * FROM ITEM_CATE";
 
             OracleDataReader rdr = com1.ExecuteReader();
@@ -762,7 +778,6 @@ namespace LENTAL_STORE.LS
 
         private void button2_Click(object sender, EventArgs e)
         {
-            del = new string[100];
             k = 0;
 
             view(panel7);
@@ -772,7 +787,7 @@ namespace LENTAL_STORE.LS
             dataGridView2.Columns.Clear();
             dataGridView2.Rows.Clear();
 
-            dataGridView2.ColumnCount = 8;
+            dataGridView2.ColumnCount = 9;
             dataGridView2.Columns[0].Name = "상품ID";
             dataGridView2.Columns[1].Name = "상품명";
             dataGridView2.Columns[2].Name = "상품사이즈";
@@ -781,11 +796,14 @@ namespace LENTAL_STORE.LS
             dataGridView2.Columns[5].Name = "상품품질";
             dataGridView2.Columns[6].Name = "상품분류";
             dataGridView2.Columns[7].Name = "상품가격";
+            dataGridView2.Columns[8].Name = "상품개수";
+
+            dataGridView2.Columns[0].Visible = false;
 
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT * FROM ITEM";
+            com1.CommandText = "SELECT * FROM ITEM, ITEM_CATE WHERE ITEM_CATE = ITEM_CATE_NUM";
 
             OracleDataReader rdr = com1.ExecuteReader();
 
@@ -793,7 +811,7 @@ namespace LENTAL_STORE.LS
             {
                 if (rdr["ITEM_STATUS"].ToString() != "3")
                 {
-                    dataGridView2.Rows.Add(rdr["ITEM_NUM"], rdr["ITEM_NAME"], rdr["ITEM_SIZE"], rdr["ITEM_COLOR"], rdr["ITEM_LOCATION"], rdr["ITEM_QUALITY"], rdr["ITEM_CATE"], rdr["ITEM_PRICE"]);
+                    dataGridView2.Rows.Add(rdr["ITEM_NUM"], rdr["ITEM_NAME"], rdr["ITEM_SIZE"], rdr["ITEM_COLOR"], rdr["ITEM_LOCATION"], rdr["ITEM_QUALITY"], rdr["ITEM_CATE_NAME"], rdr["ITEM_PRICE"], rdr["ITEM_COUNT"]);
                 }
                 
             }
@@ -1145,6 +1163,7 @@ namespace LENTAL_STORE.LS
             panel6.Visible = false;
             panel7.Visible = false;
             panel9.Visible = false;
+            panel8.Visible = false;
 
             vp.Visible = true;
         }
@@ -1445,21 +1464,21 @@ namespace LENTAL_STORE.LS
 
                 flowLayoutPanel2.Controls.Add(lb4);
                 lb4.AutoSize = true;
-                lb4.MinimumSize = new Size(250, 0);
+                lb4.MinimumSize = new Size(200, 0);
                 lb4.Font = new Font("휴먼엑스포", 10);
 
                 Label lb3 = new Label();
-                lb3.Text = rdr["STATISTIC_LENTALCOST"].ToString();
+                lb3.Text = rdr["STATISTIC_LENTALCOST"].ToString() + "원";
                 cntprice += Convert.ToInt32(rdr["STATISTIC_LENTALCOST"]);
 
                 flowLayoutPanel2.Controls.Add(lb3);
                 lb3.AutoSize = true;
-                lb3.MinimumSize = new Size(70, 0);
+                lb3.MinimumSize = new Size(120, 0);
                 lb3.Font = new Font("휴먼엑스포", 10);
             }
 
-            label23.Text = cntprice.ToString();
-            label23.Font = new Font("휴먼엑스포", 10);
+            label23.Text = cntprice.ToString() + "원";
+            label23.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
             label23.ForeColor = Color.FromArgb(5, 21, 64);
 
 
@@ -1493,6 +1512,72 @@ namespace LENTAL_STORE.LS
         private void label26_Click(object sender, EventArgs e)
         {
             button10_Click(sender, e);
+        }
+
+        private void label30_Click(object sender, EventArgs e)
+        {
+            view(panel8);
+
+            chart5.Series[0].Points.Clear();
+            chart6.Series[0].Points.Clear();
+
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+
+            com1.CommandText = "SELECT ITEM.ITEM_NAME as ta, NVL(OP.COST,0) as ca from (SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE > '" + (dateTimePicker5.Value).ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE < '" + (dateTimePicker6.Value).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM) OP RIGHT JOIN ITEM ON OP.ITEM_NAME = ITEM.ITEM_NAME order by ca desc";
+            OracleDataReader rdr = com1.ExecuteReader();
+
+            while(rdr.Read())
+            {
+                chart5.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["ca"]);
+                chart6.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["ca"]);
+            }
+
+        }
+
+        private void dateTimePicker5_ValueChanged(object sender, EventArgs e)
+        {
+            label30_Click(sender, e);
+        }
+
+        private void dateTimePicker6_ValueChanged(object sender, EventArgs e)
+        {
+            label30_Click(sender, e);
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label34_Click(object sender, EventArgs e)
+        {
+            button7_Click(sender, e);
+        }
+
+        private void label35_Click(object sender, EventArgs e)
+        {
+            button6_Click(sender, e);
+        }
+
+        private void label37_Click(object sender, EventArgs e)
+        {
+            button13_Click(sender, e);
+        }
+
+        private void label38_Click(object sender, EventArgs e)
+        {
+            uiBtn_Delete_Click(sender, e);
         }
     }
 }

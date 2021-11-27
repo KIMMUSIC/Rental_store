@@ -17,6 +17,7 @@ namespace LENTAL_STORE
         public event MyEvent bu3;
         public event MyEvent bu4;
         public event MyEvent bu5;
+        public event MyEvent bu6;
 
         public home()
         {
@@ -88,6 +89,11 @@ namespace LENTAL_STORE
                 {
                     if (this.bu5 != null)
                         this.bu5(sender, e);
+                }
+                else if(Form1.usertype == 2)
+                {
+                    if (this.bu6 != null)
+                        this.bu6(sender, e);
                 }
             }
             else

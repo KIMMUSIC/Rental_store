@@ -31,16 +31,18 @@ namespace LENTAL_STORE
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
-            this.home1 = new LENTAL_STORE.home();
-            this.signin1 = new LENTAL_STORE.signin();
             this.admin1 = new LENTAL_STORE.LS.Admin();
             this.usermain1 = new LENTAL_STORE.LS.usermain();
+            this.home1 = new LENTAL_STORE.home();
+            this.signin1 = new LENTAL_STORE.signin();
+            this.subadmin1 = new LENTAL_STORE.LS.subadmin();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LavenderBlush;
+            this.panel1.Controls.Add(this.subadmin1);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.admin1);
             this.panel1.Controls.Add(this.usermain1);
@@ -64,6 +66,21 @@ namespace LENTAL_STORE
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // admin1
+            // 
+            this.admin1.Location = new System.Drawing.Point(0, 0);
+            this.admin1.Name = "admin1";
+            this.admin1.Size = new System.Drawing.Size(1200, 700);
+            this.admin1.TabIndex = 13;
+            // 
+            // usermain1
+            // 
+            this.usermain1.BackColor = System.Drawing.Color.LavenderBlush;
+            this.usermain1.Location = new System.Drawing.Point(0, 0);
+            this.usermain1.Name = "usermain1";
+            this.usermain1.Size = new System.Drawing.Size(1200, 700);
+            this.usermain1.TabIndex = 11;
+            // 
             // home1
             // 
             this.home1.BackColor = System.Drawing.Color.Transparent;
@@ -85,20 +102,12 @@ namespace LENTAL_STORE
             this.signin1.Visible = false;
             this.signin1.Load += new System.EventHandler(this.signin1_Load);
             // 
-            // admin1
+            // subadmin1
             // 
-            this.admin1.Location = new System.Drawing.Point(0, 0);
-            this.admin1.Name = "admin1";
-            this.admin1.Size = new System.Drawing.Size(1200, 700);
-            this.admin1.TabIndex = 13;
-            // 
-            // usermain1
-            // 
-            this.usermain1.BackColor = System.Drawing.Color.LavenderBlush;
-            this.usermain1.Location = new System.Drawing.Point(0, 0);
-            this.usermain1.Name = "usermain1";
-            this.usermain1.Size = new System.Drawing.Size(1200, 700);
-            this.usermain1.TabIndex = 11;
+            this.subadmin1.Location = new System.Drawing.Point(0, 0);
+            this.subadmin1.Name = "subadmin1";
+            this.subadmin1.Size = new System.Drawing.Size(1200, 700);
+            this.subadmin1.TabIndex = 14;
             // 
             // Form1
             // 
@@ -124,6 +133,7 @@ namespace LENTAL_STORE
         private home home1;
         private LS.usermain usermain1;
         private LS.Admin admin1;
+        private LS.subadmin subadmin1;
     }
 }
 

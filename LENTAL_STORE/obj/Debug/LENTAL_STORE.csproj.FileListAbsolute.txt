@@ -33,3 +33,4 @@ C:\Users\USER\source\repos\LENTAL_STORE\LENTAL_STORE\obj\Debug\LENTAL_STORE.LS.u
 C:\Users\USER\source\repos\LENTAL_STORE\LENTAL_STORE\obj\Debug\LENTAL_STORE.LS.detail.resources
 C:\Users\USER\source\repos\LENTAL_STORE\LENTAL_STORE\obj\Debug\LENTAL_STORE.LS.Admin.resources
 C:\Users\USER\source\repos\LENTAL_STORE\LENTAL_STORE\obj\Debug\LENTAL_STORE.csproj.AssemblyReference.cache
+C:\Users\USER\source\repos\LENTAL_STORE\LENTAL_STORE\obj\Debug\LENTAL_STORE.LS.subadmin.resources

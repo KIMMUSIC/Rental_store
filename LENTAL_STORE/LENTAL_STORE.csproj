@@ -103,6 +103,12 @@
     <Compile Include="LS\home.Designer.cs">
       <DependentUpon>home.cs</DependentUpon>
     </Compile>
+    <Compile Include="LS\subadmin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LS\subadmin.Designer.cs">
+      <DependentUpon>subadmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="LS\usermain.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LS\home.resx">
       <DependentUpon>home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LS\subadmin.resx">
+      <DependentUpon>subadmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LS\usermain.resx">
       <DependentUpon>usermain.cs</DependentUpon>

@@ -200,7 +200,7 @@ namespace LENTAL_STORE.LS
                 lb.Name = rdr["ITEM_NUM"].ToString();
                 pn.Name = rdr["ITEM_NUM"].ToString();
                 lb2.Name = rdr["ITEM_NUM"].ToString();
-                if (rdr["ITEM_STATUS"].ToString() == "1")
+                if (rdr["ITEM_COUNT"].ToString() == "0")
                 {
                     lb2.Text = "품절";
                     lb2.ForeColor = Color.Red;
@@ -306,7 +306,7 @@ namespace LENTAL_STORE.LS
                 pb.Click += new_Click;
                 lb2.Click += new_Click;
                 pb.Name = rdr["ITEM_NUM"].ToString();
-                if (rdr["ITEM_STATUS"].ToString() == "1")
+                if (rdr["ITEM_COUNT"].ToString() == "0")
                 {
                     lb2.Text = "품절";
                     lb2.ForeColor = Color.Red;
@@ -396,12 +396,12 @@ namespace LENTAL_STORE.LS
                 label2.Text = "색상 : " + rdr["ITEM_COLOR"].ToString();
                 label6.Text = "품질 : " + rdr["ITEM_QUALITY"].ToString();
                 label22.Text = "가격 : " + rdr["ITEM_PRICE"].ToString() + "원/일";
-                item_status = Convert.ToInt32(rdr["ITEM_STATUS"]);
+                item_status = Convert.ToInt32(rdr["ITEM_COUNT"]);
 
             }
             label4.Text = price +"원";
 
-            if(item_status == 1)
+            if(item_status == 0)
             {
                 label23.Text = "품절";
                 label3.Visible = false;
@@ -554,18 +554,21 @@ namespace LENTAL_STORE.LS
                 OracleCommand com1 = new OracleCommand("", conn);
                 OracleCommand com2 = new OracleCommand("", conn);
                 OracleCommand com3 = new OracleCommand("", conn);
-                com2.CommandText = "UPDATE ITEM SET ITEM_STATUS = 1 WHERE ITEM_NUM = " + ITEM_NUM + "";
+                OracleCommand com4 = new OracleCommand("", conn);
+                com4.CommandText = "SELECT ITEM_COUNT FROM ITEM WHERE ITEM_NUM = " + ITEM_NUM + "";
+                int k = Convert.ToInt32(com4.ExecuteScalar());
+                com2.CommandText = "UPDATE ITEM SET ITEM_COUNT = '" + (k-1).ToString() + "' WHERE ITEM_NUM = " + ITEM_NUM + "";
                 
                 string current_time1 = System.DateTime.Now.ToString("yyyy-MM-dd");
                 DateTime current_time = Convert.ToDateTime(current_time1);
                 string exp_time = (current_time.AddDays(Convert.ToDouble(label3.Text))).ToString("yyyy-MM-dd");
 
-                com1.CommandText = "INSERT INTO LENTAL VALUES(LENTAL_SEQ.nextval, '" + Form1.usersession + "'," + label3.Text + ",TO_DATE('" + current_time1 + "'),TO_DATE('" + exp_time + "'), '" + label4.Text + "'," +ITEM_NUM + ")";
-                com3.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),'" + ITEM_NUM + "','" + label3.Text + "','" + label4.Text + "','1',TO_DATE('" + exp_time + "'),LENTAL_SEQ.CURRVAL)";
+                com1.CommandText = "INSERT INTO RESERVE VALUES(RESERVE_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),TO_DATE('" + exp_time + "'), '" + label3.Text + "','" +label4.Text +"',"+ITEM_NUM + ",'1','0')";
+            
                 com1.ExecuteNonQuery();
                 com2.ExecuteNonQuery();
-                com3.ExecuteNonQuery();
-                MessageBox.Show("대여되었습니다.");
+                //com3.ExecuteNonQuery();
+                MessageBox.Show("대여신청되었습니다.");
                 button3_Click(sender, e);
                 //prefresh();
                 //refresh();
@@ -751,7 +754,6 @@ namespace LENTAL_STORE.LS
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
             OracleCommand com3 = new OracleCommand("", conn);
-            OracleCommand com4 = new OracleCommand("", conn);
             com3.CommandText = "SELECT LENTAL_ITEM, LENTAL_EXPIRATION, ITEM_QUALITY, ITEM_PRICE FROM LENTAL,ITEM WHERE LENTAL.LENTAL_ITEM = ITEM.ITEM_NUM AND LENTAL_NUM = " + ((Control)sender).Name;
             OracleDataReader rdr = com3.ExecuteReader();
             int Fine = 0;
@@ -794,14 +796,13 @@ namespace LENTAL_STORE.LS
 
             string current_time1 = System.DateTime.Now.ToString("yyyy-MM-dd");
 
-            com2.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),'" + lental_item + "',NULL,'" + Fine + "','2',NULL,'" + ((Control)sender).Name + "')";
-            com1.CommandText = "DELETE FROM LENTAL WHERE LENTAL_NUM = " + ((Control)sender).Name;
-            com4.CommandText = "UPDATE ITEM SET ITEM_STATUS = '0' WHERE ITEM_NUM = '" + lental_item + "'";
+            com1.CommandText = "SELECT * FROM LENTAL WHERE LENTAL_NUM = '" + ((Control)sender).Name + "'";
+            com2.CommandText = "INSERT INTO RESERVE VALUES(RESERVE_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),NULL,NULL, '" + Fine + "','" + lental_item + "','2','" + ((Control)sender).Name + "')";
+
             com1.ExecuteNonQuery();
             com2.ExecuteNonQuery();
-            com4.ExecuteNonQuery();
 
-            MessageBox.Show("반납되었습니다.");
+            MessageBox.Show("반납신청되었습니다.");
             rental_(sender, e);
         }
 
@@ -907,7 +908,7 @@ namespace LENTAL_STORE.LS
                 lb.Click += new_Click;
                 pb.Click += new_Click;
                 lb2.Click += new_Click;
-                if (rdr["ITEM_STATUS"].ToString() == "1")
+                if (rdr["ITEM_COUNT"].ToString() == "0")
                 {
                     lb2.Text = "품절";
                     lb2.ForeColor = Color.Red;

@@ -12,8 +12,10 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace LENTAL_STORE.LS
 {
+    public delegate void loe(object sender, EventArgs e);
     public partial class Admin : UserControl
     {
+        public event loe adminlogout;
         DataTable table;
         string[] del;
         int k = 0;
@@ -63,6 +65,7 @@ namespace LENTAL_STORE.LS
 
             panel10.BackColor = Color.FromArgb(5, 21, 64);
 
+
             label19.Click += button16_Click;
             label20.Click += button22_Click;
 
@@ -85,6 +88,21 @@ namespace LENTAL_STORE.LS
 
             flowLayoutPanel3.AutoScroll = true;
 
+            chart6.Series[0].Label = "#PERCENT";
+            chart6.Series[0].LegendText = "#VALX";
+            chart6.Visible = false;
+
+            chart5.Legends[0].Enabled = false;
+            chart5.BackColor = Color.FromArgb(238, 242, 247);
+            chart6.BackColor = Color.FromArgb(238, 242, 247);
+            chart5.Series[0].IsValueShownAsLabel = true;
+            chart5.Series[0].LabelForeColor = Color.FromArgb(5, 21, 64);
+            chart6.ChartAreas[0].BackColor = Color.FromArgb(238, 242, 247);
+            chart6.Legends[0].BackColor = Color.FromArgb(238, 242, 247);
+
+            chart1.Series[0].IsValueShownAsLabel = true;
+
+            label13.BackColor = Color.FromArgb(200, 206, 235);
 
 
 
@@ -280,9 +298,11 @@ namespace LENTAL_STORE.LS
                 lb.AutoSize = true;
                 lb.MinimumSize = new Size(140, 0);
                 lb.Text = catename;
+                lb.ForeColor = Color.FromArgb(5, 21, 64);
                 lb.Font =  new Font("휴먼엑스포", 16, FontStyle.Bold);
                 lb.Tag = catename;
                 lb.Click += ic;
+                lb.Margin = new Padding(0, 0, 0, 10);
             }
 
             itemchart(sender, e);
@@ -336,6 +356,7 @@ namespace LENTAL_STORE.LS
 
 
                     chart2.Series.Add(catename);
+                    chart2.Series[catename].IsValueShownAsLabel = true;
 
                     OracleConnection conn = Form1.oracleconnect();
                     OracleCommand com1 = new OracleCommand("", conn);
@@ -517,7 +538,7 @@ namespace LENTAL_STORE.LS
             
 
             
-            chart2.Legends[0].Enabled = false;
+            //chart2.Legends[0].Enabled = false;
             chart2.BackColor = Color.FromArgb(238, 242, 247);
             System.Windows.Forms.DataVisualization.Charting.Axis at = chart2.ChartAreas[0].AxisY;
             at.Minimum = 0;
@@ -669,12 +690,13 @@ namespace LENTAL_STORE.LS
 
         private void cate_filter(object sender, EventArgs e)
         {
-            if(((Label)sender).BackColor == Color.Red)
+            if (((Label)sender).BackColor == Color.FromArgb(5, 21, 64))
             {
                 for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
                 {
                     flowLayoutPanel6.Controls[ix].BackColor = Color.FromArgb(238, 242, 247);
                 }
+                ((Label)sender).ForeColor = Color.FromArgb(5, 21, 64);
             }
             else
             {
@@ -682,7 +704,8 @@ namespace LENTAL_STORE.LS
                 {
                     flowLayoutPanel6.Controls[ix].BackColor = Color.FromArgb(238, 242, 247);
                 }
-                ((Label)sender).BackColor = Color.Red;
+                ((Label)sender).BackColor = Color.FromArgb(5, 21, 64);
+                ((Label)sender).ForeColor = Color.White;
             }
 
             button5_Click_2();
@@ -1177,16 +1200,19 @@ namespace LENTAL_STORE.LS
         private void label13_Click(object sender, EventArgs e)
         {
             homeview();
+            menu(sender, e);
         }
 
         private void label21_Click(object sender, EventArgs e)
         {
             button3_Click(sender, e);
+            menu(sender, e);
         }
 
         private void label22_Click(object sender, EventArgs e)
         {
             button5_Click_1(sender, e);
+            menu(sender, e);
         }
 
         private void button3_Click_1(object sender, EventArgs e)
@@ -1482,6 +1508,8 @@ namespace LENTAL_STORE.LS
             label23.ForeColor = Color.FromArgb(5, 21, 64);
 
 
+
+
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -1497,42 +1525,78 @@ namespace LENTAL_STORE.LS
         private void label12_Click(object sender, EventArgs e)
         {
             button5_Click_2(sender, e);
+            menu(sender, e);
         }
 
         private void label24_Click(object sender, EventArgs e)
         {
-            button2_Click(sender, e);   
+            button2_Click(sender, e);
+            menu(sender, e);
         }
 
         private void label25_Click(object sender, EventArgs e)
         {
-            button1_Click(sender, e);   
+            button1_Click(sender, e);
+            menu(sender, e);
         }
 
         private void label26_Click(object sender, EventArgs e)
         {
             button10_Click(sender, e);
+            menu(sender, e);
         }
 
         private void label30_Click(object sender, EventArgs e)
         {
             view(panel8);
+            menu(sender, e);
+
+            if (checkBox3.Checked == true)
+            {
+                chart6.Visible = true;
+                chart5.Visible = false;
+            }
+            else
+            {
+                chart5.Visible = true;
+                chart6.Visible = false;
+            }
 
             chart5.Series[0].Points.Clear();
             chart6.Series[0].Points.Clear();
 
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
 
             com1.CommandText = "SELECT ITEM.ITEM_NAME as ta, NVL(OP.COST,0) as ca from (SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE > '" + (dateTimePicker5.Value).ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE < '" + (dateTimePicker6.Value).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM) OP RIGHT JOIN ITEM ON OP.ITEM_NAME = ITEM.ITEM_NAME order by ca desc";
-            OracleDataReader rdr = com1.ExecuteReader();
+            com2.CommandText = "SELECT SUM(CA) FROM (SELECT ITEM.ITEM_NAME as ta, NVL(OP.COST,0) as ca from (SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE > '" + (dateTimePicker5.Value).ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE < '" + (dateTimePicker6.Value).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM) OP RIGHT JOIN ITEM ON OP.ITEM_NAME = ITEM.ITEM_NAME order by ca desc)";
 
+            OracleDataReader rdr = com1.ExecuteReader();
+            int sum = Convert.ToInt32(com2.ExecuteScalar());
+            decimal per1 = sum / 100;
+            int t = -1;
             while(rdr.Read())
             {
                 chart5.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["ca"]);
                 chart6.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["ca"]);
+                t = System.Math.Max(t, Convert.ToInt32(rdr["ca"]));
+
+                if(per1 > Convert.ToDecimal(rdr["ca"]))
+                {
+                    chart6.Series[0].Points[chart6.Series[0].Points.Count - 1].Label = " ";
+                }
             }
 
+            System.Windows.Forms.DataVisualization.Charting.Axis ay = chart5.ChartAreas[0].AxisY;
+            ay.Minimum = 0;
+            ay.Maximum = t+100000;
+
+            System.Windows.Forms.DataVisualization.Charting.StripLine sl0 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            sl0.BackColor = Color.FromArgb(238, 242, 247);
+            sl0.StripWidth = t+100000;
+            sl0.IntervalOffset = 0;
+            chart5.ChartAreas[0].AxisY.StripLines.Add(sl0);
         }
 
         private void dateTimePicker5_ValueChanged(object sender, EventArgs e)
@@ -1578,6 +1642,31 @@ namespace LENTAL_STORE.LS
         private void label38_Click(object sender, EventArgs e)
         {
             uiBtn_Delete_Click(sender, e);
+        }
+
+        private void label41_Click(object sender, EventArgs e)
+        {
+            this.adminlogout(sender, e);
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            label30_Click(sender, e);
+        }
+
+        private void label46_Click(object sender, EventArgs e)
+        {
+            button3_Click_1(sender, e);
+            menu(sender, e);
+        }
+
+        private void menu(object sender, EventArgs e)
+        {
+            for (int ix = panel10.Controls.Count - 1; ix >= 0; ix--)
+            {
+                panel10.Controls[ix].BackColor = Color.Transparent;
+            }
+            ((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
         }
     }
 }

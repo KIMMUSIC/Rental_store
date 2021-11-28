@@ -40,6 +40,7 @@ namespace LENTAL_STORE
             signin1.signinsubmit += signin;
             usermain1.um += new LS.Mail(um3);
             subadmin1.sublogout += new LS.Mainevent(sublo);
+            admin1.adminlogout += new LS.loe(adlo);
 
 
 
@@ -82,7 +83,7 @@ namespace LENTAL_STORE
             signin1.Visible = false;
             usermain1.Visible = true;
             //usermain1.prefresh2();
-            //usermain1.refresh2();
+            usermain1.refresh2();
         }
         private void um3(object sender, EventArgs e)
         {
@@ -96,6 +97,15 @@ namespace LENTAL_STORE
         private void sublo(object sender, EventArgs e)
         {
             subadmin1.Visible = false;
+            home1.Visible = true;
+            Form1.usersession = string.Empty;
+            Form1.usertype = 0;
+
+        }
+
+        private void adlo(object sender, EventArgs e)
+        {
+            admin1.Visible = false;
             home1.Visible = true;
             Form1.usersession = string.Empty;
             Form1.usertype = 0;

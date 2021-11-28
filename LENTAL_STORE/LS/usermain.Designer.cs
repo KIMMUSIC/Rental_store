@@ -243,7 +243,6 @@ namespace LENTAL_STORE.LS
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.label24);
             this.panel3.Controls.Add(this.flowLayoutPanel5);
             this.panel3.Controls.Add(this.textBox1);
             this.panel3.Controls.Add(this.panel6);
@@ -258,9 +257,11 @@ namespace LENTAL_STORE.LS
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(902, 21);
+            this.label24.Font = new System.Drawing.Font("휴먼엑스포", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(135, 663);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(53, 12);
+            this.label24.Size = new System.Drawing.Size(72, 18);
             this.label24.TabIndex = 5;
             this.label24.Text = "로그아웃";
             this.label24.Click += new System.EventHandler(this.label24_Click);
@@ -310,6 +311,7 @@ namespace LENTAL_STORE.LS
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Lavender;
+            this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
@@ -343,6 +345,7 @@ namespace LENTAL_STORE.LS
             this.label9.TabIndex = 11;
             this.label9.Text = "홈";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label8
             // 
@@ -496,6 +499,7 @@ namespace LENTAL_STORE.LS
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();

@@ -26,6 +26,7 @@ namespace LENTAL_STORE.LS
             panel7.Dock = DockStyle.Fill;
 
             lab1();
+
             label2.ForeColor = Color.FromArgb(5, 21, 64);
             label3.ForeColor = Color.FromArgb(5, 21, 64);
             label9.ForeColor = Color.FromArgb(5, 21, 64);
@@ -43,6 +44,8 @@ namespace LENTAL_STORE.LS
             label17.ForeColor = Color.FromArgb(5, 21, 64);
             label18.ForeColor = Color.FromArgb(5, 21, 64);
             label10.ForeColor = Color.FromArgb(5, 21, 64);
+
+            label1.BackColor = Color.FromArgb(200, 206, 235);
         }
 
         private void view(Panel vp)
@@ -58,6 +61,7 @@ namespace LENTAL_STORE.LS
         private void label1_Click(object sender, EventArgs e)
         {
             lab1();
+            menu(sender, e);
         }
         private void reserve_ok(object sender, EventArgs e, string uid, string ldy, string dt, string exdate, string lc, string lin, string rn)
         {
@@ -282,6 +286,7 @@ namespace LENTAL_STORE.LS
 
 
             view(panel3);
+            menu(sender, e);
 
             DataTable table = new DataTable();
 
@@ -333,7 +338,7 @@ namespace LENTAL_STORE.LS
             dataGridView3.DataSource = table;
             dataGridView3.BackgroundColor = Color.FromArgb(238, 242, 247);
             dataGridView3.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
-            dataGridView3.RowsDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
+            dataGridView3.RowsDefaultCellStyle.BackColor = Color.FromArgb(5, 21, 64);
             dataGridView3.ColumnHeadersDefaultCellStyle.Font = new Font("휴먼엑스포", 14, FontStyle.Bold);
             dataGridView3.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(5, 21, 64);
             dataGridView3.RowsDefaultCellStyle.SelectionForeColor = Color.White;
@@ -352,6 +357,7 @@ namespace LENTAL_STORE.LS
         private void label5_Click(object sender, EventArgs e)
         {
             view(panel4);
+            menu(sender, e);
 
             DataTable table = new DataTable();
             DataTable table2 = new DataTable();
@@ -622,6 +628,7 @@ namespace LENTAL_STORE.LS
         private void label15_Click(object sender, EventArgs e)
         {
             view(panel7);
+            menu(sender, e);
 
             for (int ix = flowLayoutPanel4.Controls.Count - 1; ix >= 0; ix--)
             {
@@ -736,6 +743,15 @@ namespace LENTAL_STORE.LS
             }
 
             label15_Click(sender, e);
+        }
+
+        private void menu(object sender, EventArgs e)
+        {
+            for (int ix = panel1.Controls.Count - 1; ix >= 0; ix--)
+            {
+                panel1.Controls[ix].BackColor = Color.Transparent;
+            }
+            ((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
         }
     }
 }

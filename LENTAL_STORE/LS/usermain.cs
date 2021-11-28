@@ -60,7 +60,6 @@ namespace LENTAL_STORE.LS
             button7.FlatAppearance.BorderSize = 0;
             button7.FlatStyle = FlatStyle.Flat;*/
             
-            refresh2();
             label9.BackColor = Color.FromArgb(5, 21, 64);
             label9.Click += button5_Click_2;
             label9.ForeColor = Color.White;
@@ -105,6 +104,8 @@ namespace LENTAL_STORE.LS
             label21.Click += Back_btn;
             label23.Click += button4_Click;
 
+            label9.BackColor = Color.FromArgb(200, 206, 235);
+
 
 
 
@@ -135,12 +136,28 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
-            com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = 3";
+            OracleCommand com3 = new OracleCommand("", conn);
+            com3.CommandText = "SELECT USERID FROM BLACKLIST WHERE USERID = '" + Form1.usersession + "'";
+            object byn = com3.ExecuteScalar();
+
+            if (byn != null)
+            {
+                com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = 3 AND NOT ITEM_QUALITY = 'S' AND NOT ITEM_QUALITY = 'A'";
+            }
+            else
+            {
+                com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = 3";
+
+            }
+
+           
+            
             com2.CommandText = "SELECT * FROM ITEM_CATE";
             
 
             OracleDataReader rdr = com1.ExecuteReader();
             OracleDataReader rdr2 = com2.ExecuteReader();
+            
 
             while(rdr2.Read())
             {
@@ -240,7 +257,20 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
-            com1.CommandText = "SELECT * FROM ITEM WHERE ITEM_NAME LIKE '%" + st + "%'";
+
+            OracleCommand com3 = new OracleCommand("", conn);
+            com3.CommandText = "SELECT USERID FROM BLACKLIST WHERE USERID = '" + Form1.usersession + "'";
+            object byn = com3.ExecuteScalar();
+
+            if (byn != null)
+            {
+                com1.CommandText = "SELECT * FROM ITEM WHERE ITEM_NAME LIKE '%" + st + "%' AND NOT ITEM_STATUS = 3 AND NOT ITEM_QUALITY = 'S' AND NOT ITEM_QUALITY = 'A'";
+            }
+            else
+            {
+                com1.CommandText = "SELECT * FROM ITEM WHERE ITEM_NAME LIKE '%" + st + "%' AND NOT ITEM_STATUS = 3";
+
+            }
             com2.CommandText = "SELECT * FROM ITEM_CATE";
 
 
@@ -808,7 +838,7 @@ namespace LENTAL_STORE.LS
 
         private void label10_Click(object sender, EventArgs e)
         {
-
+            menu(sender, e);
         }
 
         private void label14_Click(object sender, EventArgs e)
@@ -932,6 +962,20 @@ namespace LENTAL_STORE.LS
         private void label24_Click(object sender, EventArgs e)
         {
             this.um(sender, e);
+        }
+
+        private void menu(object sender, EventArgs e)
+        {
+            for (int ix = panel1.Controls.Count - 1; ix >= 0; ix--)
+            {
+                panel1.Controls[ix].BackColor = Color.Transparent;
+            }
+            ((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            menu(sender, e);
         }
     }
 }

@@ -97,5 +97,20 @@ namespace LENTAL_STORE
             idp = 0;
             label9.Visible = false;
         }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+            this.signinsubmit(sender, e);
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            button1_Click(sender, e);
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            button2_Click(sender, e);
+        }
     }
 }

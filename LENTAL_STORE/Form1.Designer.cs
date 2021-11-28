@@ -30,7 +30,7 @@ namespace LENTAL_STORE
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.admin1 = new LENTAL_STORE.LS.Admin();
             this.usermain1 = new LENTAL_STORE.LS.usermain();
             this.home1 = new LENTAL_STORE.home();
@@ -42,12 +42,12 @@ namespace LENTAL_STORE
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.LavenderBlush;
-            this.panel1.Controls.Add(this.subadmin1);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.admin1);
             this.panel1.Controls.Add(this.usermain1);
             this.panel1.Controls.Add(this.home1);
             this.panel1.Controls.Add(this.signin1);
+            this.panel1.Controls.Add(this.subadmin1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -55,19 +55,22 @@ namespace LENTAL_STORE
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // button2
+            // label1
             // 
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.Location = new System.Drawing.Point(1105, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(37, 38);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "X";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(247)))));
+            this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label1.Font = new System.Drawing.Font("휴먼엑스포", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(1133, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 39);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "X";
+            this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // admin1
             // 
+            this.admin1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(247)))));
             this.admin1.Location = new System.Drawing.Point(0, 0);
             this.admin1.Name = "admin1";
             this.admin1.Size = new System.Drawing.Size(1200, 700);
@@ -121,6 +124,7 @@ namespace LENTAL_STORE
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -128,12 +132,12 @@ namespace LENTAL_STORE
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
         private signin signin1;
         private home home1;
         private LS.usermain usermain1;
         private LS.Admin admin1;
         private LS.subadmin subadmin1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

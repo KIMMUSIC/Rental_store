@@ -22,7 +22,7 @@ namespace LENTAL_STORE
         {
             InitializeComponent();
             home1.BackColor = Color.FromArgb(238, 242, 247);
-            button2.BackColor = Color.FromArgb(238, 242, 247);
+            
             usermain1.BackColor = Color.FromArgb(238, 242, 247);
             admin1.BackColor = Color.FromArgb(238, 242, 247);
             signin1.BackColor = Color.FromArgb(238, 242, 247);
@@ -114,7 +114,8 @@ namespace LENTAL_STORE
 
         private void signin(object sender, EventArgs e)
         {
-            
+            signin1.Visible = false;
+            home1.Visible = true;
         }
 
 
@@ -165,6 +166,11 @@ namespace LENTAL_STORE
             conn.Open();
 
             return conn;
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

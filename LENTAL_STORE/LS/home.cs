@@ -39,6 +39,8 @@ namespace LENTAL_STORE
             label7.Click += button3_Click;
             label7.MouseHover += label7_MouseHover;
 
+            login_pw.PasswordChar = '*';
+
         }
 
         public void button3_Click(object sender, EventArgs e)

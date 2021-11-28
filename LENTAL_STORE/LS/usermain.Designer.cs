@@ -123,9 +123,10 @@ namespace LENTAL_STORE.LS
             // label21
             // 
             this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("휴먼엑스포", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label21.Location = new System.Drawing.Point(21, 19);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(21, 12);
+            this.label21.Size = new System.Drawing.Size(24, 23);
             this.label21.TabIndex = 20;
             this.label21.Text = "<<";
             // 

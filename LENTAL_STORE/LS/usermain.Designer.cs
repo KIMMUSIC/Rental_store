@@ -47,12 +47,12 @@ namespace LENTAL_STORE.LS
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label24 = new System.Windows.Forms.Label();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label24 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -69,6 +69,11 @@ namespace LENTAL_STORE.LS
             this.label11 = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel3.SuspendLayout();
@@ -255,18 +260,6 @@ namespace LENTAL_STORE.LS
             this.panel3.TabIndex = 6;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("휴먼엑스포", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(135, 663);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(72, 18);
-            this.label24.TabIndex = 5;
-            this.label24.Text = "로그아웃";
-            this.label24.Click += new System.EventHandler(this.label24_Click);
-            // 
             // flowLayoutPanel5
             // 
             this.flowLayoutPanel5.Location = new System.Drawing.Point(67, 109);
@@ -308,6 +301,18 @@ namespace LENTAL_STORE.LS
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(897, 466);
             this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("휴먼엑스포", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(135, 663);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(72, 18);
+            this.label24.TabIndex = 5;
+            this.label24.Text = "로그아웃";
+            this.label24.Click += new System.EventHandler(this.label24_Click);
             // 
             // panel1
             // 
@@ -370,6 +375,11 @@ namespace LENTAL_STORE.LS
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.label25);
+            this.panel5.Controls.Add(this.label26);
+            this.panel5.Controls.Add(this.label27);
+            this.panel5.Controls.Add(this.label28);
+            this.panel5.Controls.Add(this.flowLayoutPanel6);
             this.panel5.Controls.Add(this.label16);
             this.panel5.Controls.Add(this.label17);
             this.panel5.Controls.Add(this.label18);
@@ -380,9 +390,10 @@ namespace LENTAL_STORE.LS
             this.panel5.Controls.Add(this.label11);
             this.panel5.Controls.Add(this.flowLayoutPanel4);
             this.panel5.Controls.Add(this.flowLayoutPanel3);
-            this.panel5.Location = new System.Drawing.Point(517, 343);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(220, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(119, 75);
+            this.panel5.Size = new System.Drawing.Size(980, 700);
             this.panel5.TabIndex = 10;
             this.panel5.Visible = false;
             // 
@@ -390,7 +401,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label16.Location = new System.Drawing.Point(648, 385);
+            this.label16.Location = new System.Drawing.Point(650, 505);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(70, 21);
             this.label16.TabIndex = 9;
@@ -400,7 +411,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label17.Location = new System.Drawing.Point(477, 385);
+            this.label17.Location = new System.Drawing.Point(479, 505);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(70, 21);
             this.label17.TabIndex = 8;
@@ -410,7 +421,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label18.Location = new System.Drawing.Point(92, 385);
+            this.label18.Location = new System.Drawing.Point(94, 505);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(90, 21);
             this.label18.TabIndex = 7;
@@ -420,7 +431,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label15.Location = new System.Drawing.Point(645, 108);
+            this.label15.Location = new System.Drawing.Point(650, 301);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(70, 21);
             this.label15.TabIndex = 6;
@@ -430,7 +441,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label14.Location = new System.Drawing.Point(474, 108);
+            this.label14.Location = new System.Drawing.Point(479, 301);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(70, 21);
             this.label14.TabIndex = 5;
@@ -441,7 +452,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label13.Location = new System.Drawing.Point(89, 108);
+            this.label13.Location = new System.Drawing.Point(94, 301);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(90, 21);
             this.label13.TabIndex = 4;
@@ -451,7 +462,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label12.Location = new System.Drawing.Point(89, 342);
+            this.label12.Location = new System.Drawing.Point(91, 462);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(112, 27);
             this.label12.TabIndex = 3;
@@ -461,7 +472,7 @@ namespace LENTAL_STORE.LS
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label11.Location = new System.Drawing.Point(88, 58);
+            this.label11.Location = new System.Drawing.Point(93, 251);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(112, 27);
             this.label11.TabIndex = 2;
@@ -469,17 +480,68 @@ namespace LENTAL_STORE.LS
             // 
             // flowLayoutPanel4
             // 
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(90, 430);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(90, 546);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(846, 253);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(846, 137);
             this.flowLayoutPanel4.TabIndex = 1;
             // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(90, 145);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(96, 333);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(846, 177);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(846, 111);
             this.flowLayoutPanel3.TabIndex = 0;
+            // 
+            // flowLayoutPanel6
+            // 
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(96, 109);
+            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(846, 119);
+            this.flowLayoutPanel6.TabIndex = 2;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label25.Location = new System.Drawing.Point(593, 85);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(50, 21);
+            this.label25.TabIndex = 13;
+            this.label25.Text = "유형";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label26.Location = new System.Drawing.Point(482, 85);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(70, 21);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "신청일";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("휴먼엑스포", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label27.Location = new System.Drawing.Point(97, 85);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(90, 21);
+            this.label27.TabIndex = 11;
+            this.label27.Text = "대여물품";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label28.Location = new System.Drawing.Point(96, 35);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(112, 27);
+            this.label28.TabIndex = 10;
+            this.label28.Text = "신청현황";
             // 
             // usermain
             // 
@@ -549,5 +611,10 @@ namespace LENTAL_STORE.LS
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
     }
 }

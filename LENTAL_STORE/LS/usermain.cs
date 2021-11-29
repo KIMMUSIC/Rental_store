@@ -48,6 +48,7 @@ namespace LENTAL_STORE.LS
             flowLayoutPanel1.AutoSize = true;
             flowLayoutPanel3.AutoScroll = true;
             flowLayoutPanel4.AutoScroll = true;
+            flowLayoutPanel6.AutoScroll = true;
             flowLayoutPanel2.AutoSize = true;
             flowLayoutPanel2.MaximumSize = new Size(668,10000);
             flowLayoutPanel1.MaximumSize = new Size(890, 10000);
@@ -692,14 +693,16 @@ namespace LENTAL_STORE.LS
         private void rental_(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            for (int ix = flowLayoutPanel3.Controls.Count - 1; ix >= 0; ix--)
-            {
-                flowLayoutPanel3.Controls[ix].Dispose();
-            }
+
 
             for (int ix = flowLayoutPanel4.Controls.Count - 1; ix >= 0; ix--)
             {
                 flowLayoutPanel4.Controls[ix].Dispose();
+            }
+
+            for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
+            {
+                flowLayoutPanel6.Controls[ix].Dispose();
             }
             panel3.Visible = false;
             panel5.Visible = true;
@@ -710,8 +713,12 @@ namespace LENTAL_STORE.LS
 
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
-            com1.CommandText = "SELECT * FROM LENTAL, ITEM WHERE LENTAL.LENTAL_ITEM = ITEM.ITEM_NUM AND LENTAL_USERID = '" + Form1.usersession + "'";
+            com1.CommandText = "SELECT * FROM LENTAL, ITEM WHERE LENTAL.LENTAL_ITEM = ITEM.ITEM_NUM AND LENTAL_USERID = '" + Form1.usersession + "' order by lental_date";
             OracleDataReader rdr = com1.ExecuteReader();
+
+            OracleCommand com2 = new OracleCommand("", conn);
+            com2.CommandText = "SELECT * FROM RESERVE, ITEM WHERE RESERVE.RESERVE_ITEM = ITEM.ITEM_NUM AND RESERVE_USERID = '" + Form1.usersession + "' order by reserve_date";
+            OracleDataReader rdr2 = com2.ExecuteReader();
 
             int k = 0;
             while (rdr.Read())
@@ -774,8 +781,76 @@ namespace LENTAL_STORE.LS
                 }
                 k++;
 
+                while (rdr2.Read())
+                {
 
-            }
+                    HEIGHT += 20;
+                    Label lb2 = new Label();
+                    Label bt2 = new Label();
+                    Label st2 = new Label();
+                    Label st3 = new Label();
+                    Label end2 = new Label();
+                    if (rdr2["RESERVE_TYPE"].ToString() == "1")
+                        bt2.Text = "대여";
+                    else
+                        bt2.Text = "반납";
+                    lb2.Text = "취소";
+                    lb2.Click += cancel_event;
+                    lb2.Name = rdr2["RESERVE_NUM"].ToString();
+                    lb2.Tag = rdr2["ITEM_NUM"].ToString();
+                    st2.Text = rdr2["ITEM_NAME"].ToString();
+                    st3.Text = ((DateTime)rdr2["RESERVE_DATE"]).ToString("yyyy-MM-dd");
+
+                    lb2.AutoSize = true;
+                    lb2.MinimumSize = new Size(50, 30);
+                    st2.AutoSize = true;
+                    st2.MinimumSize = new Size(330, 30);
+                    st3.AutoSize = true;
+                    st3.MinimumSize = new Size(100, 30);
+                    bt2.AutoSize = true;
+                    bt2.MinimumSize = new Size(100, 30);
+
+                    lb2.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
+                    st2.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
+                    st3.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);     
+
+
+                    bt.AutoSize = true;
+
+                    flowLayoutPanel6.Controls.Add(st2);
+                    flowLayoutPanel6.Controls.Add(st3);
+
+                    flowLayoutPanel6.Controls.Add(bt2);
+                    flowLayoutPanel6.Controls.Add(lb2);
+
+                    lb2.ForeColor = Color.FromArgb(5, 21, 64);
+                    st2.ForeColor = Color.FromArgb(5, 21, 64);
+                    st3.ForeColor = Color.FromArgb(5, 21, 64);
+                    bt2.ForeColor = Color.FromArgb(5, 21, 64);
+                    bt2.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
+                }
+
+
+                }
+        }
+
+        private void cancel_event(object sender, EventArgs e)
+        {
+            OracleConnection conn = Form1.oracleconnect();
+            OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+            OracleCommand com3 = new OracleCommand("", conn);
+
+            com1.CommandText = "DELETE FROM RESERVE WHERE RESERVE_NUM = '" + ((Label)sender).Name + "'";
+            com3.CommandText = "SELECT ITEM_COUNT FROM ITEM, RESERVE WHERE ITEM_NUM = RESERVE_ITEM AND RESERVE_NUM = '" + ((Label)sender).Name + "'";
+            int k = Convert.ToInt32(com3.ExecuteScalar());
+            com2.CommandText = "UPDATE ITEM SET ITEM_COUNT = '" + (k + 1).ToString() + "' WHERE ITEM_NUM = " + ((Label)sender).Tag + "";
+
+            com1.ExecuteNonQuery();
+            com2.ExecuteNonQuery();
+
+            MessageBox.Show("취소되었습니다");
+            rental_(sender, e);
         }
 
         private void return_event(object sender, EventArgs e)
@@ -862,7 +937,8 @@ namespace LENTAL_STORE.LS
                 {
                     
                     isfilter = true;
-                    flowLayoutPanel5.Controls[ix].BackColor = Color.Red;
+                    flowLayoutPanel5.Controls[ix].BackColor = Color.FromArgb(5, 21, 64);
+                    flowLayoutPanel5.Controls[ix].ForeColor = Color.White;
                     string na = flowLayoutPanel5.Controls[ix].Name;
                     if (ix != 0)
                     {
@@ -872,6 +948,7 @@ namespace LENTAL_STORE.LS
                 else
                 {
                     flowLayoutPanel5.Controls[ix].BackColor = Color.FromArgb(245, 247, 250);
+                    flowLayoutPanel5.Controls[ix].ForeColor = Color.FromArgb(5, 21, 64);
                 }
 
             }

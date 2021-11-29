@@ -29,25 +29,25 @@ namespace LENTAL_STORE.LS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea61 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend61 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series61 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea62 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend62 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series62 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea63 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend63 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series63 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea64 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend64 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series64 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea65 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend65 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series65 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea66 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend66 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series66 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
@@ -70,12 +70,14 @@ namespace LENTAL_STORE.LS
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label42 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label43 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
@@ -102,6 +104,10 @@ namespace LENTAL_STORE.LS
             this.label36 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
@@ -109,9 +115,11 @@ namespace LENTAL_STORE.LS
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel10 = new System.Windows.Forms.Panel();
+            this.label46 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -120,6 +128,7 @@ namespace LENTAL_STORE.LS
             this.label14 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label45 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.label31 = new System.Windows.Forms.Label();
@@ -129,21 +138,12 @@ namespace LENTAL_STORE.LS
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label44 = new System.Windows.Forms.Label();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.chart6 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
             this.chart5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -435,6 +435,17 @@ namespace LENTAL_STORE.LS
             this.panel3.TabIndex = 18;
             this.panel3.Visible = false;
             // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("휴먼엑스포", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label42.Location = new System.Drawing.Point(54, 46);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(263, 39);
+            this.label42.TabIndex = 21;
+            this.label42.Text = "매출 통계 보기";
+            // 
             // dateTimePicker2
             // 
             this.dateTimePicker2.Location = new System.Drawing.Point(384, 179);
@@ -480,17 +491,21 @@ namespace LENTAL_STORE.LS
             // 
             // chart1
             // 
-            chartArea61.AxisX.Interval = 1D;
-            chartArea61.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea61);
-            legend61.Name = "Legend1";
-            this.chart1.Legends.Add(legend61);
+            chartArea7.AxisX.Interval = 1D;
+            chartArea7.AxisX.Title = "날짜";
+            chartArea7.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea7.AxisY.Title = "매출";
+            chartArea7.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea7.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.chart1.Legends.Add(legend7);
             this.chart1.Location = new System.Drawing.Point(50, 226);
             this.chart1.Name = "chart1";
-            series61.ChartArea = "ChartArea1";
-            series61.Legend = "Legend1";
-            series61.Name = "Series1";
-            this.chart1.Series.Add(series61);
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chart1.Series.Add(series7);
             this.chart1.Size = new System.Drawing.Size(840, 403);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -509,6 +524,17 @@ namespace LENTAL_STORE.LS
             this.panel4.Size = new System.Drawing.Size(115, 100);
             this.panel4.TabIndex = 6;
             this.panel4.Visible = false;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("휴먼엑스포", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label43.Location = new System.Drawing.Point(30, 24);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(224, 41);
+            this.label43.TabIndex = 7;
+            this.label43.Text = "상품 판매량";
             // 
             // checkBox2
             // 
@@ -561,18 +587,20 @@ namespace LENTAL_STORE.LS
             // 
             // chart2
             // 
-            chartArea62.AxisX.Interval = 1D;
-            chartArea62.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea62);
-            legend62.Name = "Legend1";
-            this.chart2.Legends.Add(legend62);
+            chartArea8.AxisX.Interval = 1D;
+            chartArea8.AxisX.Title = "날짜";
+            chartArea8.AxisY.Title = "판매량";
+            chartArea8.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea8);
+            legend8.Name = "Legend1";
+            this.chart2.Legends.Add(legend8);
             this.chart2.Location = new System.Drawing.Point(189, 206);
             this.chart2.Name = "chart2";
             this.chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            series62.ChartArea = "ChartArea1";
-            series62.Legend = "Legend1";
-            series62.Name = "Series1";
-            this.chart2.Series.Add(series62);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chart2.Series.Add(series8);
             this.chart2.Size = new System.Drawing.Size(754, 410);
             this.chart2.TabIndex = 0;
             this.chart2.Text = "chart2";
@@ -804,6 +832,42 @@ namespace LENTAL_STORE.LS
             this.panel9.TabIndex = 19;
             this.panel9.Visible = false;
             // 
+            // panel14
+            // 
+            this.panel14.BackColor = System.Drawing.Color.Black;
+            this.panel14.Location = new System.Drawing.Point(626, 360);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(304, 3);
+            this.panel14.TabIndex = 8;
+            // 
+            // panel13
+            // 
+            this.panel13.BackColor = System.Drawing.Color.Black;
+            this.panel13.Location = new System.Drawing.Point(626, 106);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(304, 3);
+            this.panel13.TabIndex = 7;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("휴먼엑스포", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label40.Location = new System.Drawing.Point(36, 397);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(254, 23);
+            this.label40.TabIndex = 6;
+            this.label40.Text = "최근 10일간 상품판매량";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("휴먼엑스포", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label39.Location = new System.Drawing.Point(32, 38);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(188, 23);
+            this.label39.TabIndex = 5;
+            this.label39.Text = "최근 10일간 매출";
+            // 
             // label29
             // 
             this.label29.AutoSize = true;
@@ -836,18 +900,22 @@ namespace LENTAL_STORE.LS
             // 
             // chart4
             // 
-            chartArea63.AxisX.Interval = 1D;
-            chartArea63.Name = "ChartArea1";
-            this.chart4.ChartAreas.Add(chartArea63);
-            legend63.Name = "Legend1";
-            this.chart4.Legends.Add(legend63);
+            chartArea9.AxisX.Interval = 1D;
+            chartArea9.AxisX.Title = "상품";
+            chartArea9.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea9.AxisY.Title = "판매량";
+            chartArea9.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea9.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea9);
+            legend9.Name = "Legend1";
+            this.chart4.Legends.Add(legend9);
             this.chart4.Location = new System.Drawing.Point(40, 429);
             this.chart4.Name = "chart4";
-            series63.ChartArea = "ChartArea1";
-            series63.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series63.Legend = "Legend1";
-            series63.Name = "Series1";
-            this.chart4.Series.Add(series63);
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series9.Legend = "Legend1";
+            series9.Name = "Series1";
+            this.chart4.Series.Add(series9);
             this.chart4.Size = new System.Drawing.Size(740, 237);
             this.chart4.TabIndex = 0;
             this.chart4.Text = "chart4";
@@ -861,17 +929,21 @@ namespace LENTAL_STORE.LS
             // 
             // chart3
             // 
-            chartArea64.AxisX.Interval = 1D;
-            chartArea64.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea64);
-            legend64.Name = "Legend1";
-            this.chart3.Legends.Add(legend64);
+            chartArea10.AxisX.Interval = 1D;
+            chartArea10.AxisX.Title = "날짜";
+            chartArea10.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea10.AxisY.Title = "매출";
+            chartArea10.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea10.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea10);
+            legend10.Name = "Legend1";
+            this.chart3.Legends.Add(legend10);
             this.chart3.Location = new System.Drawing.Point(34, 77);
             this.chart3.Name = "chart3";
-            series64.ChartArea = "ChartArea1";
-            series64.Legend = "Legend1";
-            series64.Name = "Series1";
-            this.chart3.Series.Add(series64);
+            series10.ChartArea = "ChartArea1";
+            series10.Legend = "Legend1";
+            series10.Name = "Series1";
+            this.chart3.Series.Add(series10);
             this.chart3.Size = new System.Drawing.Size(509, 294);
             this.chart3.TabIndex = 0;
             this.chart3.Text = "chart3";
@@ -897,12 +969,25 @@ namespace LENTAL_STORE.LS
             this.panel10.Size = new System.Drawing.Size(220, 700);
             this.panel10.TabIndex = 20;
             // 
+            // label46
+            // 
+            this.label46.BackColor = System.Drawing.Color.Transparent;
+            this.label46.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label46.ForeColor = System.Drawing.Color.White;
+            this.label46.Location = new System.Drawing.Point(3, 567);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(214, 55);
+            this.label46.TabIndex = 21;
+            this.label46.Text = "매출통계보기";
+            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label46.Click += new System.EventHandler(this.label46_Click);
+            // 
             // label30
             // 
             this.label30.BackColor = System.Drawing.Color.Transparent;
             this.label30.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label30.ForeColor = System.Drawing.Color.White;
-            this.label30.Location = new System.Drawing.Point(3, 344);
+            this.label30.Location = new System.Drawing.Point(3, 393);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(214, 55);
             this.label30.TabIndex = 20;
@@ -915,7 +1000,7 @@ namespace LENTAL_STORE.LS
             this.label26.BackColor = System.Drawing.Color.Transparent;
             this.label26.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label26.ForeColor = System.Drawing.Color.White;
-            this.label26.Location = new System.Drawing.Point(3, 222);
+            this.label26.Location = new System.Drawing.Point(3, 336);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(214, 55);
             this.label26.TabIndex = 19;
@@ -928,7 +1013,7 @@ namespace LENTAL_STORE.LS
             this.label25.BackColor = System.Drawing.Color.Transparent;
             this.label25.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label25.ForeColor = System.Drawing.Color.White;
-            this.label25.Location = new System.Drawing.Point(3, 407);
+            this.label25.Location = new System.Drawing.Point(3, 159);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(214, 55);
             this.label25.TabIndex = 18;
@@ -936,12 +1021,24 @@ namespace LENTAL_STORE.LS
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label25.Click += new System.EventHandler(this.label25_Click);
             // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("휴먼엑스포", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label41.ForeColor = System.Drawing.Color.White;
+            this.label41.Location = new System.Drawing.Point(131, 666);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(72, 18);
+            this.label41.TabIndex = 23;
+            this.label41.Text = "로그아웃";
+            this.label41.Click += new System.EventHandler(this.label41_Click);
+            // 
             // label24
             // 
             this.label24.BackColor = System.Drawing.Color.Transparent;
             this.label24.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(3, 162);
+            this.label24.Location = new System.Drawing.Point(3, 215);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(214, 55);
             this.label24.TabIndex = 17;
@@ -980,7 +1077,7 @@ namespace LENTAL_STORE.LS
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(3, 281);
+            this.label12.Location = new System.Drawing.Point(3, 270);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(214, 55);
             this.label12.TabIndex = 12;
@@ -1036,6 +1133,17 @@ namespace LENTAL_STORE.LS
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(96, 100);
             this.panel1.TabIndex = 21;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("휴먼엑스포", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label45.Location = new System.Drawing.Point(39, 20);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(94, 41);
+            this.label45.TabIndex = 9;
+            this.label45.Text = "매출";
             // 
             // panel12
             // 
@@ -1110,34 +1218,58 @@ namespace LENTAL_STORE.LS
             // 
             // panel8
             // 
+            this.panel8.Controls.Add(this.chart5);
             this.panel8.Controls.Add(this.label44);
             this.panel8.Controls.Add(this.checkBox3);
             this.panel8.Controls.Add(this.chart6);
             this.panel8.Controls.Add(this.dateTimePicker6);
             this.panel8.Controls.Add(this.dateTimePicker5);
-            this.panel8.Controls.Add(this.chart5);
             this.panel8.Location = new System.Drawing.Point(487, 397);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(117, 67);
             this.panel8.TabIndex = 22;
             // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("휴먼엑스포", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.label44.Location = new System.Drawing.Point(39, 24);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(208, 41);
+            this.label44.TabIndex = 8;
+            this.label44.Text = "상품별매출";
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Font = new System.Drawing.Font("휴먼엑스포", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
+            this.checkBox3.Location = new System.Drawing.Point(765, 163);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(139, 22);
+            this.checkBox3.TabIndex = 4;
+            this.checkBox3.Text = "파이차트로보기";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
             // chart6
             // 
             this.chart6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(247)))));
             this.chart6.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea65.Name = "ChartArea1";
-            this.chart6.ChartAreas.Add(chartArea65);
-            legend65.Name = "Legend1";
-            this.chart6.Legends.Add(legend65);
+            chartArea11.Name = "ChartArea1";
+            this.chart6.ChartAreas.Add(chartArea11);
+            legend11.Name = "Legend1";
+            this.chart6.Legends.Add(legend11);
             this.chart6.Location = new System.Drawing.Point(46, 200);
             this.chart6.Name = "chart6";
-            series65.ChartArea = "ChartArea1";
-            series65.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series65.IsValueShownAsLabel = true;
-            series65.Label = "#PERCENT";
-            series65.Legend = "Legend1";
-            series65.Name = "Series1";
-            this.chart6.Series.Add(series65);
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series11.IsValueShownAsLabel = true;
+            series11.Label = "#PERCENT";
+            series11.Legend = "Legend1";
+            series11.Name = "Series1";
+            this.chart6.Series.Add(series11);
             this.chart6.Size = new System.Drawing.Size(883, 393);
             this.chart6.TabIndex = 3;
             this.chart6.Text = "chart6";
@@ -1160,148 +1292,34 @@ namespace LENTAL_STORE.LS
             // 
             // chart5
             // 
-            chartArea66.AxisX.Interval = 1D;
-            chartArea66.Name = "ChartArea1";
-            this.chart5.ChartAreas.Add(chartArea66);
-            legend66.Name = "Legend1";
-            this.chart5.Legends.Add(legend66);
+            chartArea12.AxisX.Interval = 1D;
+            chartArea12.AxisX.Title = "상품명";
+            chartArea12.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea12.AxisY.Title = "매출";
+            chartArea12.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea12.Name = "ChartArea1";
+            this.chart5.ChartAreas.Add(chartArea12);
+            legend12.Name = "Legend1";
+            this.chart5.Legends.Add(legend12);
             this.chart5.Location = new System.Drawing.Point(46, 200);
             this.chart5.Name = "chart5";
-            series66.ChartArea = "ChartArea1";
-            series66.Legend = "Legend1";
-            series66.Name = "Series1";
-            this.chart5.Series.Add(series66);
+            series12.ChartArea = "ChartArea1";
+            series12.Legend = "Legend1";
+            series12.Name = "Series1";
+            this.chart5.Series.Add(series12);
             this.chart5.Size = new System.Drawing.Size(883, 393);
             this.chart5.TabIndex = 0;
             this.chart5.Text = "chart5";
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("휴먼엑스포", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label39.Location = new System.Drawing.Point(32, 38);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(188, 23);
-            this.label39.TabIndex = 5;
-            this.label39.Text = "최근 10일간 매출";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("휴먼엑스포", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label40.Location = new System.Drawing.Point(36, 397);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(254, 23);
-            this.label40.TabIndex = 6;
-            this.label40.Text = "최근 10일간 상품판매량";
-            // 
-            // panel13
-            // 
-            this.panel13.BackColor = System.Drawing.Color.Black;
-            this.panel13.Location = new System.Drawing.Point(626, 106);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(304, 3);
-            this.panel13.TabIndex = 7;
-            // 
-            // panel14
-            // 
-            this.panel14.BackColor = System.Drawing.Color.Black;
-            this.panel14.Location = new System.Drawing.Point(626, 360);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(304, 3);
-            this.panel14.TabIndex = 8;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("휴먼엑스포", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label41.ForeColor = System.Drawing.Color.White;
-            this.label41.Location = new System.Drawing.Point(131, 666);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(72, 18);
-            this.label41.TabIndex = 23;
-            this.label41.Text = "로그아웃";
-            this.label41.Click += new System.EventHandler(this.label41_Click);
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("휴먼엑스포", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
-            this.label42.Location = new System.Drawing.Point(54, 46);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(263, 39);
-            this.label42.TabIndex = 21;
-            this.label42.Text = "매출 통계 보기";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("휴먼엑스포", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
-            this.label43.Location = new System.Drawing.Point(30, 24);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(224, 41);
-            this.label43.TabIndex = 7;
-            this.label43.Text = "상품 판매량";
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Font = new System.Drawing.Font("휴먼엑스포", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.checkBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
-            this.checkBox3.Location = new System.Drawing.Point(765, 163);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(139, 22);
-            this.checkBox3.TabIndex = 4;
-            this.checkBox3.Text = "파이차트로보기";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("휴먼엑스포", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
-            this.label44.Location = new System.Drawing.Point(39, 24);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(208, 41);
-            this.label44.TabIndex = 8;
-            this.label44.Text = "상품별매출";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("휴먼엑스포", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
-            this.label45.Location = new System.Drawing.Point(39, 20);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(94, 41);
-            this.label45.TabIndex = 9;
-            this.label45.Text = "매출";
-            // 
-            // label46
-            // 
-            this.label46.BackColor = System.Drawing.Color.Transparent;
-            this.label46.Font = new System.Drawing.Font("휴먼엑스포", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label46.ForeColor = System.Drawing.Color.White;
-            this.label46.Location = new System.Drawing.Point(3, 567);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(214, 55);
-            this.label46.TabIndex = 21;
-            this.label46.Text = "매출통계보기";
-            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label46.Click += new System.EventHandler(this.label46_Click);
             // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel8);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel9);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel6);

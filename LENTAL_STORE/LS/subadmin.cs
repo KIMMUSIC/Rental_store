@@ -338,7 +338,7 @@ namespace LENTAL_STORE.LS
             dataGridView3.DataSource = table;
             dataGridView3.BackgroundColor = Color.FromArgb(238, 242, 247);
             dataGridView3.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
-            dataGridView3.RowsDefaultCellStyle.BackColor = Color.FromArgb(5, 21, 64);
+            dataGridView3.RowsDefaultCellStyle.BackColor = Color.FromArgb(238, 242, 247);
             dataGridView3.ColumnHeadersDefaultCellStyle.Font = new Font("휴먼엑스포", 14, FontStyle.Bold);
             dataGridView3.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(5, 21, 64);
             dataGridView3.RowsDefaultCellStyle.SelectionForeColor = Color.White;
@@ -688,13 +688,15 @@ namespace LENTAL_STORE.LS
         {
 
 
-            if (((Label)sender).BackColor != Color.Red)
+            if (((Label)sender).BackColor != Color.FromArgb(5, 21, 64))
             {
-                ((Label)sender).BackColor = Color.Red;
+                ((Label)sender).BackColor = Color.FromArgb(5, 21, 64);
+                ((Label)sender).ForeColor = Color.White;
             }
             else
             {
                 ((Label)sender).BackColor = Color.FromArgb(238, 242, 247);
+                ((Label)sender).ForeColor = Color.FromArgb(5, 21, 64);
             }
 
 
@@ -751,7 +753,7 @@ namespace LENTAL_STORE.LS
             {
                 panel1.Controls[ix].BackColor = Color.Transparent;
             }
-            ((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
+            //((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
         }
     }
 }

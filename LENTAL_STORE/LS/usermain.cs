@@ -860,6 +860,7 @@ namespace LENTAL_STORE.LS
 
                 if ((flowLayoutPanel5.Controls[ix].Tag).ToString() == "-1")
                 {
+                    
                     isfilter = true;
                     flowLayoutPanel5.Controls[ix].BackColor = Color.Red;
                     string na = flowLayoutPanel5.Controls[ix].Name;
@@ -882,11 +883,11 @@ namespace LENTAL_STORE.LS
 
             if (isfilter == true)
             {
-                com1.CommandText = "SELECT * FROM ITEM WHERE ITEM_CATE = '-1'" + nat;
+                com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3' AND (ITEM_CATE = '-1'" + nat + ")";
             }
             else
             {
-                com1.CommandText = "SELECT * FROM ITEM";
+                com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3'";
             }
             
 
@@ -970,7 +971,7 @@ namespace LENTAL_STORE.LS
             {
                 panel1.Controls[ix].BackColor = Color.Transparent;
             }
-            ((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
+            //((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
         }
 
         private void label9_Click(object sender, EventArgs e)

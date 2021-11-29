@@ -654,13 +654,13 @@ namespace LENTAL_STORE.LS
 
             for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
             {
-                if(flowLayoutPanel6.Controls[ix].BackColor == Color.Red)
+                if(flowLayoutPanel6.Controls[ix].BackColor == Color.FromArgb(5, 21, 64))
                 {
-                    nt += "AND STATISTIC_ITEMITEMNUM = '" +flowLayoutPanel6.Controls[ix].Tag +"'";
+                    nt += "AND ITEM_CATE = '" +flowLayoutPanel6.Controls[ix].Tag +"'";
                 }
             }
 
-            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM " + nt + "order by statistic_date desc";
+            com1.CommandText = "SELECT * FROM STATISTIC, ITEM,ITEM_CATE WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM " + nt + "order by statistic_date desc";
             com2.CommandText = "SELECT * FROM ITEM_CATE";
 
             OracleDataReader rdr = com1.ExecuteReader();
@@ -695,7 +695,9 @@ namespace LENTAL_STORE.LS
                 for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
                 {
                     flowLayoutPanel6.Controls[ix].BackColor = Color.FromArgb(238, 242, 247);
+                    flowLayoutPanel6.Controls[ix].ForeColor = Color.FromArgb(5, 21, 64);
                 }
+                ((Label)sender).BackColor = Color.FromArgb(238,242,247);
                 ((Label)sender).ForeColor = Color.FromArgb(5, 21, 64);
             }
             else
@@ -703,6 +705,7 @@ namespace LENTAL_STORE.LS
                 for (int ix = flowLayoutPanel6.Controls.Count - 1; ix >= 0; ix--)
                 {
                     flowLayoutPanel6.Controls[ix].BackColor = Color.FromArgb(238, 242, 247);
+                    flowLayoutPanel6.Controls[ix].ForeColor = Color.FromArgb(5, 21, 64);
                 }
                 ((Label)sender).BackColor = Color.FromArgb(5, 21, 64);
                 ((Label)sender).ForeColor = Color.White;
@@ -786,17 +789,20 @@ namespace LENTAL_STORE.LS
         {
 
 
-                if(((Label)sender).BackColor != Color.Red)
-                {
-                    ((Label)sender).BackColor = Color.Red;
-                }
-                else
-                {
-                ((Label)sender).BackColor = Color.FromArgb(238, 242, 247);
-                }
-            
 
- 
+            if (((Label)sender).BackColor != Color.FromArgb(5, 21, 64))
+            {
+                ((Label)sender).BackColor = Color.FromArgb(5, 21, 64);
+                ((Label)sender).ForeColor = Color.White;
+            }
+            else
+            {
+                ((Label)sender).BackColor = Color.FromArgb(238, 242, 247);
+                ((Label)sender).ForeColor = Color.FromArgb(5, 21, 64);
+            }
+
+
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1666,7 +1672,7 @@ namespace LENTAL_STORE.LS
             {
                 panel10.Controls[ix].BackColor = Color.Transparent;
             }
-            ((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
+            //((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
         }
     }
 }

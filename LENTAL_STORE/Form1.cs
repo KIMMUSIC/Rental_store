@@ -60,6 +60,7 @@ namespace LENTAL_STORE
             home1.Visible = false;
             usermain1.Visible = false;
             subadmin1.Visible = true;
+            subadmin1.lab1();
         }
         private void bu_5(object sender, EventArgs e)
         {

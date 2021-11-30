@@ -45,7 +45,7 @@ namespace LENTAL_STORE.LS
             label18.ForeColor = Color.FromArgb(5, 21, 64);
             label10.ForeColor = Color.FromArgb(5, 21, 64);
 
-            label1.BackColor = Color.FromArgb(200, 206, 235);
+            //label1.BackColor = Color.FromArgb(200, 206, 235);
         }
 
         private void view(Panel vp)
@@ -75,8 +75,10 @@ namespace LENTAL_STORE.LS
             com2.CommandText = "DELETE FROM RESERVE WHERE RESERVE_NUM = '" + rn + "'";
             com2.ExecuteNonQuery();
 
-
-            com3.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + uid + "',TO_DATE('" +dt + "'),'" + lin + "','" + ldy + "','" + lc + "','1',TO_DATE('" + exdate + "'),LENTAL_SEQ.CURRVAL, '" + Form1.usersession+"')";
+            OracleCommand com4 = new OracleCommand("", conn);
+            com4.CommandText = "SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'LENTAL_SEQ'";
+            int a = Convert.ToInt32(com4.ExecuteScalar());
+            com3.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + uid + "',TO_DATE('" +dt + "'),'" + lin + "','" + ldy + "','" + lc + "','1',TO_DATE('" + exdate + "'),"+ a+", '" + Form1.usersession+"')";
             com3.ExecuteNonQuery();
             lab1();
 
@@ -131,7 +133,7 @@ namespace LENTAL_STORE.LS
 
             com5.CommandText = "SELECT ITEM_COUNT FROM ITEM WHERE ITEM_NUM = '" + lin + "'";
             int k = Convert.ToInt32(com5.ExecuteScalar());
-            com1.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + uid + "',TO_DATE('" + dt + "'),'" + lin + "',NULL,'" + Fine + "','2',NULL,'" + Lental_num + "','"+Form1.usersession+")";
+            com1.CommandText = "INSERT INTO STATISTIC VALUES(STATISTIC_SEQ.nextval, '" + uid + "',TO_DATE('" + dt + "'),'" + lin + "',NULL,'" + Fine + "','2',NULL,'" + Lental_num + "','"+Form1.usersession+"')";
             com1.ExecuteNonQuery();
 
             com2.CommandText = "DELETE FROM RESERVE WHERE RESERVE_NUM = '" + rn + "'";
@@ -142,13 +144,13 @@ namespace LENTAL_STORE.LS
             com3.ExecuteNonQuery();
 
 
-            com4.CommandText = "UPDATE ITEM SET ITEM_STATUS = '" + (k+1).ToString() + "' WHERE ITEM_NUM = '" + lin + "'";
+            com4.CommandText = "UPDATE ITEM SET ITEM_COUNT = '" + (k+1).ToString() + "' WHERE ITEM_NUM = '" + lin + "'";
             com4.ExecuteNonQuery();
             lab1();
 
         }
 
-        private void lab1()
+        public void lab1()
         {
             view(panel2);
 
@@ -385,13 +387,13 @@ namespace LENTAL_STORE.LS
 
             if (textBox2.Text != "")
             {
-                com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '1' AND STATISTIC_APID = '" + Form1.usersession + "' AND (STATISTIC_USERID ='" + textBox2.Text + "'OR ITEM_NAME = '" + textBox2.Text + "') order by statistic_date desc";
-                com2.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '2' AND STATISTIC_APID = '" + Form1.usersession + "' AND (STATISTIC_USERID ='" + textBox2.Text + " 'OR ITEM_NAME = '" + textBox2.Text + "') order by statistic_date desc";
+                com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '1'  AND (STATISTIC_USERID ='" + textBox2.Text + "'OR ITEM_NAME = '" + textBox2.Text + "') order by statistic_date desc";
+                com2.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '2'  AND (STATISTIC_USERID ='" + textBox2.Text + " 'OR ITEM_NAME = '" + textBox2.Text + "') order by statistic_date desc";
             }
             else
             {
-                com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '1' AND STATISTIC_APID = '" + Form1.usersession + "'order by statistic_date desc";
-                com2.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '2' AND STATISTIC_APID = '" + Form1.usersession + "'order by statistic_date desc";
+                com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '1' order by statistic_date desc";
+                com2.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_TYPE = '2' order by statistic_date desc";
 
             }
 
@@ -643,7 +645,7 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT NVL(PI.USERID,0) AS I,PI.CONTENT, FN.USERID, FN.P, FN.P2 FROM BLACKLIST PI RIGHT OUTER JOIN (SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID) FN ON PI.userid = FN.USERID";
+            com1.CommandText = "SELECT * FROM USERS, (SELECT NVL(PI.USERID,0) AS I,PI.CONTENT, FN.USERID, FN.P, FN.P2 FROM BLACKLIST PI RIGHT OUTER JOIN (SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID) FN ON PI.userid = FN.USERID) IO WHERE IO.USERID = USERS.USERID AND USERS.USERTYPE = 1";
             OracleDataReader rdr = com1.ExecuteReader();
 
             while (rdr.Read())
@@ -718,7 +720,7 @@ namespace LENTAL_STORE.LS
 
             for (int ix = flowLayoutPanel5.Controls.Count - 1; ix >= 0; ix--)
             {
-                if (flowLayoutPanel5.Controls[ix].BackColor == Color.Red)
+                if (flowLayoutPanel5.Controls[ix].BackColor == Color.FromArgb(5, 21, 64))
                 {
                     string ID = flowLayoutPanel5.Controls[ix].Text;
                     com1.CommandText = "INSERT INTO BLACKLIST VALUES('" + ID + "', 'a')";
@@ -736,7 +738,7 @@ namespace LENTAL_STORE.LS
 
             for (int ix = flowLayoutPanel4.Controls.Count - 1; ix >= 0; ix--)
             {
-                if (flowLayoutPanel4.Controls[ix].BackColor == Color.Red)
+                if (flowLayoutPanel4.Controls[ix].BackColor == Color.FromArgb(5, 21, 64))
                 {
                     string ID = flowLayoutPanel4.Controls[ix].Text;
                     com1.CommandText = "DELETE FROM BLACKLIST WHERE USERID = '" + ID + "'";

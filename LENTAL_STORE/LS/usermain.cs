@@ -92,6 +92,7 @@ namespace LENTAL_STORE.LS
             label4.ForeColor = Color.FromArgb(5, 21, 64);
             label5.ForeColor = Color.FromArgb(5, 21, 64);
             label22.ForeColor = Color.FromArgb(5, 21, 64);
+            label29.ForeColor = Color.FromArgb(5, 21, 64);
             label23.ForeColor = Color.FromArgb(5, 21, 64);
 
             label1.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
@@ -100,12 +101,13 @@ namespace LENTAL_STORE.LS
             label4.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
             label3.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
             label22.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
+            label29.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
             label23.Font = new Font("휴먼엑스포", 16, FontStyle.Bold);
 
             label21.Click += Back_btn;
             label23.Click += button4_Click;
 
-            label9.BackColor = Color.FromArgb(200, 206, 235);
+            //label9.BackColor = Color.FromArgb(200, 206, 235);
 
 
 
@@ -133,6 +135,7 @@ namespace LENTAL_STORE.LS
             {
                 flowLayoutPanel5.Controls[ix].Dispose();
             }
+            panel5.Visible = false;
             panel3.Visible = true;
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
@@ -424,6 +427,7 @@ namespace LENTAL_STORE.LS
                 label1.Text = "사이즈 : " + rdr["ITEM_SIZE"].ToString();
                 label2.Text = "색상 : " + rdr["ITEM_COLOR"].ToString();
                 label6.Text = "품질 : " + rdr["ITEM_QUALITY"].ToString();
+                label29.Text = "재고 : " + rdr["ITEM_COUNT"].ToString() + "개";
                 label22.Text = "가격 : " + rdr["ITEM_PRICE"].ToString() + "원/일";
                 item_status = Convert.ToInt32(rdr["ITEM_COUNT"]);
 
@@ -436,6 +440,7 @@ namespace LENTAL_STORE.LS
                 label3.Visible = false;
                 label19.Visible = false;
                 label20.Visible = false;
+                label29.Text = "";
                 label23.Click -= button4_Click;
             }
             else
@@ -520,13 +525,13 @@ namespace LENTAL_STORE.LS
         private void button1_Click(object sender, EventArgs e)
         {
             label3.Text = (Convert.ToInt32(label3.Text) + 1).ToString();
-            label4.Text = (Convert.ToInt32(price) * Convert.ToInt32(label3.Text)).ToString();
+            label4.Text = (Convert.ToInt32(price) * Convert.ToInt32(label3.Text)).ToString() + "원";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             label3.Text = (Convert.ToInt32(label3.Text) - 1).ToString();
-            label4.Text = (Convert.ToInt32(price) * Convert.ToInt32(label3.Text)).ToString();
+            label4.Text = (Convert.ToInt32(price) * Convert.ToInt32(label3.Text)).ToString() + "원";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -594,7 +599,7 @@ namespace LENTAL_STORE.LS
                 DateTime current_time = Convert.ToDateTime(current_time1);
                 string exp_time = (current_time.AddDays(Convert.ToDouble(label3.Text))).ToString("yyyy-MM-dd");
 
-                com1.CommandText = "INSERT INTO RESERVE VALUES(RESERVE_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),TO_DATE('" + exp_time + "'), '" + label3.Text + "','" +label4.Text +"',"+ITEM_NUM + ",'1','0')";
+                com1.CommandText = "INSERT INTO RESERVE VALUES(RESERVE_SEQ.nextval, '" + Form1.usersession + "',TO_DATE('" + current_time1 + "'),TO_DATE('" + exp_time + "'), '" + label3.Text + "','" +label4.Text.Substring(0,label4.Text.Length-1) +"',"+ITEM_NUM + ",'1',null)";
             
                 com1.ExecuteNonQuery();
                 com2.ExecuteNonQuery();
@@ -746,9 +751,9 @@ namespace LENTAL_STORE.LS
                 end.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
 
                 bt.AutoSize = true;
-                
+
                 bt.Click += return_event;
-                
+
                 if (Convert.ToDateTime(rdr["LENTAL_EXPIRATION"]) < System.DateTime.Now)
                 {
                     flowLayoutPanel3.Controls.Add(lb);
@@ -774,12 +779,13 @@ namespace LENTAL_STORE.LS
 
                     lb.ForeColor = Color.FromArgb(5, 21, 64);
                     st.ForeColor = Color.FromArgb(5, 21, 64);
-                    end.ForeColor =Color.FromArgb(5, 21, 64);
+                    end.ForeColor = Color.FromArgb(5, 21, 64);
                     bt.ForeColor = Color.FromArgb(5, 21, 64);
                     bt.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);
 
                 }
                 k++;
+            }
 
                 while (rdr2.Read())
                 {
@@ -815,7 +821,7 @@ namespace LENTAL_STORE.LS
                     st3.Font = new Font("휴먼엑스포", 18, FontStyle.Bold);     
 
 
-                    bt.AutoSize = true;
+                    bt2.AutoSize = true;
 
                     flowLayoutPanel6.Controls.Add(st2);
                     flowLayoutPanel6.Controls.Add(st3);
@@ -831,7 +837,7 @@ namespace LENTAL_STORE.LS
                 }
 
 
-                }
+                
         }
 
         private void cancel_event(object sender, EventArgs e)
@@ -940,7 +946,7 @@ namespace LENTAL_STORE.LS
                     flowLayoutPanel5.Controls[ix].BackColor = Color.FromArgb(5, 21, 64);
                     flowLayoutPanel5.Controls[ix].ForeColor = Color.White;
                     string na = flowLayoutPanel5.Controls[ix].Name;
-                    if (ix != 0)
+                    if (ix >= 0)
                     {
                         nat +="OR ITEM_CATE = '" + na + "'";
                     }
@@ -957,15 +963,34 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
+            OracleCommand com3 = new OracleCommand("", conn);
+            com3.CommandText = "SELECT USERID FROM BLACKLIST WHERE USERID = '" + Form1.usersession + "'";
+            object byn = com3.ExecuteScalar();
 
-            if (isfilter == true)
+            if (byn != null)
             {
-                com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3' AND (ITEM_CATE = '-1'" + nat + ")";
+                if (isfilter == true)
+                {
+                    com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3' AND NOT ITEM_QUALITY = 'S' AND NOT ITEM_QUALITY = 'A' AND (ITEM_CATE = '-1'" + nat + ")";
+                }
+                else
+                {
+                    com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3' AND NOT ITEM_QUALITY = 'S' AND NOT ITEM_QUALITY = 'A'";
+                }
             }
             else
             {
-                com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3'";
+                if (isfilter == true)
+                {
+                    com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3' AND (ITEM_CATE = '-1'" + nat + ")";
+                }
+                else
+                {
+                    com1.CommandText = "SELECT * FROM ITEM WHERE NOT ITEM_STATUS = '3'";
+                }
+
             }
+
             
 
 

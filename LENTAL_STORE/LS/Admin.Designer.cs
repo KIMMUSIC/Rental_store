@@ -29,25 +29,25 @@ namespace LENTAL_STORE.LS
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea19 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend19 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea20 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend20 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea21 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend21 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea22 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend22 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea23 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend23 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea24 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend24 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
@@ -138,12 +138,16 @@ namespace LENTAL_STORE.LS
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.chart5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label44 = new System.Windows.Forms.Label();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.chart6 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
-            this.chart5 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.dateTimePicker7 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker8 = new System.Windows.Forms.DateTimePicker();
+            this.label47 = new System.Windows.Forms.Label();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -162,8 +166,8 @@ namespace LENTAL_STORE.LS
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart6)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -491,21 +495,21 @@ namespace LENTAL_STORE.LS
             // 
             // chart1
             // 
-            chartArea7.AxisX.Interval = 1D;
-            chartArea7.AxisX.Title = "날짜";
-            chartArea7.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea7.AxisY.Title = "매출";
-            chartArea7.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea7.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.chart1.Legends.Add(legend7);
+            chartArea19.AxisX.Interval = 1D;
+            chartArea19.AxisX.Title = "날짜";
+            chartArea19.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea19.AxisY.Title = "매출";
+            chartArea19.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea19.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea19);
+            legend19.Name = "Legend1";
+            this.chart1.Legends.Add(legend19);
             this.chart1.Location = new System.Drawing.Point(50, 226);
             this.chart1.Name = "chart1";
-            series7.ChartArea = "ChartArea1";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.chart1.Series.Add(series7);
+            series19.ChartArea = "ChartArea1";
+            series19.Legend = "Legend1";
+            series19.Name = "Series1";
+            this.chart1.Series.Add(series19);
             this.chart1.Size = new System.Drawing.Size(840, 403);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -532,9 +536,9 @@ namespace LENTAL_STORE.LS
             this.label43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(21)))), ((int)(((byte)(64)))));
             this.label43.Location = new System.Drawing.Point(30, 24);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(224, 41);
+            this.label43.Size = new System.Drawing.Size(338, 41);
             this.label43.TabIndex = 7;
-            this.label43.Text = "상품 판매량";
+            this.label43.Text = "카테고리별 판매량";
             // 
             // checkBox2
             // 
@@ -587,32 +591,37 @@ namespace LENTAL_STORE.LS
             // 
             // chart2
             // 
-            chartArea8.AxisX.Interval = 1D;
-            chartArea8.AxisX.Title = "날짜";
-            chartArea8.AxisY.Title = "판매량";
-            chartArea8.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.chart2.Legends.Add(legend8);
+            chartArea20.AxisX.Interval = 1D;
+            chartArea20.AxisX.Title = "날짜";
+            chartArea20.AxisY.Title = "판매량";
+            chartArea20.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea20);
+            legend20.Name = "Legend1";
+            this.chart2.Legends.Add(legend20);
             this.chart2.Location = new System.Drawing.Point(189, 206);
             this.chart2.Name = "chart2";
             this.chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            series8.ChartArea = "ChartArea1";
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.chart2.Series.Add(series8);
+            series20.ChartArea = "ChartArea1";
+            series20.Legend = "Legend1";
+            series20.Name = "Series1";
+            this.chart2.Series.Add(series20);
             this.chart2.Size = new System.Drawing.Size(754, 410);
             this.chart2.TabIndex = 0;
             this.chart2.Text = "chart2";
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.comboBox4);
+            this.panel5.Controls.Add(this.label47);
+            this.panel5.Controls.Add(this.dateTimePicker8);
+            this.panel5.Controls.Add(this.dateTimePicker7);
             this.panel5.Controls.Add(this.flowLayoutPanel6);
             this.panel5.Controls.Add(this.label9);
             this.panel5.Controls.Add(this.dataGridView1);
-            this.panel5.Location = new System.Drawing.Point(246, 542);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(220, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(149, 124);
+            this.panel5.Size = new System.Drawing.Size(980, 700);
             this.panel5.TabIndex = 2;
             this.panel5.Visible = false;
             // 
@@ -900,22 +909,22 @@ namespace LENTAL_STORE.LS
             // 
             // chart4
             // 
-            chartArea9.AxisX.Interval = 1D;
-            chartArea9.AxisX.Title = "상품";
-            chartArea9.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea9.AxisY.Title = "판매량";
-            chartArea9.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea9.Name = "ChartArea1";
-            this.chart4.ChartAreas.Add(chartArea9);
-            legend9.Name = "Legend1";
-            this.chart4.Legends.Add(legend9);
+            chartArea21.AxisX.Interval = 1D;
+            chartArea21.AxisX.Title = "상품";
+            chartArea21.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea21.AxisY.Title = "판매량";
+            chartArea21.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea21.Name = "ChartArea1";
+            this.chart4.ChartAreas.Add(chartArea21);
+            legend21.Name = "Legend1";
+            this.chart4.Legends.Add(legend21);
             this.chart4.Location = new System.Drawing.Point(40, 429);
             this.chart4.Name = "chart4";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series9.Legend = "Legend1";
-            series9.Name = "Series1";
-            this.chart4.Series.Add(series9);
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+            series21.Legend = "Legend1";
+            series21.Name = "Series1";
+            this.chart4.Series.Add(series21);
             this.chart4.Size = new System.Drawing.Size(740, 237);
             this.chart4.TabIndex = 0;
             this.chart4.Text = "chart4";
@@ -929,21 +938,21 @@ namespace LENTAL_STORE.LS
             // 
             // chart3
             // 
-            chartArea10.AxisX.Interval = 1D;
-            chartArea10.AxisX.Title = "날짜";
-            chartArea10.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea10.AxisY.Title = "매출";
-            chartArea10.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea10.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea10);
-            legend10.Name = "Legend1";
-            this.chart3.Legends.Add(legend10);
+            chartArea22.AxisX.Interval = 1D;
+            chartArea22.AxisX.Title = "날짜";
+            chartArea22.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea22.AxisY.Title = "매출";
+            chartArea22.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea22.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea22);
+            legend22.Name = "Legend1";
+            this.chart3.Legends.Add(legend22);
             this.chart3.Location = new System.Drawing.Point(34, 77);
             this.chart3.Name = "chart3";
-            series10.ChartArea = "ChartArea1";
-            series10.Legend = "Legend1";
-            series10.Name = "Series1";
-            this.chart3.Series.Add(series10);
+            series22.ChartArea = "ChartArea1";
+            series22.Legend = "Legend1";
+            series22.Name = "Series1";
+            this.chart3.Series.Add(series22);
             this.chart3.Size = new System.Drawing.Size(509, 294);
             this.chart3.TabIndex = 0;
             this.chart3.Text = "chart3";
@@ -1004,7 +1013,7 @@ namespace LENTAL_STORE.LS
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(214, 55);
             this.label26.TabIndex = 19;
-            this.label26.Text = "상품별통계";
+            this.label26.Text = "카테고리별통계";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label26.Click += new System.EventHandler(this.label26_Click);
             // 
@@ -1229,6 +1238,27 @@ namespace LENTAL_STORE.LS
             this.panel8.Size = new System.Drawing.Size(117, 67);
             this.panel8.TabIndex = 22;
             // 
+            // chart5
+            // 
+            chartArea23.AxisX.Interval = 1D;
+            chartArea23.AxisX.Title = "상품명";
+            chartArea23.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea23.AxisY.Title = "매출";
+            chartArea23.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
+            chartArea23.Name = "ChartArea1";
+            this.chart5.ChartAreas.Add(chartArea23);
+            legend23.Name = "Legend1";
+            this.chart5.Legends.Add(legend23);
+            this.chart5.Location = new System.Drawing.Point(46, 200);
+            this.chart5.Name = "chart5";
+            series23.ChartArea = "ChartArea1";
+            series23.Legend = "Legend1";
+            series23.Name = "Series1";
+            this.chart5.Series.Add(series23);
+            this.chart5.Size = new System.Drawing.Size(883, 393);
+            this.chart5.TabIndex = 0;
+            this.chart5.Text = "chart5";
+            // 
             // label44
             // 
             this.label44.AutoSize = true;
@@ -1257,19 +1287,19 @@ namespace LENTAL_STORE.LS
             // 
             this.chart6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(247)))));
             this.chart6.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea11.Name = "ChartArea1";
-            this.chart6.ChartAreas.Add(chartArea11);
-            legend11.Name = "Legend1";
-            this.chart6.Legends.Add(legend11);
+            chartArea24.Name = "ChartArea1";
+            this.chart6.ChartAreas.Add(chartArea24);
+            legend24.Name = "Legend1";
+            this.chart6.Legends.Add(legend24);
             this.chart6.Location = new System.Drawing.Point(46, 200);
             this.chart6.Name = "chart6";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series11.IsValueShownAsLabel = true;
-            series11.Label = "#PERCENT";
-            series11.Legend = "Legend1";
-            series11.Name = "Series1";
-            this.chart6.Series.Add(series11);
+            series24.ChartArea = "ChartArea1";
+            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series24.IsValueShownAsLabel = true;
+            series24.Label = "#PERCENT";
+            series24.Legend = "Legend1";
+            series24.Name = "Series1";
+            this.chart6.Series.Add(series24);
             this.chart6.Size = new System.Drawing.Size(883, 393);
             this.chart6.TabIndex = 3;
             this.chart6.Text = "chart6";
@@ -1290,31 +1320,44 @@ namespace LENTAL_STORE.LS
             this.dateTimePicker5.TabIndex = 1;
             this.dateTimePicker5.ValueChanged += new System.EventHandler(this.dateTimePicker5_ValueChanged);
             // 
-            // chart5
+            // dateTimePicker7
             // 
-            chartArea12.AxisX.Interval = 1D;
-            chartArea12.AxisX.Title = "상품명";
-            chartArea12.AxisX.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea12.AxisY.Title = "매출";
-            chartArea12.AxisY.TitleAlignment = System.Drawing.StringAlignment.Far;
-            chartArea12.Name = "ChartArea1";
-            this.chart5.ChartAreas.Add(chartArea12);
-            legend12.Name = "Legend1";
-            this.chart5.Legends.Add(legend12);
-            this.chart5.Location = new System.Drawing.Point(46, 200);
-            this.chart5.Name = "chart5";
-            series12.ChartArea = "ChartArea1";
-            series12.Legend = "Legend1";
-            series12.Name = "Series1";
-            this.chart5.Series.Add(series12);
-            this.chart5.Size = new System.Drawing.Size(883, 393);
-            this.chart5.TabIndex = 0;
-            this.chart5.Text = "chart5";
+            this.dateTimePicker7.Location = new System.Drawing.Point(492, 127);
+            this.dateTimePicker7.Name = "dateTimePicker7";
+            this.dateTimePicker7.Size = new System.Drawing.Size(180, 21);
+            this.dateTimePicker7.TabIndex = 4;
+            // 
+            // dateTimePicker8
+            // 
+            this.dateTimePicker8.Location = new System.Drawing.Point(693, 125);
+            this.dateTimePicker8.Name = "dateTimePicker8";
+            this.dateTimePicker8.Size = new System.Drawing.Size(172, 21);
+            this.dateTimePicker8.TabIndex = 5;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("휴먼엑스포", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label47.Location = new System.Drawing.Point(880, 118);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(69, 30);
+            this.label47.TabIndex = 6;
+            this.label47.Text = "검색";
+            this.label47.Click += new System.EventHandler(this.label47_Click);
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(352, 126);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(118, 20);
+            this.comboBox4.TabIndex = 7;
             // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel9);
             this.Controls.Add(this.panel3);
@@ -1323,7 +1366,6 @@ namespace LENTAL_STORE.LS
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel6);
-            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel10);
             this.Name = "Admin";
             this.Size = new System.Drawing.Size(1200, 700);
@@ -1355,8 +1397,8 @@ namespace LENTAL_STORE.LS
             this.panel1.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart6)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1458,5 +1500,9 @@ namespace LENTAL_STORE.LS
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.DateTimePicker dateTimePicker8;
+        private System.Windows.Forms.DateTimePicker dateTimePicker7;
     }
 }

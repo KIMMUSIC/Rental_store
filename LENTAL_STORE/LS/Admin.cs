@@ -102,7 +102,7 @@ namespace LENTAL_STORE.LS
 
             chart1.Series[0].IsValueShownAsLabel = true;
 
-            label13.BackColor = Color.FromArgb(200, 206, 235);
+            //label13.BackColor = Color.FromArgb(200, 206, 235);
 
 
 
@@ -202,6 +202,7 @@ namespace LENTAL_STORE.LS
             com3.ExecuteNonQuery();
 
             MessageBox.Show("추가되었습니다.");
+            label25_Click(sender, e);
 
 
 
@@ -590,8 +591,18 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
+            OracleCommand com3 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM order by STATISTIC_DATE desc";
+
+
+            if (comboBox4.SelectedIndex == 0)
+            {
+                com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_DATE >= '" + dateTimePicker7.Value.ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE <= '" + dateTimePicker8.Value.ToString("yyyy-MM-dd") + "'  order by STATISTIC_DATE desc";
+            }
+            else
+            {
+                com1.CommandText = "SELECT * FROM STATISTIC, ITEM WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_DATE >= '" + dateTimePicker7.Value.ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE <= '" + dateTimePicker8.Value.ToString("yyyy-MM-dd") + "' AND ITEM_NAME = '"+comboBox4.SelectedItem.ToString()+ "'  order by STATISTIC_DATE desc";
+            }
             com2.CommandText = "SELECT * FROM ITEM_CATE";
 
             OracleDataReader rdr = com1.ExecuteReader();
@@ -660,7 +671,15 @@ namespace LENTAL_STORE.LS
                 }
             }
 
-            com1.CommandText = "SELECT * FROM STATISTIC, ITEM,ITEM_CATE WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM " + nt + "order by statistic_date desc";
+            if (comboBox4.SelectedIndex == 0)
+            {
+                com1.CommandText = "SELECT * FROM STATISTIC, ITEM,ITEM_CATE WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_DATE >= '" + dateTimePicker7.Value.ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE <= '" + dateTimePicker8.Value.ToString("yyyy-MM-dd") + "'" + nt + "order by statistic_date desc";
+            }
+            else
+            {
+                com1.CommandText = "SELECT * FROM STATISTIC, ITEM,ITEM_CATE WHERE STATISTIC.STATISTIC_ITEMITEMNUM = ITEM.ITEM_NUM AND STATISTIC_DATE >= '" + dateTimePicker7.Value.ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE <= '" + dateTimePicker8.Value.ToString("yyyy-MM-dd") + "' AND ITEM_NAME = '" + comboBox4.SelectedItem.ToString() + "' " + nt + "order by statistic_date desc";
+            }
+
             com2.CommandText = "SELECT * FROM ITEM_CATE";
 
             OracleDataReader rdr = com1.ExecuteReader();
@@ -743,8 +762,8 @@ namespace LENTAL_STORE.LS
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT NVL(PI.USERID,0) AS I,PI.CONTENT, FN.USERID, FN.P, FN.P2 FROM BLACKLIST PI RIGHT OUTER JOIN (SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd")+ "' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID) FN ON PI.userid = FN.USERID";
-             OracleDataReader rdr =   com1.ExecuteReader();
+            com1.CommandText = "SELECT * FROM USERS, (SELECT NVL(PI.USERID,0) AS I,PI.CONTENT, FN.USERID, FN.P, FN.P2 FROM BLACKLIST PI RIGHT OUTER JOIN (SELECT O1.USERID, NVL(P,0) as P, NVL(P2,0) as P2 FROM (SELECT USERS.USERID, P FROM USERS LEFT OUTER JOIN (SELECT USERID, COUNT(*) AS P FROM USERS, LENTAL WHERE USERS.USERID = lental.lental_userid AND LENTAL_EXPIRATION < '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' GROUP BY USERID)PP ON users.userid = PP.USERID) O1,(SELECT USERS.USERID, P2 FROM USERS LEFT OUTER JOIN(SELECT STATISTIC_USERID, COUNT(*) AS P2 FROM STATISTIC WHERE STATISTIC_TYPE = 2 AND NOT STATISTIC_LENTALCOST = 0 GROUP BY STATISTIC_USERID) KK ON USERS.USERID = KK.STATISTIC_USERID) O2 WHERE O1.USERID = O2.USERID) FN ON PI.userid = FN.USERID) IO WHERE IO.USERID = USERS.USERID AND USERS.USERTYPE = 1";
+            OracleDataReader rdr =   com1.ExecuteReader();
 
             while(rdr.Read())
             {
@@ -894,22 +913,27 @@ namespace LENTAL_STORE.LS
 
             OracleConnection conn = Form1.oracleconnect();
             OracleCommand com1 = new OracleCommand("", conn);
+            OracleCommand com2 = new OracleCommand("", conn);
+
+            
 
             if (dtChanges != null)
             {
                 for (int i = 0; i < dtChanges.Rows.Count; ++i)
                 {
-                    update_query = "UPDATE ITEM SET ITEM_NAME = '#ITEM_NAME', ITEM_SIZE = '#ITEM_SIZE' , ITEM_COLOR='#ITEM_COLOR', ITEM_LOCATION='#ITEM_LOCATION' , ITEM_QUALITY='#ITEM_QUALITY', ITEM_CATE='#ITEM_CATE', ITEM_PRICE='#ITEM_PRICE' WHERE ITEM_NUM='#ITEM_NUM'";
-
+                    update_query = "UPDATE ITEM SET ITEM_NAME = '#ITEM_NAME', ITEM_SIZE = '#ITEM_SIZE' , ITEM_COLOR='#ITEM_COLOR', ITEM_LOCATION='#ITEM_LOCATION' , ITEM_QUALITY='#ITEM_QUALITY', ITEM_CATE='#ITEM_CATE', ITEM_PRICE='#ITEM_PRICE', ITEM_COUNT='#ITEM_COUNT' WHERE ITEM_NUM='#ITEM_NUM'";
+                    com2.CommandText = "SELECT ITEM_CATE FROM ITEM WHERE ITEM_NUM = '" + dtChanges.Rows[i]["상품ID"].ToString() + "'";
+                    string c = com2.ExecuteScalar().ToString();
 
                     update_query = update_query.Replace("#ITEM_NAME", dtChanges.Rows[i]["상품명"].ToString());
                     update_query = update_query.Replace("#ITEM_SIZE", dtChanges.Rows[i]["상품사이즈"].ToString());
                     update_query = update_query.Replace("#ITEM_COLOR", dtChanges.Rows[i]["상품색"].ToString());
                     update_query = update_query.Replace("#ITEM_LOCATION", dtChanges.Rows[i]["상품위치"].ToString());
                     update_query = update_query.Replace("#ITEM_QUALITY", dtChanges.Rows[i]["상품품질"].ToString());
-                    update_query = update_query.Replace("#ITEM_CATE", dtChanges.Rows[i]["상품분류"].ToString());
+                    update_query = update_query.Replace("#ITEM_CATE", c);
                     update_query = update_query.Replace("#ITEM_PRICE", dtChanges.Rows[i]["상품가격"].ToString());
                     update_query = update_query.Replace("#ITEM_NUM", dtChanges.Rows[i]["상품ID"].ToString());
+                    update_query = update_query.Replace("#ITEM_COUNT", dtChanges.Rows[i]["상품개수"].ToString());
 
                     com1.CommandText = update_query;
                     com1.ExecuteNonQuery();
@@ -964,7 +988,7 @@ namespace LENTAL_STORE.LS
 
             for (int ix = flowLayoutPanel5.Controls.Count - 1; ix >= 0; ix--)
             {
-                if(flowLayoutPanel5.Controls[ix].BackColor == Color.Red)
+                if(flowLayoutPanel5.Controls[ix].BackColor == Color.FromArgb(5, 21, 64))
                 {
                     string ID = flowLayoutPanel5.Controls[ix].Text;
                     com1.CommandText = "INSERT INTO BLACKLIST VALUES('" + ID + "', 'a')";
@@ -1008,6 +1032,8 @@ namespace LENTAL_STORE.LS
                 flowLayoutPanel3.Controls[ix].Dispose();
             }
 
+
+
             chart3.Legends[0].Enabled = false;
             chart4.Legends[0].Enabled = false;
             chart3.BackColor = Color.FromArgb(238, 242, 247);
@@ -1043,6 +1069,16 @@ namespace LENTAL_STORE.LS
 
             int i = 10;
             int rdr3maxcost = -1;
+
+            com3.CommandText = "SELECT ITEM_NAME FROM ITEM WHERE NOT ITEM_STATUS = 3";
+            OracleDataReader rdr4 = com3.ExecuteReader();
+            comboBox4.Items.Clear();
+            comboBox4.Items.Add("전체보기");
+            while (rdr4.Read())
+            {
+                comboBox4.Items.Add(rdr4["ITEM_NAME"].ToString());
+            }
+            comboBox4.SelectedIndex = 0;
 
 
 
@@ -1170,7 +1206,7 @@ namespace LENTAL_STORE.LS
 
             for (int ix = flowLayoutPanel4.Controls.Count - 1; ix >= 0; ix--)
             {
-                if (flowLayoutPanel4.Controls[ix].BackColor == Color.Red)
+                if (flowLayoutPanel4.Controls[ix].BackColor == Color.FromArgb(5, 21, 64))
                 {
                     string ID = flowLayoutPanel4.Controls[ix].Text;
                     com1.CommandText = "DELETE FROM BLACKLIST WHERE USERID = '" + ID + "'";
@@ -1575,8 +1611,8 @@ namespace LENTAL_STORE.LS
             OracleCommand com1 = new OracleCommand("", conn);
             OracleCommand com2 = new OracleCommand("", conn);
 
-            com1.CommandText = "SELECT ITEM.ITEM_NAME as ta, NVL(OP.COST,0) as ca from (SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE > '" + (dateTimePicker5.Value).ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE < '" + (dateTimePicker6.Value).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM) OP RIGHT JOIN ITEM ON OP.ITEM_NAME = ITEM.ITEM_NAME order by ca desc";
-            com2.CommandText = "SELECT SUM(CA) FROM (SELECT ITEM.ITEM_NAME as ta, NVL(OP.COST,0) as ca from (SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE > '" + (dateTimePicker5.Value).ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE < '" + (dateTimePicker6.Value).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM) OP RIGHT JOIN ITEM ON OP.ITEM_NAME = ITEM.ITEM_NAME order by ca desc)";
+            com1.CommandText = "SELECT ITEM.ITEM_NAME as ta, NVL(OP.COST,0) as ca from (SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE >= '" + (dateTimePicker5.Value).ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE <= '" + (dateTimePicker6.Value).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM) OP RIGHT JOIN ITEM ON OP.ITEM_NAME = ITEM.ITEM_NAME order by ca desc";
+            com2.CommandText = "SELECT SUM(CA) FROM (SELECT ITEM.ITEM_NAME as ta, NVL(OP.COST,0) as ca from (SELECT ITEM_NAME, COST FROM(SELECT STATISTIC_ITEMITEMNUM AS ITN, SUM(STATISTIC_LENTALCOST) AS COST FROM STATISTIC WHERE STATISTIC_dATE >= '" + (dateTimePicker5.Value).ToString("yyyy-MM-dd") + "' AND STATISTIC_DATE <= '" + (dateTimePicker6.Value).ToString("yyyy-MM-dd") + "' GROUP BY statistic_itemitemnum) PP, ITEM WHERE PP.ITN = ITEM.ITEM_NUM) OP RIGHT JOIN ITEM ON OP.ITEM_NAME = ITEM.ITEM_NAME order by ca desc)";
 
             OracleDataReader rdr = com1.ExecuteReader();
             int sum = Convert.ToInt32(com2.ExecuteScalar());
@@ -1584,11 +1620,11 @@ namespace LENTAL_STORE.LS
             int t = -1;
             while(rdr.Read())
             {
-                chart5.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["ca"]);
-                chart6.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["ca"]);
-                t = System.Math.Max(t, Convert.ToInt32(rdr["ca"]));
+                chart5.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["CA"]);
+                chart6.Series[0].Points.AddXY(rdr["ta"].ToString(), rdr["CA"]);
+                t = System.Math.Max(t, Convert.ToInt32(rdr["CA"]));
 
-                if(per1 > Convert.ToDecimal(rdr["ca"]))
+                if(per1 > Convert.ToDecimal(rdr["CA"]))
                 {
                     chart6.Series[0].Points[chart6.Series[0].Points.Count - 1].Label = " ";
                 }
@@ -1673,6 +1709,11 @@ namespace LENTAL_STORE.LS
                 panel10.Controls[ix].BackColor = Color.Transparent;
             }
             //((Label)sender).BackColor = Color.FromArgb(200, 206, 235);
+        }
+
+        private void label47_Click(object sender, EventArgs e)
+        {
+            button5_Click_1(sender, e);
         }
     }
 }
